@@ -6,3 +6,4 @@ export {InvalidProviderSigantureException} from './exceptions/InvalidProviderSig
 export {ClassInstanceInitializationException} from './exceptions/ClassInstanceInitializationException.js';
 export {inject} from './decorators/inject.js';
 export {DefaultRegistry} from './core/registry/DefaultRegistry.js';
+export {Scope, type Token, type Class} from './utils/types.js';

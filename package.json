@@ -1,6 +1,6 @@
 {
-  "name": "tuice",
-  "description": "Tuice - flexible, lightweight and easy to use dependency injection for JS/TS.",
+  "name": "erange",
+  "description": "Erange (pronounced 'arrange') - flexible, lightweight and easy to use dependency injection for JS/TS.",
   "version": "0.1.0",
   "license": "MIT",
   "author": "Arklanq",
@@ -19,7 +19,7 @@
     "updates-force": "ncu --configFilePath .config/ncu --configFileName ncu.config.cjs -u",
     "clear-dist": "rimraf dist_backup",
     "clear-cache": "rimraf node_modules/.cache",
-    "publish-package": "yarn --cwd dist publish"
+    "publish-package": "yarn --cwd dist publish --access=public"
   },
   "dependencies": {
     "enhanced-exception": "^1.0.1"

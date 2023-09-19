@@ -8,3 +8,6 @@
 # Tools
 **/yarn-debug.log*
 **/yarn-error.log*
+
+# App
+!/dist

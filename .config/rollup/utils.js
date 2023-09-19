@@ -54,6 +54,8 @@ export async function generatePackageManifest() {
     version: projectManifest.version,
     license: projectManifest.license,
     author: projectManifest.author,
+    homepage: projectManifest.homepage,
+    repository: projectManifest.repository,
     type: 'commonjs',
     main: './cjs/src/index.js',
     module: './es/src/index.js',

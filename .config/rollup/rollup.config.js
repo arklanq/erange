@@ -25,7 +25,7 @@ export default async function createConfig() {
       process.env.NODE_ENV === 'production' && plugin_copy({
         targets: [
           // Copy README.md to be displayed on NPM package page
-          {src: 'README.md', dest: 'dist/README.md'},
+          {src: 'README.md', dest: 'dist'},
           // Copy LICENSE to dist
           {src: 'LICENSE', dest: 'dist'},
         ]

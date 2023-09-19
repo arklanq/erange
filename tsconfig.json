@@ -20,6 +20,7 @@
     "noFallthroughCasesInSwitch": false,
     "verbatimModuleSyntax": true,
     "isolatedModules": true,
+    "declaration": false,
     "baseUrl": ".",
     "paths": {
       "@/core/*": ["src/core/*"],

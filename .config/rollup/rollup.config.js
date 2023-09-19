@@ -2,6 +2,7 @@ import plugin_commonjs from '@rollup/plugin-commonjs';
 import plugin_nodeResolve from '@rollup/plugin-node-resolve';
 import plugin_typescript from '@rollup/plugin-typescript';
 import plugin_delete from 'rollup-plugin-delete';
+import plugin_copy from 'rollup-plugin-copy';
 import plugin_generatePackageJson from 'rollup-plugin-generate-package-json';
 import createTscConfig from './tsc.config.js';
 import {importProjectManifest} from './utils.js';
@@ -21,6 +22,15 @@ export default async function createConfig() {
         targets: ['dist'],
       }),
 
+      process.env.NODE_ENV === 'production' && plugin_copy({
+        targets: [
+          // Copy README.md to be displayed on NPM package page
+          {src: 'README.md', dest: 'dist/README.md'},
+          // Copy LICENSE to dist
+          {src: 'LICENSE', dest: 'dist'},
+        ]
+      }),
+
       // Convert CommonJS modules to ES6, so they can be included in a Rollup bundle
       plugin_commonjs(),
 
@@ -30,8 +40,18 @@ export default async function createConfig() {
       }),
 
       // Allows Rollup to convert TypeScript to JavaScript
-      // Emits .js, .js.map
-      plugin_typescript(await createTscConfig()),
+      // Emits .js
+      plugin_typescript(await createTscConfig({
+        sourceMap: false,
+      })),
+
+      // Allows Rollup to convert TypeScript to JavaScript
+      // Emit .d.ts
+      plugin_typescript(await createTscConfig({
+        declaration: true,
+        declarationMap: false,
+        emitDeclarationOnly: true,
+      })),
 
       // Create package.json
       plugin_generatePackageJson({
@@ -55,7 +75,7 @@ export default async function createConfig() {
       exports: 'named',
       preserveModules: true,
       preserveModulesRoot: '.',
-      sourcemap: true,
+      sourcemap: false,
     },
   };
 }

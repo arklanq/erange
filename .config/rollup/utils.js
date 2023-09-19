@@ -55,17 +55,17 @@ export async function generatePackageManifest() {
     license: projectManifest.license,
     author: projectManifest.author,
     type: 'commonjs',
-    main: 'dist/cjs/src/index.js',
-    module: 'dist/es/src/index.js',
-    types: 'dist/cjs/src/index.d.ts',
+    main: './cjs/src/index.js',
+    module: './es/src/index.js',
+    types: './cjs/src/index.d.ts',
     exports: {
       require: {
-        default: 'dist/cjs/src/index.js',
-        types: 'dist/cjs/src/index.d.ts'
+        default: './cjs/src/index.js',
+        types: './cjs/src/index.d.ts'
       },
       import: {
-        default: 'dist/es/src/index.js',
-        types: 'dist/es/src/index.d.ts'
+        default: './es/src/index.js',
+        types: './es/src/index.d.ts'
       }
     },
     dependencies: projectManifest.dependencies,

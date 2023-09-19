@@ -6,7 +6,7 @@
   "author": "Arklanq",
   "private": true,
   "type": "module",
-  "main": "src/index.ts",
+  "main": "./src/index.ts",
   "homepage": "https://github.com/arklanq/erange#readme",
   "repository": "https://github.com/arklanq/erange",
   "scripts": {

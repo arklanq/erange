@@ -6,10 +6,7 @@ async function createConfig(compilerOptions = {}) {
     tsconfig: path.resolve(rootDirPath, './tsconfig.json'),
     cacheDir: path.resolve(rootDirPath, './node_modules/.cache/.rollup/typescript'),
     outputToFilesystem: true,
-    compilerOptions: {
-      outDir: 'dist',
-      ...compilerOptions,
-    },
+    compilerOptions: compilerOptions,
   };
 }
 

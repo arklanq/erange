@@ -21,7 +21,7 @@
     "updates-force": "ncu --configFilePath .config/ncu --configFileName ncu.config.cjs -u",
     "clear-dist": "rimraf dist_backup",
     "clear-cache": "rimraf node_modules/.cache",
-    "publish-package": "yarn --cwd dist publish -f --access=public"
+    "publish-package": "yarn --cwd dist publish --access=public -f"
   },
   "dependencies": {
     "enhanced-exception": "^1.0.1"
@@ -48,8 +48,6 @@
     "prettier": "^3.0.3",
     "rimraf": "^5.0.1",
     "rollup": "^3.29.2",
-    "rollup-plugin-copy": "^3.5.0",
-    "rollup-plugin-delete": "^2.0.0",
     "rollup-plugin-generate-package-json": "^3.2.0",
     "tslib": "^2.6.2",
     "typescript": "^5.2.2"

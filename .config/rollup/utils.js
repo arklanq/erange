@@ -61,13 +61,15 @@ export async function generatePackageManifest() {
     module: './es/src/index.js',
     types: './cjs/src/index.d.ts',
     exports: {
-      require: {
-        default: './cjs/src/index.js',
-        types: './cjs/src/index.d.ts'
-      },
-      import: {
-        default: './es/src/index.js',
-        types: './es/src/index.d.ts'
+      '.': {
+        import: {
+          types: './es/src/index.d.ts',
+          default: './es/src/index.js'
+        },
+        require: {
+          types: './cjs/src/index.d.ts',
+          default: './cjs/src/index.js'
+        }
       }
     },
     dependencies: projectManifest.dependencies,

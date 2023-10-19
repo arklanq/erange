@@ -1,6 +1,6 @@
-import type {Token} from '../../utils/types.js';
-import type {Provider, InstanceProvider, ClassProvider, FactoryProvider} from './Provider.js';
-import {InvalidProviderSigantureException} from '../../exceptions/InvalidProviderSigantureException.js';
+import type {Token} from '@/utils/types.js';
+import type {Provider, InstanceProvider, ClassProvider, FactoryProvider, AliasProvider} from './Provider.js';
+import {InvalidProviderSigantureException} from '@/exceptions/InvalidProviderSigantureException.js';
 import type {Container} from '../Container.js';
 
 export class ProviderResolver<T> {
@@ -15,11 +15,13 @@ export class ProviderResolver<T> {
   }
 
   public resolveProvider(): T {
-    if ('instance' in this.provider) return this.resolveInstanceProvider(this.provider);
+    if('instance' in this.provider) return this.resolveInstanceProvider(this.provider);
 
-    if ('class' in this.provider) return this.resolveClassProvider(this.provider);
+    if('class' in this.provider) return this.resolveClassProvider(this.provider);
 
-    if ('factory' in this.provider) return this.resolveFactoryProvider(this.provider);
+    if('factory' in this.provider) return this.resolveFactoryProvider(this.provider);
+
+    if('alias' in this.provider) return this.resolveProvider();
 
     throw new InvalidProviderSigantureException(this.token);
   }
@@ -34,5 +36,9 @@ export class ProviderResolver<T> {
 
   protected resolveFactoryProvider<T>(provider: FactoryProvider<T>): T {
     return provider.factory();
+  }
+
+  protected resolveAliasProvider<T>(provider: AliasProvider): T {
+    return this.container.resolve<T>(provider.alias);
   }
 }

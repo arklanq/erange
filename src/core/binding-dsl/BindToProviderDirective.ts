@@ -1,20 +1,22 @@
-import {type Class, Scope} from '../../utils/types.js';
+import {type Class, Scope, type Token} from '@/utils/types.js';
 import type {BindingContext} from './BindingContext.js';
 import {BindInScopeDirective} from './BindInScopeDirective.js';
 import type {Binding} from '../binding/Binding.js';
+import type {AliasProvider, FactoryProvider, InstanceProvider, ClassProvider} from '../provider/Provider.js';
+import {serializeToken} from '@/utils/serializeToken.js';
 
 export class BindToProviderDirective extends BindInScopeDirective {
   public constructor(context: BindingContext, binding: Binding<unknown>) {
     super(context, binding);
   }
 
-  public toClass<Clazz extends Class<unknown>>(clazz: Clazz): BindInScopeDirective {
+  public toClass<T>(clazz: Class<T>): BindInScopeDirective {
     /*
      * Because we are modifying directly the object via reference
      * we don't have to change anything at the Registry
      */
     Object.assign(this.binding, {
-      provider: {class: clazz},
+      provider: {class: clazz} satisfies ClassProvider<T>,
       scope: Scope.TRANSIENT, // default scope for ClassProvider
     });
 
@@ -27,7 +29,7 @@ export class BindToProviderDirective extends BindInScopeDirective {
      * we don't have to change anything at the Registry
      */
     Object.assign(this.binding, {
-      provider: {instance},
+      provider: {instance} satisfies InstanceProvider<T>,
       cache: instance,
       scope: Scope.SINGLETON, // default scope for InstanceProvider
     });
@@ -35,14 +37,27 @@ export class BindToProviderDirective extends BindInScopeDirective {
     return new BindInScopeDirective(this.context, this.binding);
   }
 
-  public toFactory<T>(factory: () => T | Promise<T>): BindInScopeDirective {
+  public toFactory<T>(factory: () => T): BindInScopeDirective {
     /*
      * Because we are modifying directly the object via reference
      * we don't have to change anything at the Registry
      */
     Object.assign(this.binding, {
-      provider: {factory},
+      provider: {factory} satisfies FactoryProvider<T>,
       scope: Scope.TRANSIENT, // default scope for FactoryProvider
+    });
+
+    return new BindInScopeDirective(this.context, this.binding);
+  }
+
+  public toAlias<T>(alias: Token | Class<T>): BindInScopeDirective {
+    /*
+     * Because we are modifying directly the object via reference
+     * we don't have to change anything at the Registry
+     */
+    Object.assign(this.binding, {
+      provider: {alias: serializeToken(alias)} satisfies AliasProvider,
+      scope: Scope.TRANSIENT, // default scope for AliasProvider
     });
 
     return new BindInScopeDirective(this.context, this.binding);

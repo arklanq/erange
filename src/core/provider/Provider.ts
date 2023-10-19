@@ -1,4 +1,4 @@
-import type {Class} from '../../utils/types.js';
+import type {Class, Token} from '@/utils/types.js';
 
 export interface ClassProvider<T = unknown> {
   class: Class<T>;
@@ -12,4 +12,8 @@ export interface FactoryProvider<T = unknown> {
   factory: () => T;
 }
 
-export type Provider<T = unknown> = ClassProvider<T> | InstanceProvider<T> | FactoryProvider<T>;
+export interface AliasProvider {
+  alias: Token;
+}
+
+export type Provider<T = unknown> = ClassProvider<T> | InstanceProvider<T> | FactoryProvider<T> | AliasProvider;

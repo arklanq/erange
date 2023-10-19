@@ -1,4 +1,4 @@
-import {type Token, Scope} from '../../utils/types.js';
+import {type Token, Scope} from '@/utils/types.js';
 import {ProviderResolver} from '../provider/ProviderResolver.js';
 import type {Binding, SingletonBinding, TransientBinding} from './Binding.js';
 import type {Container} from '../Container.js';

@@ -1,5 +1,5 @@
 import type {Provider} from '../provider/Provider.js';
-import {Scope, type Token} from '../../utils/types.js';
+import {Scope, type Token} from '@/utils/types.js';
 
 export interface BindingPrototype {
   token: Token;

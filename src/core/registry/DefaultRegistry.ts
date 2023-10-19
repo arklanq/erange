@@ -1,6 +1,6 @@
 import type {Binding} from '../binding/Binding.js';
-import type {Token} from '../../utils/types.js';
-import {ProviderResolutionException} from '../../exceptions/ProviderResolutionException.js';
+import type {Token} from '@/utils/types.js';
+import {ProviderResolutionException} from '@/exceptions/ProviderResolutionException.js';
 import {BindingResolver} from '../binding/BindingResolver.js';
 import type {Registry, RegistryMap} from './Registry.js';
 import type {Container} from '../Container.js';

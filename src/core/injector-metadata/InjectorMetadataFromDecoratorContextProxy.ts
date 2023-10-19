@@ -1,6 +1,6 @@
 import type {InjectorMetadataDTO} from './InjectorMetadataProcessor.js';
 import {injectorMetadataSymbol} from './InjectorMetadataProcessor.js';
-import type {Class} from '../../utils/types.js';
+import type {Class} from '@/utils/types.js';
 import type {InjectorMetadataProxy} from './InjectorMetadataProxy.js';
 import {ClassDecoratorMetadata} from '../metadata/ClassDecoratorMetadata.js';
 import type {MetadataProxy} from '../metadata/MetadataProxy.js';

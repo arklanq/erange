@@ -1,6 +1,6 @@
 import {ResolveDirective} from './ResolveDirective.js';
 import type {BindingContext} from './BindingContext.js';
-import {Scope} from '../../utils/types.js';
+import {Scope} from '@/utils/types.js';
 import type {Binding} from '../binding/Binding.js';
 
 export class BindInScopeDirective extends ResolveDirective {

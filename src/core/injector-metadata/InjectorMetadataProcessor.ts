@@ -1,4 +1,4 @@
-import type {Token} from '../../utils/types.js';
+import type {Token} from '@/utils/types.js';
 import type {InjectorMetadataProxy} from './InjectorMetadataProxy.js';
 
 export const injectorMetadataSymbol = Symbol('tuice-injector-metadata');

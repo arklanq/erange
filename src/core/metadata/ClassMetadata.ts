@@ -1,4 +1,4 @@
-import type {Class} from '../../utils/types.js';
+import type {Class} from '@/utils/types.js';
 import type {MetadataProxy} from './MetadataProxy.js';
 
 export class ClassMetadata implements MetadataProxy {

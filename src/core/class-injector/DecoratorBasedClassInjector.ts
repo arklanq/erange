@@ -1,7 +1,7 @@
 import {Exception} from 'enhanced-exception';
-import type {Class, Token} from '../../utils/types.js';
-import {ClassInstanceInitializationException} from '../../exceptions/ClassInstanceInitializationException.js';
-import {ConstructorArgResolutionException} from '../../exceptions/ConstructorArgResolutionException.js';
+import type {Class, Token} from '@/utils/types.js';
+import {ClassInstanceInitializationException} from '@/exceptions/ClassInstanceInitializationException.js';
+import {ConstructorArgResolutionException} from '@/exceptions/ConstructorArgResolutionException.js';
 import type {Registry} from '../registry/Registry.js';
 import type {InjectorMetadataProxy} from '../injector-metadata/InjectorMetadataProxy.js';
 import {InjectorMetadataFromClassProxy} from '../injector-metadata/InjectorMetadataFromClassProxy.js';

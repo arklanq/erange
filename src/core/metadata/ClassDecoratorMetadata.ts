@@ -1,5 +1,5 @@
-import type {Class} from '../../utils/types.js';
-import {polyfill_decorators_undefinedMetadataPropertyOnContext} from '../../utils/polyfills.js';
+import type {Class} from '@/utils/types.js';
+import {polyfill_decorators_undefinedMetadataPropertyOnContext} from '@/utils/polyfills.js';
 import type {MetadataProxy} from './MetadataProxy.js';
 
 export class ClassDecoratorMetadata implements MetadataProxy {

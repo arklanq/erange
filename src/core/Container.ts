@@ -1,7 +1,7 @@
-import type {Token, Class} from '../utils/types.js';
+import type {Token, Class} from '@/utils/types.js';
+import {serializeToken} from '@/utils/serializeToken.js';
 import type {Registry} from './registry/Registry.js';
 import {BindToProviderDirective} from './binding-dsl/BindToProviderDirective.js';
-import {serializeToken} from '../utils/serializeToken.js';
 import {DecoratorBasedClassInjector} from './class-injector/DecoratorBasedClassInjector.js';
 import type {BindingContext} from './binding-dsl/BindingContext.js';
 import {BindDirective} from './binding-dsl/BindDirective.js';
@@ -32,7 +32,7 @@ export class Container {
     return bindDirective.bind(tokenOrClass);
   }
 
-  public resolve<TInstance>(tokenOrClass: Token | Class<unknown>): TInstance {
+  public resolve<TInstance>(tokenOrClass: Token | Class<TInstance>): TInstance {
     return this.registry.resolve<TInstance>(serializeToken(tokenOrClass));
   }
 

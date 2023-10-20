@@ -15,13 +15,13 @@ export class ProviderResolver<T> {
   }
 
   public resolveProvider(): T {
-    if('instance' in this.provider) return this.resolveInstanceProvider(this.provider);
+    if ('instance' in this.provider) return this.resolveInstanceProvider(this.provider);
 
-    if('class' in this.provider) return this.resolveClassProvider(this.provider);
+    if ('class' in this.provider) return this.resolveClassProvider(this.provider);
 
-    if('factory' in this.provider) return this.resolveFactoryProvider(this.provider);
+    if ('factory' in this.provider) return this.resolveFactoryProvider(this.provider);
 
-    if('alias' in this.provider) return this.resolveProvider();
+    if ('alias' in this.provider) return this.resolveProvider();
 
     throw new InvalidProviderSigantureException(this.token);
   }

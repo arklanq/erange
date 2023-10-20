@@ -73,8 +73,8 @@ already seen there is also:
 
 * Transient and Singleton bindings.
 * Class, instance, factory and alias providers.
-* Easy accessible global, shared container.
-* Custom container instance.
+* Easily accessible, global, shared container.
+* Custom container instances.
 * Experimental ECMA Script Stage 3 decorators support (work in progress).
 * ... and a lot more coming soon!
 
@@ -89,9 +89,9 @@ yarn add erange
 ```
 
 **Optionally** if you opt-in to use experimental container's option `unstable_useNewDecoratorsSyntax` you should
-additionaly polyfill `decorators metadata` feature as it is may not be implemented yet in the environment or bundler
-of your choice. To do so simply install `core-js` and put the following import at the very begging of your code (
-entrypoint to your application).
+additionaly polyfill `decorators metadata` feature as it may not be implemented yet in the environment or bundler
+of your choice. To do so simply install `core-js` and put the following import at the very beginning of your code 
+(entrypoint to your application).
 
 ```javascript
 // With or without `.js` extension, depending on your environment context (ESM/CJS)
@@ -101,4 +101,4 @@ import 'core-js/proposals/decorator-metadata-v2.js';
 ### Documentation & user guide
 
 For an introduction to **Erange** and complete documentation, check out
-[Wiki page](https://github.com/arklanq/erange/wiki).
+[Wiki](https://github.com/arklanq/erange/wiki).

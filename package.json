@@ -23,8 +23,7 @@
     "updates-check": "ncu --configFilePath .config/ncu --configFileName ncu.config.cjs",
     "updates-force": "ncu --configFilePath .config/ncu --configFileName ncu.config.cjs -u",
     "clear-dist": "rimraf dist_backup",
-    "clear-cache": "rimraf node_modules/.cache",
-    "publish-package": "yarn --cwd dist publish --access=public --force --no-git-tag-version"
+    "clear-cache": "rimraf node_modules/.cache"
   },
   "dependencies": {
     "enhanced-exception": "^1.0.1"

@@ -7,13 +7,13 @@
 
 ### Table of contents
 
-* [What is a `Dependency Injection`?](#what-is-a-dependency-injection)
+* [Introduction](#introduction)
 * [Why `erange`?](#why-erange)
 * [Quick showcase](#quick-showcase)
 * [Installation](#installation)
 * [Documentation & user guide](#documentation--user-guide)
 
-### What is a `Dependency Injection`?
+### Introduction
 
 [Dependency injection](https://en.wikipedia.org/wiki/Dependency_injection) is
 an [inversion of control (IoC)](https://en.wikipedia.org/wiki/Inversion_of_control) technique wherein you delegate
@@ -23,10 +23,9 @@ There are many advantages to using dependency injection, but doing so manually o
 boilerplate code to be written. **Erange** is a framework that makes it possible to write code that uses dependency
 injection without the hassle of writing much of that boilerplate code.
 
-See also:
-
-* [Dependency injection in JavaScript / snyk.io](https://snyk.io/blog/dependency-injection-in-javascript/)
-* [Dependency Injection - Design Patterns in JavaScript / TomDoesTech](https://www.youtube.com/watch?v=W-Szy00-g_8&ab_channel=TomDoesTech)
+If I've already captured your attention, then I invite you to proceed to
+the [documentation](https://github.com/arklanq/erange/wiki), where you'll delve deeper into both the topic of the
+presented concepts and the Erange library itself.
 
 ### Why `erange`?
 
@@ -90,7 +89,7 @@ yarn add erange
 
 **Optionally** if you opt-in to use experimental container's option `unstable_useNewDecoratorsSyntax` you should
 additionaly polyfill `decorators metadata` feature as it may not be implemented yet in the environment or bundler
-of your choice. To do so simply install `core-js` and put the following import at the very beginning of your code 
+of your choice. To do so simply install `core-js` and put the following import at the very beginning of your code
 (entrypoint to your application).
 
 ```javascript

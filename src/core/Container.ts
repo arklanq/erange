@@ -38,8 +38,8 @@ export class Container {
 
   public instantiate<T>(clazz: Class<T>): T {
     const injector: ClassInjector<Class<T>> = this.options.unstable_useNewDecoratorsSyntax
-      ? new DecoratorBasedClassInjector(this.registry, clazz)
-      : new ClassicClassInjector(this, clazz);
+      ? new DecoratorBasedClassInjector<Class<T>>(this.registry, clazz)
+      : new ClassicClassInjector<Class<T>>(this, clazz);
 
     return injector.createClassInstance();
   }

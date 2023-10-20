@@ -1,12 +1,15 @@
 {
   "name": "erange",
   "description": "Erange (pronounced 'arrange') - flexible, lightweight and easy to use dependency injection for JS/TS.",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "license": "MIT",
   "author": "Arklanq",
   "private": true,
   "type": "module",
   "main": "./src/index.ts",
+  "exports": {
+    ".": "./src/index.ts"
+  },
   "homepage": "https://github.com/arklanq/erange#readme",
   "repository": "https://github.com/arklanq/erange",
   "scripts": {

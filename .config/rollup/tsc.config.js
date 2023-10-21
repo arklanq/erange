@@ -7,6 +7,8 @@ async function createConfig(compilerOptions = {}) {
     cacheDir: path.resolve(rootDirPath, './node_modules/.cache/.rollup/typescript'),
     outputToFilesystem: true,
     compilerOptions: compilerOptions,
+    include: ['src/**/*.ts', '@types/**/*.ts'],
+    exclude: ['node_modules', 'dist']
   };
 }
 

@@ -8,12 +8,12 @@ import {InjectorMetadataFromClassProxy} from '../injector-metadata/InjectorMetad
 import {InjectorMetadataProcessor} from '../injector-metadata/InjectorMetadataProcessor.js';
 import type {ClassInjector} from './ClassInjector.js';
 
-export class DecoratorBasedClassInjector<Clazz extends Class<unknown>> implements ClassInjector<Clazz> {
+export class DecoratorBasedClassInjector<C extends Class<unknown>> implements ClassInjector<C> {
   protected readonly registry: Registry;
-  protected readonly clazz: Clazz;
+  protected readonly clazz: C;
   protected readonly injectorMetadataProcessor: InjectorMetadataProcessor;
 
-  public constructor(registry: Registry, clazz: Clazz) {
+  public constructor(registry: Registry, clazz: C) {
     this.registry = registry;
     this.clazz = clazz;
 
@@ -21,7 +21,7 @@ export class DecoratorBasedClassInjector<Clazz extends Class<unknown>> implement
     this.injectorMetadataProcessor = new InjectorMetadataProcessor(injectorMetadataProxy);
   }
 
-  public createClassInstance(): InstanceType<Clazz> {
+  public createClassInstance(): InstanceType<C> {
     try {
       const resolutionTokens: Token[] | null = this.injectorMetadataProcessor.resolutionTokens;
 
@@ -39,7 +39,7 @@ export class DecoratorBasedClassInjector<Clazz extends Class<unknown>> implement
         }
       });
 
-      return new this.clazz(resolvedArgs) as InstanceType<Clazz>;
+      return new this.clazz(resolvedArgs) as InstanceType<C>;
     } catch (e: unknown) {
       throw new ClassInstanceInitializationException(this.clazz, e);
     }

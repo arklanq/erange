@@ -36,10 +36,10 @@ export class Container {
     return this.registry.resolve<TInstance>(serializeToken(tokenOrClass));
   }
 
-  public instantiate<T>(clazz: Class<T>): T {
-    const injector: ClassInjector<Class<T>> = this.options.unstable_useNewDecoratorsSyntax
-      ? new DecoratorBasedClassInjector<Class<T>>(this.registry, clazz)
-      : new ClassicClassInjector<Class<T>>(this, clazz);
+  public instantiate<C extends Class<unknown>>(clazz: C): InstanceType<C> {
+    const injector: ClassInjector<C> = this.options.unstable_useNewDecoratorsSyntax
+      ? new DecoratorBasedClassInjector<C>(this.registry, clazz)
+      : new ClassicClassInjector<C>(this, clazz);
 
     return injector.createClassInstance();
   }

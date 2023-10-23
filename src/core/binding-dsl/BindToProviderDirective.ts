@@ -57,7 +57,7 @@ export class BindToProviderDirective extends BindInScopeDirective {
      */
     Object.assign(this.binding, {
       provider: {alias: serializeToken(alias)} satisfies AliasProvider,
-      scope: Scope.TRANSIENT, // default scope for AliasProvider
+      scope: Scope.SINGLETON, // default scope for AliasProvider
     });
 
     return new BindInScopeDirective(this.context, this.binding);

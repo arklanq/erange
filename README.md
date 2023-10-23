@@ -48,7 +48,7 @@ import {container, Scope} from 'erange';
 
 // EXAMPLE 1 - Transient, class binding
 // Bind `PayPalPaymentProcessor` concrete class to `PaymentProcessor` higher-order class
-container.bind(PaymentProcessor).toClass(PayPalPaymentProcessor).inScope(Scope.TRANSIENT);
+container.bind(PaymentProcessor).toClass(PayPalPaymentProcessor).in(Scope.TRANSIENT);
 
 // Retrieve two instances of `PaymentProcessor` interface implementation from container
 const pp1 = container.resolve(PaymentProcessor);
@@ -59,7 +59,7 @@ pp1 === pp2 // false
 
 // EXAMPLE 2 - Singleton, instance binding
 // Bind `3000` value to `SERVER_PORT` token
-container.bind('SERVER_PORT').toInstance(3000).inScope(Scope.SINGLETON);
+container.bind('SERVER_PORT').toInstance(3000).in(Scope.SINGLETON);
 
 app.listen(container.resolve<number>('SERVER_PORT'));
 ```

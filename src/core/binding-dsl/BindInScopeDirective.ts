@@ -2,8 +2,8 @@ import {ResolveDirective} from './ResolveDirective.js';
 import type {BindingContext} from './BindingContext.js';
 import type {Binding} from '../binding/Binding.js';
 import {Scope} from '../scope/Scope.js';
-import type {TransientBinding} from '../scope/TransientScope.js';
-import type {SingletonBinding} from '../scope/SingletonScope.js';
+import type {TransientScopeBinding} from '../scope/TransientScope.js';
+import type {SingletonScopeBinding} from '../scope/SingletonScope.js';
 
 export class BindInScopeDirective extends ResolveDirective {
   public constructor(context: BindingContext, binding: Binding) {
@@ -25,7 +25,7 @@ export class BindInScopeDirective extends ResolveDirective {
           Object.assign(this.binding, {
             // TransientScope
             scope: this.context.factory.scope.transient.create(),
-          } satisfies Partial<TransientBinding<unknown>>);
+          } satisfies Partial<TransientScopeBinding<unknown>>);
         }
         break;
       }
@@ -38,7 +38,7 @@ export class BindInScopeDirective extends ResolveDirective {
           Object.assign(this.binding, {
             // SingletonScope
             scope: this.context.factory.scope.singleton.create(null),
-          } satisfies Partial<SingletonBinding<unknown>>);
+          } satisfies Partial<SingletonScopeBinding<unknown>>);
         }
         break;
       }

@@ -3,8 +3,8 @@ import type {BindingContext} from './BindingContext.js';
 import {BindInScopeDirective} from './BindInScopeDirective.js';
 import type {Binding} from '../binding/Binding.js';
 import type {FactoryProviderFunction} from '../provider/FactoryProvider.js';
-import type {TransientBinding} from '../scope/TransientScope.js';
-import type {SingletonBinding} from '../scope/SingletonScope.js';
+import type {TransientScopeBinding} from '../scope/TransientScope.js';
+import type {SingletonScopeBinding} from '../scope/SingletonScope.js';
 
 export class BindToProviderDirective extends BindInScopeDirective {
   public constructor(context: BindingContext, binding: Binding) {
@@ -21,7 +21,7 @@ export class BindToProviderDirective extends BindInScopeDirective {
       provider: this.context.factory.provider.class.create(clazz),
       // TransientScope - default scope for ClassProvider
       scope: this.context.factory.scope.transient.create(),
-    } satisfies Partial<TransientBinding<T>>);
+    } satisfies Partial<TransientScopeBinding<T>>);
 
     return new BindInScopeDirective(this.context, this.binding);
   }
@@ -36,7 +36,7 @@ export class BindToProviderDirective extends BindInScopeDirective {
       provider: this.context.factory.provider.instance.create(instance),
       // SingletonScope - default scope for InstanceProvider
       scope: this.context.factory.scope.singleton.create(instance),
-    } satisfies Partial<SingletonBinding<T>>);
+    } satisfies Partial<SingletonScopeBinding<T>>);
 
     return new BindInScopeDirective(this.context, this.binding);
   }
@@ -51,7 +51,7 @@ export class BindToProviderDirective extends BindInScopeDirective {
       provider: this.context.factory.provider.factory.create(factory),
       // TransientScope - default scope for FactoryProvider
       scope: this.context.factory.scope.transient.create(),
-    } satisfies Partial<TransientBinding<T>>);
+    } satisfies Partial<TransientScopeBinding<T>>);
 
     return new BindInScopeDirective(this.context, this.binding);
   }
@@ -67,7 +67,7 @@ export class BindToProviderDirective extends BindInScopeDirective {
       // SingletonScope - default scope for AliasProvider
       // The SingletonScope cache will be autopopulated when the value will be resolved for the first time
       scope: this.context.factory.scope.singleton.create(),
-    } satisfies Partial<SingletonBinding<T>>);
+    } satisfies Partial<SingletonScopeBinding<T>>);
 
     return new BindInScopeDirective(this.context, this.binding);
   }

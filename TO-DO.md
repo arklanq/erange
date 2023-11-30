@@ -1,6 +1,6 @@
 ### TO-DO
 
-- [ ] Readme / Wiki
+- [X] Readme / Wiki
 - [ ] @Inject decorator ^1 ^2
 - [ ] @Singleton decorator
 - [ ] @Annotation decorator, annotated(...) decorator helper, {binding}.annotated chaining method
@@ -9,6 +9,7 @@
 - [X] Async factory providers
 - [ ] Custom scopes
 - [ ] Throw error if factory provider returned `undefined | null` value
+- [X] Allow `null` values to be stored or produced by factories
 - [ ] Sub-containers
 - [ ] and more from `microsoft/tsyringe`
 - [ ] and more from `google/guice`

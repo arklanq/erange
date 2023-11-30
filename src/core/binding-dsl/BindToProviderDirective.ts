@@ -66,7 +66,7 @@ export class BindToProviderDirective extends BindInScopeDirective {
       provider: this.context.factory.provider.alias.create(alias),
       // SingletonScope - default scope for AliasProvider
       // The SingletonScope cache will be autopopulated when the value will be resolved for the first time
-      scope: this.context.factory.scope.singleton.create(null),
+      scope: this.context.factory.scope.singleton.create(),
     } satisfies Partial<SingletonBinding<T>>);
 
     return new BindInScopeDirective(this.context, this.binding);

@@ -21,7 +21,7 @@ export class ProviderResolver<T> {
 
     if ('factory' in this.provider) return this.resolveFactoryProvider(this.provider);
 
-    if ('alias' in this.provider) return this.resolveProvider();
+    if ('alias' in this.provider) return this.resolveAliasProvider(this.provider);
 
     throw new InvalidProviderSigantureException(this.token);
   }

@@ -16,13 +16,12 @@
     "build": "rollup -c .config/rollup/rollup.config.js",
     "prebuild-production": "yarn clear-cache && yarn check-code && yarn lint-code && yarn format-code",
     "build-production": "yarn build --environment NODE_ENV:production",
-    "start": "yarn --cwd dist node --enable-source-maps .",
     "format-code": "prettier --log-level warn --write \"src/**/*.ts\"",
     "lint-code": "eslint \"src/**/*.ts\" --cache-location node_modules/.cache/eslint/.eslint-cache --fix",
     "check-code": "tsc --project tsconfig.json --noEmit",
     "check-updates": "ncu --configFilePath .config/ncu --configFileName ncu.config.cjs",
     "force-updates": "ncu --configFilePath .config/ncu --configFileName ncu.config.cjs -u",
-    "clear-dist": "rimraf dist_backup",
+    "clean": "rimraf dist_backup",
     "clear-cache": "rimraf node_modules/.cache"
   },
   "dependencies": {

@@ -17,7 +17,7 @@ export async function createSharedConfig(options = {}) {
 
   // Validate required options presence
   ['dist', 'format'].forEach((requiredOption) => {
-    if(_options[requiredOption] === undefined) throw new Error(`createSharedConfig(...) / \`${requiredOption}\` option cannot remain unspecified.`);
+    if (_options[requiredOption] === undefined) throw new Error(`createSharedConfig(...) / \`${requiredOption}\` option cannot remain unspecified.`);
   });
 
   // Import project manifest (package.json)
@@ -76,5 +76,11 @@ export async function createSharedConfig(options = {}) {
       preserveModulesRoot: '.',
       sourcemap: false,
     },
+    onLog(level, log, handler) {
+      if (log.code === 'CIRCULAR_DEPENDENCY')
+        return; // Ignore circular dependency warnings
+
+      handler(level, log); // otherwise, just print the log
+    }
   };
 }

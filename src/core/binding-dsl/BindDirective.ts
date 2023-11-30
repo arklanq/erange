@@ -11,7 +11,7 @@ export class BindDirective extends DirectiveWithContext {
   }
 
   public bind(tokenOrClass: Token | Class<unknown>): BindToProviderDirective {
-    let binding: Binding<unknown>;
+    let binding: Binding;
     if (isConstructor(tokenOrClass)) {
       const clazz: Class<unknown> = tokenOrClass;
       binding = {

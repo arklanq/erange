@@ -1,19 +1,14 @@
-import type {Class, Token} from '@/utils/types.js';
-
-export interface ClassProvider<T = unknown> {
-  class: Class<T>;
-}
-
-export interface InstanceProvider<T = unknown> {
-  instance: T;
-}
-
-export interface FactoryProvider<T = unknown> {
-  factory: () => T;
-}
-
-export interface AliasProvider {
-  alias: Token;
-}
+import type {ClassProvider} from './ClassProvider.js';
+import type {InstanceProvider} from './InstanceProvider.js';
+import type {FactoryProvider} from './FactoryProvider.js';
+import type {AliasProvider} from './AliasProvider.js';
 
 export type Provider<T = unknown> = ClassProvider<T> | InstanceProvider<T> | FactoryProvider<T> | AliasProvider;
+
+export interface ProviderResolver {
+
+  canResolve(provider: Provider): boolean;
+
+  resolve<T>(provider: Provider<T>): T;
+
+}

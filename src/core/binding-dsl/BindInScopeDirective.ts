@@ -4,7 +4,7 @@ import {Scope} from '@/utils/types.js';
 import type {Binding} from '../binding/Binding.js';
 
 export class BindInScopeDirective extends ResolveDirective {
-  public constructor(context: BindingContext, binding: Binding<unknown>) {
+  public constructor(context: BindingContext, binding: Binding) {
     super(context, binding);
   }
 

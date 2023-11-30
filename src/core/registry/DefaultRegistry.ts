@@ -1,16 +1,16 @@
-import type {Binding} from '../binding/Binding.js';
 import type {Token} from '@/utils/types.js';
 import {ProviderResolutionException} from '@/exceptions/ProviderResolutionException.js';
-import {BindingResolver} from '../binding/BindingResolver.js';
-import type {Registry, RegistryMap} from './Registry.js';
 import type {Container} from '../Container.js';
+import type {Binding} from '../binding/Binding.js';
+import {AnyBindingResolver} from '../binding/AnyBindingResolver.js';
+import type {Registry, RegistryMap} from './Registry.js';
 
 export class DefaultRegistry implements Registry {
-  protected readonly container: Container;
+  protected readonly bindingResolver: AnyBindingResolver;
   protected readonly map: RegistryMap = new Map();
 
   public constructor(container: Container) {
-    this.container = container;
+    this.bindingResolver = new AnyBindingResolver(container);
   }
 
   public register<T = unknown>(binding: Binding<T>): void {
@@ -18,12 +18,10 @@ export class DefaultRegistry implements Registry {
   }
 
   public resolve<T = unknown>(token: Token): T {
-    const binding: Binding<unknown> | undefined = this.map.get(token);
+    const binding: Binding | undefined = this.map.get(token);
 
     if (!binding) throw new ProviderResolutionException(token);
 
-    const bindingResolver: BindingResolver<unknown> = new BindingResolver<unknown>(this.container, token, binding);
-
-    return bindingResolver.resolveBinding() as T;
+    return this.bindingResolver.resolve(binding as Binding<T>);
   }
 }

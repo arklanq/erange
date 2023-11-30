@@ -2,11 +2,14 @@ import {type Class, Scope, type Token} from '@/utils/types.js';
 import type {BindingContext} from './BindingContext.js';
 import {BindInScopeDirective} from './BindInScopeDirective.js';
 import type {Binding} from '../binding/Binding.js';
-import type {AliasProvider, FactoryProvider, InstanceProvider, ClassProvider} from '../provider/Provider.js';
 import {serializeToken} from '@/utils/serializeToken.js';
+import type {ClassProvider} from '../provider/ClassProvider.js';
+import type {InstanceProvider} from '../provider/InstanceProvider.js';
+import type {FactoryProvider} from '../provider/FactoryProvider.js';
+import type {AliasProvider} from '../provider/AliasProvider.js';
 
 export class BindToProviderDirective extends BindInScopeDirective {
-  public constructor(context: BindingContext, binding: Binding<unknown>) {
+  public constructor(context: BindingContext, binding: Binding) {
     super(context, binding);
   }
 

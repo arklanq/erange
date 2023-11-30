@@ -1,19 +1,12 @@
-import type {Provider} from '../provider/Provider.js';
-import {Scope, type Token} from '@/utils/types.js';
+import type {SingletonBinding} from './SingletonBinding.js';
+import type {TransientBinding} from './TransientBinding.js';
 
-export interface BindingPrototype {
-  token: Token;
+export type Binding<T = unknown> = TransientBinding<T> | SingletonBinding<T>;
+
+export interface BindingResolver {
+
+  canResolve(binding: Binding): boolean;
+
+  resolve<T>(binding: Binding<T>): T;
+
 }
-
-export interface TransientBinding<T> extends BindingPrototype {
-  provider: Provider<T>;
-  scope: Scope.TRANSIENT;
-}
-
-export interface SingletonBinding<T> extends BindingPrototype {
-  provider: Provider<T>;
-  scope: Scope.SINGLETON;
-  cache: T | null;
-}
-
-export type Binding<T> = TransientBinding<T> | SingletonBinding<T>;

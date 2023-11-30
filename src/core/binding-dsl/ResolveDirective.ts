@@ -3,9 +3,9 @@ import {DirectiveWithContext, type BindingContext} from './BindingContext.js';
 import type {Binding} from '../binding/Binding.js';
 
 export class ResolveDirective extends DirectiveWithContext {
-  protected readonly binding: Binding<unknown>;
+  protected readonly binding: Binding;
 
-  public constructor(context: BindingContext, binding: Binding<unknown>) {
+  public constructor(context: BindingContext, binding: Binding) {
     super(context);
     this.binding = binding;
   }

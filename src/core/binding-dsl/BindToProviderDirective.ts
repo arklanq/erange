@@ -1,12 +1,10 @@
-import {type Class, Scope, type Token} from '@/utils/types.js';
+import {type Class, type Token} from '@/utils/types.js';
 import type {BindingContext} from './BindingContext.js';
 import {BindInScopeDirective} from './BindInScopeDirective.js';
 import type {Binding} from '../binding/Binding.js';
-import {serializeToken} from '@/utils/serializeToken.js';
-import type {ClassProvider} from '../provider/ClassProvider.js';
-import type {InstanceProvider} from '../provider/InstanceProvider.js';
-import type {FactoryProvider} from '../provider/FactoryProvider.js';
-import type {AliasProvider} from '../provider/AliasProvider.js';
+import type {FactoryProviderFunction} from '../provider/FactoryProvider.js';
+import type {TransientBinding} from '../scope/TransientScope.js';
+import type {SingletonBinding} from '../scope/SingletonScope.js';
 
 export class BindToProviderDirective extends BindInScopeDirective {
   public constructor(context: BindingContext, binding: Binding) {
@@ -19,9 +17,11 @@ export class BindToProviderDirective extends BindInScopeDirective {
      * we don't have to change anything at the Registry
      */
     Object.assign(this.binding, {
-      provider: {class: clazz} satisfies ClassProvider<T>,
-      scope: Scope.TRANSIENT, // default scope for ClassProvider
-    });
+      // ClassProvider
+      provider: this.context.factory.provider.class.create(clazz),
+      // TransientScope - default scope for ClassProvider
+      scope: this.context.factory.scope.transient.create(),
+    } satisfies Partial<TransientBinding<T>>);
 
     return new BindInScopeDirective(this.context, this.binding);
   }
@@ -32,23 +32,26 @@ export class BindToProviderDirective extends BindInScopeDirective {
      * we don't have to change anything at the Registry
      */
     Object.assign(this.binding, {
-      provider: {instance} satisfies InstanceProvider<T>,
-      cache: instance,
-      scope: Scope.SINGLETON, // default scope for InstanceProvider
-    });
+      // InstanceProvider
+      provider: this.context.factory.provider.instance.create(instance),
+      // SingletonScope - default scope for InstanceProvider
+      scope: this.context.factory.scope.singleton.create(instance),
+    } satisfies Partial<SingletonBinding<T>>);
 
     return new BindInScopeDirective(this.context, this.binding);
   }
 
-  public toFactory<T>(factory: () => T): BindInScopeDirective {
+  public toFactory<T>(factory: FactoryProviderFunction<T>): BindInScopeDirective {
     /*
      * Because we are modifying directly the object via reference
      * we don't have to change anything at the Registry
      */
     Object.assign(this.binding, {
-      provider: {factory} satisfies FactoryProvider<T>,
-      scope: Scope.TRANSIENT, // default scope for FactoryProvider
-    });
+      // FactoryProvider
+      provider: this.context.factory.provider.factory.create(factory),
+      // TransientScope - default scope for FactoryProvider
+      scope: this.context.factory.scope.transient.create(),
+    } satisfies Partial<TransientBinding<T>>);
 
     return new BindInScopeDirective(this.context, this.binding);
   }
@@ -59,9 +62,12 @@ export class BindToProviderDirective extends BindInScopeDirective {
      * we don't have to change anything at the Registry
      */
     Object.assign(this.binding, {
-      provider: {alias: serializeToken(alias)} satisfies AliasProvider,
-      scope: Scope.SINGLETON, // default scope for AliasProvider
-    });
+      // AliasProvider
+      provider: this.context.factory.provider.alias.create(alias),
+      // SingletonScope - default scope for AliasProvider
+      // The SingletonScope cache will be autopopulated when the value will be resolved for the first time
+      scope: this.context.factory.scope.singleton.create(null),
+    } satisfies Partial<SingletonBinding<T>>);
 
     return new BindInScopeDirective(this.context, this.binding);
   }

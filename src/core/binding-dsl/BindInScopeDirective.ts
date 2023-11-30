@@ -1,7 +1,9 @@
 import {ResolveDirective} from './ResolveDirective.js';
 import type {BindingContext} from './BindingContext.js';
-import {Scope} from '@/utils/types.js';
 import type {Binding} from '../binding/Binding.js';
+import {Scope} from '../scope/Scope.js';
+import type {TransientBinding} from '../scope/TransientScope.js';
+import type {SingletonBinding} from '../scope/SingletonScope.js';
 
 export class BindInScopeDirective extends ResolveDirective {
   public constructor(context: BindingContext, binding: Binding) {
@@ -13,21 +15,35 @@ export class BindInScopeDirective extends ResolveDirective {
      * Because we are modifying directly the object via reference
      * we don't have to change anything at the Registry
      */
-    switch (scope) {
-      case Scope.SINGLETON: {
-        Object.assign(this.binding, {
-          scope: Scope.SINGLETON,
-          cache: this.binding.scope === Scope.SINGLETON ? this.binding.cache : null,
-        });
+    switch(scope) {
+      case Scope.TRANSIENT: {
+        /*
+         * Change the scope only if the scope is different from desired,
+         * as overwriting the scope will result in the loss of its data.
+         */
+        if (this.binding.scope.name !== Scope.TRANSIENT) {
+          Object.assign(this.binding, {
+            // TransientScope
+            scope: this.context.factory.scope.transient.create(),
+          } satisfies Partial<TransientBinding<unknown>>);
+        }
         break;
       }
-      case Scope.TRANSIENT:
+      case Scope.SINGLETON: {
+        /*
+         * Change the scope only if the scope is different from desired,
+         * as overwriting the scope will result in the loss of its data.
+         */
+        if (this.binding.scope.name !== Scope.SINGLETON) {
+          Object.assign(this.binding, {
+            // SingletonScope
+            scope: this.context.factory.scope.singleton.create(null),
+          } satisfies Partial<SingletonBinding<unknown>>);
+        }
+        break;
+      }
       default: {
-        if (this.binding.scope === Scope.SINGLETON) delete this.binding.cache;
-
-        Object.assign(this.binding, {
-          scope: Scope.TRANSIENT,
-        });
+        //TODO: ... Custom scope
         break;
       }
     }

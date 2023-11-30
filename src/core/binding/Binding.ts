@@ -1,12 +1,9 @@
-import type {SingletonBinding} from './SingletonBinding.js';
-import type {TransientBinding} from './TransientBinding.js';
+import type {Token} from '@/utils/types.js';
+import type {EncapsulatedScope} from '../scope/Scope.js';
+import type {Provider} from '../provider/Provider.js';
 
-export type Binding<T = unknown> = TransientBinding<T> | SingletonBinding<T>;
-
-export interface BindingResolver {
-
-  canResolve(binding: Binding): boolean;
-
-  resolve<T>(binding: Binding<T>): T;
-
+export type Binding<T = unknown, S extends EncapsulatedScope = EncapsulatedScope> = {
+  token: Token;
+  scope: S;
+  provider: Provider<T>;
 }

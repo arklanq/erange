@@ -1,11 +1,23 @@
 import {Container} from '../Container.js';
-import type {ProviderResolver, Provider} from './Provider.js';
+import type {ProviderResolver, Provider, ProviderFactory} from './Provider.js';
+
+export interface FactoryProviderFunction<T> {
+  (): T; // pure factory function
+  (container: Container): T; // takes `container` as a first argument
+}
 
 export interface FactoryProvider<T = unknown> {
-  factory: {
-    (): T; // pure factory function
-    (container: Container): T; // takes `container` as a first argument
-  };
+  factory: FactoryProviderFunction<T>;
+}
+
+export function isFactoryProvider<T>(provider: Provider<T>): provider is FactoryProvider<T> {
+  return 'factory' in provider;
+}
+
+export class FactoryProviderFactory implements ProviderFactory {
+  public create<T>(factory: FactoryProvider<T>['factory']): FactoryProvider<T> {
+    return {factory};
+  }
 }
 
 export class FactoryProviderResolver implements ProviderResolver {
@@ -15,12 +27,9 @@ export class FactoryProviderResolver implements ProviderResolver {
     this.container = container;
   }
 
-  public canResolve(provider: Provider): provider is FactoryProvider {
-    return 'factory' in provider;
-  }
+  public canResolve = isFactoryProvider.bind(this);
 
   public resolve<T>(provider: FactoryProvider<T>): T {
     return provider.factory(this.container);
   }
-
 }

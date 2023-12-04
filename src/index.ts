@@ -16,10 +16,10 @@ export {Scope} from '@/core/scope/Scope.js';
 
 /* === core exports end === */
 
-export {inject} from './decorators/inject.js';
-
-export {BindingResolutionException} from './exceptions/BindingResolutionException.js';
-export {ProviderResolutionException} from './exceptions/ProviderResolutionException.js';
+export {BindingResolutionException} from '@/exceptions/BindingResolutionException.js';
+export {ScopeResolutionException} from '@/exceptions/ScopeResolutionException.js';
+export {ProviderResolutionException} from '@/exceptions/ProviderResolutionException.js';
 export {ClassInstanceInitializationException} from './exceptions/ClassInstanceInitializationException.js';
+export {ConstructorArgResolutionException} from './exceptions/ConstructorArgResolutionException.js';
 
 export {type Token, type Class} from './utils/types.js';

@@ -4,10 +4,14 @@ import {Scope, type ScopeResolver, type EncapsulatedScope, type ScopeFactory} fr
 
 export type EncapsulatedTransientScope = EncapsulatedScope<Scope.TRANSIENT>;
 
+export function isTransientScope(scope: EncapsulatedScope): scope is EncapsulatedTransientScope {
+  return scope.name === Scope.TRANSIENT;
+}
+
 export class TransientScopeFactory implements ScopeFactory {
   public create(): EncapsulatedTransientScope {
     return {
-      name: Scope.TRANSIENT
+      name: Scope.TRANSIENT,
     };
   }
 }
@@ -22,10 +26,10 @@ export class TransientScopeResolver implements ScopeResolver {
   }
 
   public canResolve(binding: Binding): binding is TransientScopeBinding<unknown> {
-    return binding.scope.name === Scope.TRANSIENT;
+    return isTransientScope(binding.scope);
   }
 
-  public resolve<T>(binding: TransientScopeBinding<T>): T {
-    return this.providerResolver.resolveProvider(binding.token, binding.provider);
+  public resolve<T>(binding: TransientScopeBinding<T>, scope: object | null): T {
+    return this.providerResolver.resolve(binding.token, binding.provider, scope);
   }
 }

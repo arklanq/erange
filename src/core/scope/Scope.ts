@@ -5,20 +5,24 @@ export enum Scope {
   SINGLETON = 'SINGLETON',
 }
 
-export interface EncapsulatedScope<S extends Scope = Scope> {
+/*
+ * We cannot add 'CUSTOM' scope as a name to `Scope` enum above
+ * because that enum is available publicly (exported by package).
+ * On the other hand the `CustomScopeName` type below is truly internal type
+ * so we can use it as we wish.
+ */
+export type CustomScopeName = 'CUSTOM';
+
+export interface EncapsulatedScope<S extends Scope | CustomScopeName = Scope | CustomScopeName> {
   name: S;
 }
 
 export interface ScopeFactory {
-
   create(...args: unknown[]): EncapsulatedScope;
-
 }
 
 export interface ScopeResolver {
+  canResolve(binding: Binding, scope: object | null): boolean;
 
-  canResolve(binding: Binding): boolean;
-
-  resolve<T>(binding: Binding<T>): T;
-
+  resolve<T, S extends object>(binding: Binding<T>, scope: S | null): T;
 }

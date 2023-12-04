@@ -6,4 +6,4 @@ export type Binding<T = unknown, S extends EncapsulatedScope = EncapsulatedScope
   token: Token;
   scope: S;
   provider: Provider<T>;
-}
+};

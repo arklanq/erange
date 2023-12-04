@@ -1,6 +1,7 @@
 import type {Registry} from '../registry/Registry.js';
 import {TransientScopeFactory} from '../scope/TransientScope.js';
 import {SingletonScopeFactory} from '../scope/SingletonScope.js';
+import {CustomScopeFactory} from '../scope/CustomScope.js';
 import {ClassProviderFactory} from '../provider/ClassProvider.js';
 import {InstanceProviderFactory} from '../provider/InstanceProvider.js';
 import {FactoryProviderFactory} from '../provider/FactoryProvider.js';
@@ -12,13 +13,14 @@ export interface BindingContext {
     readonly scope: {
       transient: TransientScopeFactory;
       singleton: SingletonScopeFactory;
-    }
+      custom: CustomScopeFactory;
+    };
     readonly provider: {
       class: ClassProviderFactory;
       instance: InstanceProviderFactory;
       factory: FactoryProviderFactory;
       alias: AliasProviderFactory;
-    }
+    };
   };
 }
 
@@ -28,13 +30,14 @@ export function createBindingContext(registry: Registry): BindingContext {
     factory: {
       scope: {
         transient: new TransientScopeFactory(),
-        singleton: new SingletonScopeFactory()
+        singleton: new SingletonScopeFactory(),
+        custom: new CustomScopeFactory(),
       },
       provider: {
         class: new ClassProviderFactory(),
         instance: new InstanceProviderFactory(),
         factory: new FactoryProviderFactory(),
-        alias: new AliasProviderFactory()
+        alias: new AliasProviderFactory(),
       },
     },
   };

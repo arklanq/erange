@@ -10,11 +10,15 @@ interface SingletonScopeData<T> {
 
 export type EncapsulatedSingletonScope<T> = EncapsulatedScope<Scope.SINGLETON> & SingletonScopeData<T>;
 
+export function isSingletonScope(scope: EncapsulatedScope): scope is EncapsulatedSingletonScope<unknown> {
+  return scope.name === Scope.SINGLETON;
+}
+
 export class SingletonScopeFactory implements ScopeFactory {
   public create<T>(cache: T | typeof emptyCacheSymbol = emptyCacheSymbol): EncapsulatedSingletonScope<T> {
     return {
       name: Scope.SINGLETON,
-      cache: cache
+      cache: cache,
     };
   }
 }
@@ -29,15 +33,15 @@ export class SingletonScopeResolver implements ScopeResolver {
   }
 
   public canResolve(binding: Binding): binding is SingletonScopeBinding<unknown> {
-    return binding.scope.name === Scope.SINGLETON;
+    return isSingletonScope(binding.scope);
   }
 
-  public resolve<T>(binding: SingletonScopeBinding<T>): T {
+  public resolve<T>(binding: SingletonScopeBinding<T>, scope: object | null): T {
     const scopeData: SingletonScopeData<T> = binding.scope;
 
     // find out if 'cache' refers to 'emptyCacheSymbol' in order to know if cache is empty or not
     if (scopeData.cache !== emptyCacheSymbol) return scopeData.cache;
 
-    return scopeData.cache = this.providerResolver.resolveProvider(binding.token, binding.provider);
+    return (scopeData.cache = this.providerResolver.resolve(binding.token, binding.provider, scope));
   }
 }

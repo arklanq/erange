@@ -1,8 +1,8 @@
-import {type Token, type Class} from '@/utils/types.js';
+import type {Token, Class} from '@/utils/types.js';
 import {isConstructor} from '@/utils/type-guards.js';
 import {serializeToken} from '@/utils/serializeToken.js';
 import type {Binding} from '../binding/Binding.js';
-import {DirectiveWithContext, type BindingContext} from './BindingContext.js';
+import {DirectiveWithContext, type BindingContext} from '../binding/BindingContext.js';
 import {BindToProviderDirective} from './BindToProviderDirective.js';
 
 export class BindDirective extends DirectiveWithContext {
@@ -24,7 +24,7 @@ export class BindDirective extends DirectiveWithContext {
         // ClassProvider - default provider for class-based tokens
         provider: {class: clazz},
         // TransientScope - default scope for ClassProvider
-        scope: this.context.factory.scope.transient.create()
+        scope: this.context.factory.scope.transient.create(),
       };
     }
     // Otherwise ...
@@ -36,12 +36,12 @@ export class BindDirective extends DirectiveWithContext {
         // InstanceProvider - default provider for plain tokens
         provider: {instance: tokenOrClass},
         // SingletonScope - default scope for InstanceProvider
-        scope: this.context.factory.scope.singleton.create(null)
+        scope: this.context.factory.scope.singleton.create(null),
       };
     }
 
     // Register new binding
-    this.context.registry.register(binding);
+    this.context.registry.register(binding, null);
 
     // And pass it to next directive
     return new BindToProviderDirective(this.context, binding);

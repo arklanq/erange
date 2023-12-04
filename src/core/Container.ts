@@ -2,13 +2,12 @@ import type {Token, Class} from '@/utils/types.js';
 import {serializeToken} from '@/utils/serializeToken.js';
 import type {Registry} from './registry/Registry.js';
 import {BindToProviderDirective} from './binding-dsl/BindToProviderDirective.js';
-import {DecoratorBasedClassInjector} from './class-injector/DecoratorBasedClassInjector.js';
-import type {BindingContext} from './binding-dsl/BindingContext.js';
+import type {BindingContext} from './binding/BindingContext.js';
+import {createBindingContext} from './binding/BindingContext.js';
 import {BindDirective} from './binding-dsl/BindDirective.js';
 import {DefaultRegistry} from './registry/DefaultRegistry.js';
 import type {ClassInjector} from './class-injector/ClassInjector.js';
 import {ClassicClassInjector} from './class-injector/ClassicClassInjector.js';
-import {createBindingContext} from './binding-dsl/BindingContext.js';
 
 export interface ContainerCreationOptions {
   unstable_useNewDecoratorsSyntax?: boolean;
@@ -35,15 +34,14 @@ export class Container {
     return bindDirective.bind(tokenOrClass);
   }
 
-  public resolve<TInstance>(tokenOrClass: Token | Class<TInstance>): TInstance {
-    return this.registry.resolve<TInstance>(serializeToken(tokenOrClass));
+  public resolve<T>(tokenOrClass: Token | Class<T>): T;
+  public resolve<T, S extends object = object>(tokenOrClass: Token | Class<T>, scope: S): T;
+  public resolve<T, S extends object = object>(tokenOrClass: Token | Class<T>, scope?: S): T {
+    return this.registry.resolve<T, S>(serializeToken(tokenOrClass), scope ?? null);
   }
 
   public instantiate<C extends Class<unknown>>(clazz: C): InstanceType<C> {
-    const injector: ClassInjector<C> = this.options.unstable_useNewDecoratorsSyntax
-      ? new DecoratorBasedClassInjector<C>(this.registry, clazz)
-      : new ClassicClassInjector<C>(this, clazz);
-
+    const injector: ClassInjector<C> = new ClassicClassInjector<C>(this, clazz); // this injector does not need scope information
     return injector.createClassInstance();
   }
 }

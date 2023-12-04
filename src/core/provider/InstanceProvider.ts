@@ -1,6 +1,5 @@
 import {Container} from '../Container.js';
-import type {ProviderResolver, Provider} from './Provider.js';
-import type {ProviderFactory} from './Provider.js';
+import type {ProviderResolver, Provider, ProviderFactory} from './Provider.js';
 
 export interface InstanceProvider<T = unknown> {
   instance: T;

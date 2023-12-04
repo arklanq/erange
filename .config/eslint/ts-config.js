@@ -51,6 +51,8 @@ const config = {
 
     // Don't leave stupid console calls in code!
     'no-console': ['warn', {allow: ['warn', 'error', 'info']}],
+    // It is safe to disable this rule when using TypeScript because TypeScript's compiler enforces this check.
+    'no-dupe-class-members': 'off',
     // Don't leave floating Promises in the codebase. If needed explicitly mark them with `void` operator.
     '@typescript-eslint/no-floating-promises': ['warn', {ignoreVoid: true}],
     // Allow unused vars with leading underscore

@@ -1,18 +1,21 @@
 ## Erange
 
-[![license](https://img.shields.io/badge/license-mit-brightgreen?style=for-the-badge)](./LICENSE)
 [![npm](https://img.shields.io/npm/v/erange?style=for-the-badge&color=red)](https://www.npmjs.com/package/erange)
-[![docs](https://img.shields.io/badge/docs-wiki-purple?style=for-the-badge&color=blue)](https://github.com/arklanq/erange/wiki)
+[![beta](https://img.shields.io/badge/version-beta-orange?style=for-the-badge)](https://github.com/arklanq/erange/wiki)
+[![license](https://img.shields.io/badge/license-mit-brightgreen?style=for-the-badge)](./LICENSE)
+[![docs](https://img.shields.io/badge/docs-wiki-blue?style=for-the-badge)](https://github.com/arklanq/erange/wiki)
 
 **Erange** (pronounced 'arrange') - flexible, lightweight and easy to use dependency injection for `JS`/`TS`.
+
+> ⚠️ This library is currently in its `beta` development stage and is subject to change in future versions without prior
+> notice. It is not recommended for production use as it may contain unexpected issues.
 
 ### Table of contents
 
 * [Introduction](#introduction)
 * [Why `erange`?](#why-erange)
-* [Quick showcase](#quick-showcase)
 * [Installation](#installation)
-* [Documentation & user guide](#documentation--user-guide)
+* [Documentation & user guide](https://github.com/arklanq/erange/wiki)
 
 ### Introduction
 

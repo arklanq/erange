@@ -4,6 +4,7 @@ import {serializeToken} from '@/utils/serializeToken.js';
 import type {Binding} from '../binding/Binding.js';
 import {DirectiveWithContext, type BindingContext} from '../binding/BindingContext.js';
 import {BindToProviderDirective} from './BindToProviderDirective.js';
+import type {SingletonScopeBinding} from '../scope/SingletonScope.js';
 
 export class BindDirective extends DirectiveWithContext {
   public constructor(context: BindingContext) {
@@ -23,9 +24,10 @@ export class BindDirective extends DirectiveWithContext {
         token: clazz.name,
         // ClassProvider - default provider for class-based tokens
         provider: {class: clazz},
-        // TransientScope - default scope for ClassProvider
-        scope: this.context.factory.scope.transient.create(),
-      };
+        // SingletonScope - default scope
+        // Do not populate SingletonScope's cache until first resolution
+        scope: this.context.factory.scope.singleton.create(),
+      } satisfies Partial<SingletonScopeBinding<unknown>>;
     }
     // Otherwise ...
     else {
@@ -35,9 +37,10 @@ export class BindDirective extends DirectiveWithContext {
         token: token,
         // InstanceProvider - default provider for plain tokens
         provider: {instance: tokenOrClass},
-        // SingletonScope - default scope for InstanceProvider
-        scope: this.context.factory.scope.singleton.create(null),
-      };
+        // SingletonScope - default scope
+        // Do not populate SingletonScope's cache until first resolution
+        scope: this.context.factory.scope.singleton.create(),
+      } satisfies Partial<SingletonScopeBinding<Token>>;
     }
 
     // Register new binding

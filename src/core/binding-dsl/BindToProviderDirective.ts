@@ -3,7 +3,6 @@ import type {BindingContext} from '../binding/BindingContext.js';
 import {BindInScopeDirective} from './BindInScopeDirective.js';
 import type {Binding} from '../binding/Binding.js';
 import type {FactoryProviderFunction} from '../provider/FactoryProvider.js';
-import type {TransientScopeBinding} from '../scope/TransientScope.js';
 import type {SingletonScopeBinding} from '../scope/SingletonScope.js';
 
 export class BindToProviderDirective extends BindInScopeDirective {
@@ -19,9 +18,10 @@ export class BindToProviderDirective extends BindInScopeDirective {
     Object.assign(this.binding, {
       // ClassProvider
       provider: this.context.factory.provider.class.create(clazz),
-      // TransientScope - default scope for ClassProvider
-      scope: this.context.factory.scope.transient.create(),
-    } satisfies Partial<TransientScopeBinding<T>>);
+      // SingletonScope - default scope
+      // Do not populate SingletonScope's cache until first resolution
+      scope: this.context.factory.scope.singleton.create(),
+    } satisfies Partial<SingletonScopeBinding<T>>);
 
     return new BindInScopeDirective(this.context, this.binding);
   }
@@ -34,8 +34,9 @@ export class BindToProviderDirective extends BindInScopeDirective {
     Object.assign(this.binding, {
       // InstanceProvider
       provider: this.context.factory.provider.instance.create(instance),
-      // SingletonScope - default scope for InstanceProvider
-      scope: this.context.factory.scope.singleton.create(instance),
+      // SingletonScope - default scope
+      // Do not populate SingletonScope's cache until first resolution
+      scope: this.context.factory.scope.singleton.create(),
     } satisfies Partial<SingletonScopeBinding<T>>);
 
     return new BindInScopeDirective(this.context, this.binding);
@@ -49,9 +50,10 @@ export class BindToProviderDirective extends BindInScopeDirective {
     Object.assign(this.binding, {
       // FactoryProvider
       provider: this.context.factory.provider.factory.create(factory),
-      // TransientScope - default scope for FactoryProvider
-      scope: this.context.factory.scope.transient.create(),
-    } satisfies Partial<TransientScopeBinding<T>>);
+      // SingletonScope - default scope
+      // Do not populate SingletonScope's cache until first resolution
+      scope: this.context.factory.scope.singleton.create(),
+    } satisfies Partial<SingletonScopeBinding<T>>);
 
     return new BindInScopeDirective(this.context, this.binding);
   }
@@ -64,8 +66,8 @@ export class BindToProviderDirective extends BindInScopeDirective {
     Object.assign(this.binding, {
       // AliasProvider
       provider: this.context.factory.provider.alias.create(alias),
-      // SingletonScope - default scope for AliasProvider
-      // The SingletonScope cache will be autopopulated when the value will be resolved for the first time
+      // SingletonScope - default scope
+      // Do not populate SingletonScope's cache until first resolution
       scope: this.context.factory.scope.singleton.create(),
     } satisfies Partial<SingletonScopeBinding<T>>);
 

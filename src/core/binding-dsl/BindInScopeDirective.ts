@@ -62,7 +62,7 @@ export class BindInScopeDirective extends ResolveDirective {
 
         // 2. Change the scope at `binding` object
         Object.assign(this.binding, {
-          // SingletonScope
+          // CustomScope
           scope: this.context.factory.scope.custom.create(),
         } satisfies Partial<CustomScopeBinding<unknown>>);
 

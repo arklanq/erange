@@ -76,6 +76,7 @@ export async function generatePackageManifest() {
         }
       }
     },
+    scripts: {}, // See: https://github.com/npm/cli/issues/6918
     dependencies: projectManifest.dependencies,
     peerDependencies: projectManifest.peerDependencies,
     optionalDependencies: projectManifest.optionalDependencies,

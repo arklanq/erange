@@ -1,5 +1,6 @@
 ### TO-DO
 
+- [ ] Good tests
 - [X] Readme / Wiki
 - [ ] @Inject decorator ^1 ^2
 - [ ] @Singleton decorator
@@ -7,7 +8,7 @@
 - [ ] BINDING_ALREADY_SET option, throwing error if binding is already defined for specified token
 - [X] Alias providers
 - [X] Async factory providers
-- [ ] Custom scopes
+- [X] Custom scopes
 - [ ] Throw error if factory provider returned `undefined | null` value
 - [X] Allow `null` values to be stored or produced by factories
 - [ ] Sub-containers

@@ -61,6 +61,7 @@ export async function createSharedConfig(options = {}) {
           type: _options.format === 'es' ? 'module' : 'commonjs',
           main: base.main.replace(/\.ts$/, '.js'),
           types: base.main.replace(/\.ts$/, '.d.ts'),
+          scripts: {} // See: https://github.com/npm/cli/issues/6918
         }),
         outputFolder: _options.dist,
       }),

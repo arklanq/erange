@@ -2,6 +2,8 @@ import {AnyProviderResolver} from '../provider/AnyProviderResolver.js';
 import type {Binding} from '../binding/Binding.js';
 import {Scope, type ScopeResolver, type EncapsulatedScope, type ScopeFactory} from './Scope.js';
 
+import type {ScopeAnchor} from './ScopeAnchor.js';
+
 export const emptyCacheSymbol: unique symbol = Symbol('emptyCache');
 
 interface SingletonScopeData<T> {
@@ -36,12 +38,12 @@ export class SingletonScopeResolver implements ScopeResolver {
     return isSingletonScope(binding.scope);
   }
 
-  public resolve<T>(binding: SingletonScopeBinding<T>, scope: object | null): T {
+  public resolve<T, A extends ScopeAnchor>(binding: SingletonScopeBinding<T>, anchor: A | null): T {
     const scopeData: SingletonScopeData<T> = binding.scope;
 
     // find out if 'cache' refers to 'emptyCacheSymbol' in order to know if cache is empty or not
     if (scopeData.cache !== emptyCacheSymbol) return scopeData.cache;
 
-    return (scopeData.cache = this.providerResolver.resolve(binding.token, binding.provider, scope));
+    return (scopeData.cache = this.providerResolver.resolve(binding.token, binding.provider, anchor));
   }
 }

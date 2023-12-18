@@ -8,19 +8,20 @@ import type {SingletonScopeBinding} from '../scope/SingletonScope.js';
 import {isSingletonScope} from '../scope/SingletonScope.js';
 import {InvalidScopeException} from '@/exceptions/InvalidScopeException.js';
 import type {CustomScopeBinding} from '../scope/CustomScope.js';
+import {isValidCustomScopeAnchor} from '../scope/ScopeAnchor.js';
 
 export class BindInScopeDirective extends ResolveDirective {
   public constructor(context: BindingContext, binding: Binding) {
     super(context, binding, null);
   }
 
-  public in(scope: Scope | object): ResolveDirective {
+  public in(scopeOrAnchor: unknown): ResolveDirective {
     /*
      * Because we are modifying directly the object via reference
      * we don't have to change anything at the Registry
      */
     switch (true) {
-      case scope === Scope.TRANSIENT: {
+      case scopeOrAnchor === Scope.TRANSIENT: {
         /*
          * Ad. 1. Because we are modifying the `binding` object directly via reference
          * we don't have to change anything at the Registry.
@@ -38,7 +39,7 @@ export class BindInScopeDirective extends ResolveDirective {
         return new ResolveDirective(this.context, this.binding, null);
       }
 
-      case scope === Scope.SINGLETON: {
+      case scopeOrAnchor === Scope.SINGLETON: {
         /*
          * Ad. 1. Because we are modifying the `binding` object directly via reference
          * we don't have to change anything at the Registry.
@@ -56,7 +57,7 @@ export class BindInScopeDirective extends ResolveDirective {
         return new ResolveDirective(this.context, this.binding, null);
       }
 
-      case ['object', 'function', 'symbol'].includes(typeof scope) && scope !== null: {
+      case isValidCustomScopeAnchor(scopeOrAnchor): {
         // 1. Unregister existing binding from the `defaultRegistryMap`
         this.context.registry.unregister(this.binding, null);
 
@@ -67,14 +68,14 @@ export class BindInScopeDirective extends ResolveDirective {
         } satisfies Partial<CustomScopeBinding<unknown>>);
 
         // 3. Register the binding once again, this  time at `scopedRegistryMap`
-        this.context.registry.register(this.binding, scope);
+        this.context.registry.register(this.binding, scopeOrAnchor);
 
-        return new ResolveDirective(this.context, this.binding, scope);
+        return new ResolveDirective(this.context, this.binding, scopeOrAnchor);
       }
 
       default: {
         // If received `scope` argument is not a valid property then throw exception
-        throw new InvalidScopeException(this.binding.token, scope);
+        throw new InvalidScopeException(this.binding.token, scopeOrAnchor);
       }
     }
   }

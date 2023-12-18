@@ -1,6 +1,7 @@
 import {AnyProviderResolver} from '../provider/AnyProviderResolver.js';
 import type {Binding} from '../binding/Binding.js';
 import type {ScopeResolver, EncapsulatedScope, ScopeFactory, CustomScopeName} from './Scope.js';
+import {isValidCustomScopeAnchor, type ScopeAnchor} from './ScopeAnchor.js';
 
 export type EncapsulatedCustomScope = EncapsulatedScope<CustomScopeName>;
 
@@ -23,11 +24,11 @@ export class CustomScopeResolver implements ScopeResolver {
     this.providerResolver = providerResolver;
   }
 
-  public canResolve(binding: Binding, scope: object | null): binding is CustomScopeBinding<unknown> {
-    return isCustomScope(binding.scope) && typeof scope === 'object' && scope !== null;
+  public canResolve(binding: Binding, anchor: unknown): binding is CustomScopeBinding<unknown> {
+    return isCustomScope(binding.scope) && isValidCustomScopeAnchor(anchor);
   }
 
-  public resolve<T, S extends object>(binding: CustomScopeBinding<T>, scope: S | null): T {
-    return this.providerResolver.resolve(binding.token, binding.provider, scope);
+  public resolve<T, A extends ScopeAnchor>(binding: CustomScopeBinding<T>, anchor: A | null): T {
+    return this.providerResolver.resolve(binding.token, binding.provider, anchor);
   }
 }

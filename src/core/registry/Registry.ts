@@ -1,14 +1,16 @@
 import type {Token} from '@/utils/types.js';
 import type {Binding} from '../binding/Binding.js';
 
+import type {ScopeAnchor} from '../scope/ScopeAnchor.js';
+
 export type RegistryMap = Map<Token, Binding>;
 
-export type ScopedRegistryMap = WeakMap<object, RegistryMap>;
+export type ScopedRegistryMap = WeakMap<ScopeAnchor, RegistryMap>;
 
 export interface Registry {
-  register<T = unknown, S extends object = object>(binding: Binding<T>, scope: S | null): void;
+  register<T = unknown, A extends ScopeAnchor = ScopeAnchor>(binding: Binding<T>, anchor: A | null): void;
 
-  unregister<T = unknown, S extends object = object>(binding: Binding<T>, scope: S | null): void;
+  unregister<T = unknown, A extends ScopeAnchor = ScopeAnchor>(binding: Binding<T>, anchor: A | null): void;
 
-  resolve<T = unknown, S extends object = object>(token: Token, scope: S | null): T;
+  resolve<T = unknown, A extends ScopeAnchor = ScopeAnchor>(token: Token, anchor: A | null): T;
 }

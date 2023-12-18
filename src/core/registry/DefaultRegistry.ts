@@ -7,6 +7,8 @@ import type {Registry, RegistryMap, ScopedRegistryMap} from './Registry.js';
 import type {ResolutionContext} from '../scope/ResolutionContext.js';
 import {createResolutionContext} from '../scope/ResolutionContext.js';
 
+import type {ScopeAnchor} from '../scope/ScopeAnchor.js';
+
 export class DefaultRegistry implements Registry {
   protected readonly scopeResolver: AnyScopeResolvers;
   protected readonly defaultRegistryMap: RegistryMap = new Map();
@@ -17,17 +19,17 @@ export class DefaultRegistry implements Registry {
     this.scopeResolver = new AnyScopeResolvers(context);
   }
 
-  public register<T = unknown, S extends object = object>(binding: Binding<T>, scope: S | null): void {
-    // If `scope` has been provided we shall look at `scopedRegistryMap`
-    if (scope) {
-      // Find existing registryMap bound to specified scope or create new one
-      const registryMap: RegistryMap = this.scopedRegistryMap.get(scope) ?? new Map<Token, Binding>();
+  public register<T = unknown, A extends ScopeAnchor = ScopeAnchor>(binding: Binding<T>, anchor: A | null): void {
+    // If `anchor` has been provided we shall look at `scopedRegistryMap`
+    if (anchor) {
+      // Find existing registryMap bound to specified anchor or create new one
+      const registryMap: RegistryMap = this.scopedRegistryMap.get(anchor) ?? new Map<Token, Binding>();
 
       // Create new entry in registryMap
       registryMap.set(binding.token, binding);
 
       // Override entry at `scopedRegistryMap`
-      this.scopedRegistryMap.set(scope, registryMap);
+      this.scopedRegistryMap.set(anchor, registryMap);
     }
     // ... otherwise save the binding at `defaultRegistryMap`
     else {
@@ -35,14 +37,14 @@ export class DefaultRegistry implements Registry {
     }
   }
 
-  public unregister<T = unknown, S extends object = object>(binding: Binding<T>, scope: S | null): void {
-    // If `scope` has been provided we shall look at `scopedRegistryMap`
-    if (scope) {
-      // Find existing registryMap bound to specified scope or create new one
-      const registryMap: RegistryMap | undefined = this.scopedRegistryMap.get(scope);
+  public unregister<T = unknown, A extends ScopeAnchor = ScopeAnchor>(binding: Binding<T>, anchor: A | null): void {
+    // If `anchor` has been provided we shall look at `scopedRegistryMap`
+    if (anchor) {
+      // Find existing registryMap bound to specified anchor or create new one
+      const registryMap: RegistryMap | undefined = this.scopedRegistryMap.get(anchor);
 
       /*
-       * If registryMap is not found it means that nothing has been binded yet for the specified scope.
+       * If registryMap is not found it means that nothing has been binded yet for the specified anchor.
        * Such situation should never happen, in any case code is safely returning here.
        */
       if (registryMap === undefined) return;
@@ -51,7 +53,7 @@ export class DefaultRegistry implements Registry {
       registryMap.delete(binding.token);
 
       // Override entry at `scopedRegistryMap`
-      this.scopedRegistryMap.set(scope, registryMap);
+      this.scopedRegistryMap.set(anchor, registryMap);
     }
     // ... otherwise delete the binding from `defaultRegistryMap`
     else {
@@ -59,18 +61,18 @@ export class DefaultRegistry implements Registry {
     }
   }
 
-  public resolve<T = unknown, S extends object = object>(token: Token, scope: S | null): T {
+  public resolve<T = unknown, A extends ScopeAnchor = ScopeAnchor>(token: Token, anchor: A | null): T {
     let binding: Binding;
 
-    // If `scope` has been provided we shall look at `scopedRegistryMap`
-    if (scope) {
-      // Find existing registryMap bound to specified scope
-      const registryMap: RegistryMap | undefined = this.scopedRegistryMap.get(scope);
+    // If `anchor` has been provided we shall look at `scopedRegistryMap`
+    if (anchor) {
+      // Find existing registryMap bound to specified anchor
+      const registryMap: RegistryMap | undefined = this.scopedRegistryMap.get(anchor);
 
       /*
-       * If registryMap is not found it means that nothing has been binded yet for the specified scope.
+       * If registryMap is not found it means that nothing has been binded yet for the specified anchor.
        */
-      if (registryMap === undefined) throw new BindingResolutionException(token, scope);
+      if (registryMap === undefined) throw new BindingResolutionException(token, anchor);
 
       // Look at acquired registryMap for the binding
       const bindingLookup: Binding | undefined = registryMap.get(token);
@@ -79,7 +81,7 @@ export class DefaultRegistry implements Registry {
        * If binding is not found in the registryMap it means that any binding is already registered on that map
        * but not the one the caller is requesting.
        */
-      if (bindingLookup === undefined) throw new BindingResolutionException(token, scope);
+      if (bindingLookup === undefined) throw new BindingResolutionException(token, anchor);
 
       binding = bindingLookup;
     }
@@ -94,6 +96,6 @@ export class DefaultRegistry implements Registry {
       binding = bindingLookup;
     }
 
-    return this.scopeResolver.resolve(binding as Binding<T>, scope);
+    return this.scopeResolver.resolve(binding as Binding<T>, anchor);
   }
 }

@@ -1,5 +1,7 @@
 import type {Binding} from '../binding/Binding.js';
 
+import type {ScopeAnchor} from './ScopeAnchor.js';
+
 export enum Scope {
   TRANSIENT = 'TRANSIENT',
   SINGLETON = 'SINGLETON',
@@ -22,7 +24,7 @@ export interface ScopeFactory {
 }
 
 export interface ScopeResolver {
-  canResolve(binding: Binding, scope: object | null): boolean;
+  canResolve(binding: Binding, anchor: ScopeAnchor | null): boolean;
 
-  resolve<T, S extends object>(binding: Binding<T>, scope: S | null): T;
+  resolve<T, A extends ScopeAnchor>(binding: Binding<T>, scope: A | null): T;
 }

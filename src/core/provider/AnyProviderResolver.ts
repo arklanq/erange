@@ -7,6 +7,8 @@ import {InstanceProviderResolver} from './InstanceProvider.js';
 import {FactoryProviderResolver} from './FactoryProvider.js';
 import {AliasProviderResolver} from './AliasProvider.js';
 
+import type {ScopeAnchor} from '../scope/ScopeAnchor.js';
+
 export class AnyProviderResolver {
   protected readonly providerResolvers: readonly ProviderResolver[];
 
@@ -19,11 +21,11 @@ export class AnyProviderResolver {
     ];
   }
 
-  public resolve<T>(token: Token, provider: Provider<T>, scope: object | null): T {
+  public resolve<T, A extends ScopeAnchor>(token: Token, provider: Provider<T>, anchor: A | null): T {
     for (const resolver of this.providerResolvers) {
       if (resolver.canResolve(provider)) return resolver.resolve<T>(provider);
     }
 
-    throw new ProviderResolutionException(token, scope);
+    throw new ProviderResolutionException(token, anchor);
   }
 }

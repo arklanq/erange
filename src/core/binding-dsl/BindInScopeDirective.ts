@@ -56,7 +56,7 @@ export class BindInScopeDirective extends ResolveDirective {
         return new ResolveDirective(this.context, this.binding, null);
       }
 
-      case typeof scope === 'object' && scope !== null: {
+      case ['object', 'function', 'symbol'].includes(typeof scope) && scope !== null: {
         // 1. Unregister existing binding from the `defaultRegistryMap`
         this.context.registry.unregister(this.binding, null);
 

@@ -1,6 +1,7 @@
 ### TO-DO
 
 - [ ] Good tests
+- [ ] Provide links to valid wiki pages instead of example.com
 - [X] Readme / Wiki
 - [ ] @Inject decorator ^1 ^2
 - [ ] @Singleton decorator

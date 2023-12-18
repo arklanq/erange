@@ -11,7 +11,10 @@
     ".": "./src/index.ts"
   },
   "homepage": "https://github.com/arklanq/erange#readme",
-  "repository": "https://github.com/arklanq/erange",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/arklanq/erange.git"
+  },
   "scripts": {
     "build": "rollup -c .config/rollup/rollup.config.js",
     "prebuild-production": "yarn clear-cache && yarn check-code && yarn lint-code && yarn format-code",

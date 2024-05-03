@@ -1,4 +1,3 @@
-import importPlugin from 'eslint-plugin-import';
 import typescriptPlugin from '@typescript-eslint/eslint-plugin';
 import typescriptParser from '@typescript-eslint/parser';
 
@@ -14,45 +13,20 @@ const config = {
       // This is required to avoid ecmaVersion < 2015 error or 'import' / 'export' error
       sourceType: 'module',
       ecmaVersion: 'latest',
-      project: './tsconfig.json',
+      project: true,
       warnOnUnsupportedTypeScriptVersion: true,
       emitDecoratorMetadata: false,
     },
   },
   plugins: {
-    import: importPlugin,
     '@typescript-eslint': typescriptPlugin,
   },
-  settings: {
-    'import/external-module-folders': ['node_modules', 'node_modules/@types'],
-    'import/resolver': {
-      typescript: {
-        project: './tsconfig.json',
-        extensions: ['.ts', '.d.ts'],
-        extensionAlias: {
-          '.js': ['.ts', '.d.ts', '.js'],
-        },
-        mainFields: ['main', 'jsnext:main', 'module', 'types', 'typings'],
-      },
-    },
-    'import/parsers': {
-      // If a file extension is matched, the dependency parser will require and use the map key as the parser instead of the configured ESLint parser.
-      espree: ['.js', '.cjs', '.mjs'],
-      '@typescript-eslint/parser': ['.ts'],
-    },
-  },
   rules: {
-    // `Import` plugin's recommended configs
-    ...importPlugin.configs.recommended.rules,
-    // `TypeScript-ESLint` plugin's recommended configs
-    ...typescriptPlugin.configs['eslint-recommended'].rules,
+    // Inject rules from `@typescript-eslint/eslint-plugin` plugin's recommended configs
+    ...typescriptPlugin.configs['eslint-recommended'].overrides[0].rules,
     ...typescriptPlugin.configs['recommended'].rules,
     ...typescriptPlugin.configs['recommended-type-checked'].rules,
 
-    // Don't leave stupid console calls in code!
-    'no-console': ['warn', {allow: ['warn', 'error', 'info']}],
-    // It is safe to disable this rule when using TypeScript because TypeScript's compiler enforces this check.
-    'no-dupe-class-members': 'off',
     // Don't leave floating Promises in the codebase. If needed explicitly mark them with `void` operator.
     '@typescript-eslint/no-floating-promises': ['warn', {ignoreVoid: true}],
     // Allow unused vars with leading underscore
@@ -87,6 +61,8 @@ const config = {
     '@typescript-eslint/no-unnecessary-type-assertion': 'warn',
     // Disallow inline type import by error https://github.com/rollup/plugins/issues/1588
     '@typescript-eslint/no-import-type-side-effects': 'error',
+    // There is no way to tell this rule that the class' method is actually bound (i.e. via `@bind` decorator)
+    '@typescript-eslint/unbound-method': 'off'
   },
 };
 

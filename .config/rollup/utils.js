@@ -61,9 +61,9 @@ export async function generatePackageManifest() {
     homepage: projectManifest.homepage,
     repository: projectManifest.repository,
     type: 'commonjs',
+    types: './cjs/src/index.d.ts',
     main: './cjs/src/index.js',
     module: './es/src/index.js',
-    types: './cjs/src/index.d.ts',
     exports: {
       '.': {
         import: {

@@ -1,9 +1,7 @@
-// ESLint's new 'flat' config system
 import eslintStockPlugin from '@eslint/js';
+import eslintConfigPrettier from "eslint-config-prettier";
 import globalConfig from './.config/eslint/global-config.js';
-import jsConfig from './.config/eslint/js-config.js';
 import tsConfig from './.config/eslint/ts-config.js';
-import commonjsConfig from './.config/eslint/commonjs-config.js';
 import sourceCodeConfig from './.config/eslint/source-code-config.js';
 
 /**
@@ -16,17 +14,14 @@ const config = [
   // ESLint recommended config
   eslintStockPlugin.configs.recommended,
 
-  // JavaScript code only
-  jsConfig,
-
   // TypeScript code only
   tsConfig,
 
-  // CommonJS code only
-  commonjsConfig,
-
   // Source code only
   sourceCodeConfig,
+
+  // Turns off all rules that are unnecessary or might conflict with Prettier
+  eslintConfigPrettier
 ];
 
 export default config;

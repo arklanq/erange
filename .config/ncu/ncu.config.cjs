@@ -1,6 +1,7 @@
 /**
  * @typedef ExceptionsMap
  * @type {object}
+ * @property {string[]} major
  * @property {string[]} minor
  * @property {string[]} patch
  */
@@ -9,6 +10,7 @@
  * @type {ExceptionsMap}
  */
 const exceptions = {
+  major: [],
   minor: ['@types/node'],
   patch: [],
 };
@@ -17,14 +19,12 @@ const exceptions = {
  * @type {import('npm-check-updates').RunOptions}
  */
 const config = {
-  packageManager: 'yarn',
-  // reject: ['@types/node'],
-  target: (packageName, _versionRange) => {
-    if(exceptions.minor.includes(packageName))
-      return 'minor';
-
-    if(exceptions.patch.includes(packageName))
-      return 'patch';
+  packageManager: 'npm',
+  target(packageName, _semver)  {
+    for(const level of ['major', 'minor', 'patch']) {
+      if(exceptions[level].includes(packageName))
+        return level;
+    }
 
     return 'latest';
   },

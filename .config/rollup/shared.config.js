@@ -13,11 +13,11 @@ const defaultOptions = {};
  */
 export async function createSharedConfig(options = {}) {
   // Merge default options with passed options
-  const _options = Object.assign({}, defaultOptions, options);
+  const completeOptions = Object.assign({}, defaultOptions, options);
 
   // Validate required options presence
   ['dist', 'format'].forEach((requiredOption) => {
-    if (_options[requiredOption] === undefined) throw new Error(`createSharedConfig(...) / \`${requiredOption}\` option cannot remain unspecified.`);
+    if (completeOptions[requiredOption] === undefined) throw new Error(`createSharedConfig(...) / \`${requiredOption}\` option cannot remain unspecified.`);
   });
 
   // Import project manifest (package.json)
@@ -38,40 +38,32 @@ export async function createSharedConfig(options = {}) {
       // Allows Rollup to convert TypeScript to JavaScript
       // Emits .js
       plugin_typescript(await createTscConfig({
-        outDir: _options.dist,
+        outDir: completeOptions.dist,
         sourceMap: false,
       })),
 
       // Allows Rollup to convert TypeScript to JavaScript
       // Emit .d.ts
       plugin_typescript(await createTscConfig({
-        outDir: _options.dist,
+        outDir: completeOptions.dist,
         declaration: true,
         emitDeclarationOnly: true,
       })),
 
       // Create package.json
       plugin_generatePackageJson({
-        baseContents: (base) => ({
-          name: base.name,
-          description: base.description,
-          version: base.version,
-          license: base.license,
-          private: false,
-          type: _options.format === 'es' ? 'module' : 'commonjs',
-          main: base.main.replace(/\.ts$/, '.js'),
-          types: base.main.replace(/\.ts$/, '.d.ts'),
-          scripts: {} // See: https://github.com/npm/cli/issues/6918
-        }),
-        outputFolder: _options.dist,
+        baseContents: {
+          type: completeOptions.format === 'es' ? 'module' : 'commonjs',
+        },
+        outputFolder: completeOptions.dist,
       }),
     ],
     external: Object.keys(projectManifest.dependencies)
       .concat(Object.keys(projectManifest.devDependencies))
       .map((packageName) => new RegExp(`^${packageName}(/.*)?`)),
     output: {
-      dir: _options.dist,
-      format: _options.format,
+      dir: completeOptions.dist,
+      format: completeOptions.format,
       exports: 'named',
       preserveModules: true,
       preserveModulesRoot: '.',

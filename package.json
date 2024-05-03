@@ -18,10 +18,11 @@
   "engines": {
     "node": ">=20"
   },
+  "packageManager": "npm@10.7.0",
   "scripts": {
     "build": "rollup -c .config/rollup/rollup.config.js",
-    "prebuild-production": "yarn clear-cache && yarn check-code && yarn lint-code && yarn format-code",
-    "build-production": "yarn build --environment NODE_ENV:production",
+    "prebuild-production": "npm run clear-cache && npm run check-code && npm run lint-code && npm run format-code",
+    "build-production": "NODE_ENV=production npm run build",
     "format-code": "prettier --log-level warn --cache --cache-location node_modules/.cache/prettier/.prettier-cache --write \"src/**/*.ts\"",
     "lint-code": "eslint \"src/**/*.ts\" --cache-location node_modules/.cache/eslint/.eslint-cache --fix",
     "check-code": "tsc --project tsconfig.json --noEmit",

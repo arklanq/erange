@@ -1,14 +1,14 @@
-import {ResolveDirective} from './ResolveDirective.js';
-import type {BindingContext} from '../binding/BindingContext.js';
+import {InvalidScopeException} from '@/exceptions/InvalidScopeException.js';
 import type {Binding} from '../binding/Binding.js';
+import type {BindingContext} from '../binding/BindingContext.js';
+import type {CustomScopeBinding} from '../scope/CustomScope.js';
 import {Scope} from '../scope/Scope.js';
-import type {TransientScopeBinding} from '../scope/TransientScope.js';
-import {isTransientScope} from '../scope/TransientScope.js';
+import {isValidCustomScopeAnchor} from '../scope/ScopeAnchor.js';
 import type {SingletonScopeBinding} from '../scope/SingletonScope.js';
 import {isSingletonScope} from '../scope/SingletonScope.js';
-import {InvalidScopeException} from '@/exceptions/InvalidScopeException.js';
-import type {CustomScopeBinding} from '../scope/CustomScope.js';
-import {isValidCustomScopeAnchor} from '../scope/ScopeAnchor.js';
+import type {TransientScopeBinding} from '../scope/TransientScope.js';
+import {isTransientScope} from '../scope/TransientScope.js';
+import {ResolveDirective} from './ResolveDirective.js';
 
 export class BindInScopeDirective extends ResolveDirective {
   public constructor(context: BindingContext, binding: Binding) {

@@ -1,10 +1,10 @@
-import type {Token, Class} from '@/utils/types.js';
-import {isConstructor} from '@/utils/type-guards.js';
 import {serializeToken} from '@/utils/serializeToken.js';
+import {isConstructor} from '@/utils/type-guards.js';
+import type {Class, Token} from '@/utils/types.js';
 import type {Binding} from '../binding/Binding.js';
-import {DirectiveWithContext, type BindingContext} from '../binding/BindingContext.js';
-import {BindToProviderDirective} from './BindToProviderDirective.js';
+import {type BindingContext, DirectiveWithContext} from '../binding/BindingContext.js';
 import type {SingletonScopeBinding} from '../scope/SingletonScope.js';
+import {BindToProviderDirective} from './BindToProviderDirective.js';
 
 export class BindDirective extends DirectiveWithContext {
   public constructor(context: BindingContext) {

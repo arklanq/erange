@@ -1,13 +1,12 @@
 import {ProviderResolutionException} from '@/exceptions/ProviderResolutionException.js';
 import type {Token} from '@/utils/types.js';
 import type {ResolutionContext} from '../scope/ResolutionContext.js';
-import type {ProviderResolver, Provider} from './Provider.js';
-import {ClassProviderResolver} from './ClassProvider.js';
-import {InstanceProviderResolver} from './InstanceProvider.js';
-import {FactoryProviderResolver} from './FactoryProvider.js';
-import {AliasProviderResolver} from './AliasProvider.js';
-
 import type {ScopeAnchor} from '../scope/ScopeAnchor.js';
+import {AliasProviderResolver} from './AliasProvider.js';
+import {ClassProviderResolver} from './ClassProvider.js';
+import {FactoryProviderResolver} from './FactoryProvider.js';
+import {InstanceProviderResolver} from './InstanceProvider.js';
+import type {Provider, ProviderResolver} from './Provider.js';
 
 export class AnyProviderResolver {
   protected readonly providerResolvers: readonly ProviderResolver[];

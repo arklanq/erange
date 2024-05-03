@@ -1,7 +1,7 @@
-import type {Token, Class} from '@/utils/types.js';
 import {serializeToken} from '@/utils/serializeToken.js';
+import type {Class, Token} from '@/utils/types.js';
 import {Container} from '../Container.js';
-import type {ProviderResolver, Provider, ProviderFactory} from './Provider.js';
+import type {Provider, ProviderFactory, ProviderResolver} from './Provider.js';
 
 export interface AliasProvider {
   alias: Token;

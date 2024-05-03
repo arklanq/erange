@@ -1,5 +1,4 @@
 import type {Binding} from '../binding/Binding.js';
-
 import type {ScopeAnchor} from './ScopeAnchor.js';
 
 export enum Scope {

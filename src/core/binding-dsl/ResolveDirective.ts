@@ -1,7 +1,5 @@
-import {DirectiveWithContext, type BindingContext} from '../binding/BindingContext.js';
-
 import type {Binding} from '../binding/Binding.js';
-
+import {type BindingContext, DirectiveWithContext} from '../binding/BindingContext.js';
 import type {ScopeAnchor} from '../scope/ScopeAnchor.js';
 
 export class ResolveDirective extends DirectiveWithContext {

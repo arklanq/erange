@@ -1,7 +1,6 @@
 import {Exception} from 'enhanced-exception';
+import {getScopeAnchorHumanReadableRepresentation, type ScopeAnchor} from '../core/scope/ScopeAnchor.js';
 import type {Token} from '../utils/types.js';
-
-import {type ScopeAnchor, getScopeAnchorHumanReadableRepresentation} from '../core/scope/ScopeAnchor.js';
 
 export class ScopeResolutionException extends Exception {
   public constructor(

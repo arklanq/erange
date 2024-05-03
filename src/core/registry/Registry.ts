@@ -1,6 +1,5 @@
 import type {Token} from '@/utils/types.js';
 import type {Binding} from '../binding/Binding.js';
-
 import type {ScopeAnchor} from '../scope/ScopeAnchor.js';
 
 export type RegistryMap = Map<Token, Binding>;

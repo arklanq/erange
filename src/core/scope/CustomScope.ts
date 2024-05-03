@@ -1,6 +1,6 @@
-import {AnyProviderResolver} from '../provider/AnyProviderResolver.js';
 import type {Binding} from '../binding/Binding.js';
-import type {ScopeResolver, EncapsulatedScope, ScopeFactory, CustomScopeName} from './Scope.js';
+import {AnyProviderResolver} from '../provider/AnyProviderResolver.js';
+import type {CustomScopeName, EncapsulatedScope, ScopeFactory, ScopeResolver} from './Scope.js';
 import {isValidCustomScopeAnchor, type ScopeAnchor} from './ScopeAnchor.js';
 
 export type EncapsulatedCustomScope = EncapsulatedScope<CustomScopeName>;

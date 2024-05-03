@@ -1,4 +1,4 @@
-import type {Token, Class} from './types.js';
+import type {Class, Token} from './types.js';
 
 export function serializeToken(tokenOrClass: Token | Class<unknown>): Token {
   if (typeof tokenOrClass === 'function' && 'name' in tokenOrClass && typeof tokenOrClass.name === 'string')

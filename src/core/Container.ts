@@ -1,13 +1,13 @@
-import type {Token, Class} from '@/utils/types.js';
 import {serializeToken} from '@/utils/serializeToken.js';
-import type {Registry} from './registry/Registry.js';
-import {BindToProviderDirective} from './binding-dsl/BindToProviderDirective.js';
+import type {Class, Token} from '@/utils/types.js';
 import type {BindingContext} from './binding/BindingContext.js';
 import {createBindingContext} from './binding/BindingContext.js';
 import {BindDirective} from './binding-dsl/BindDirective.js';
-import {DefaultRegistry} from './registry/DefaultRegistry.js';
-import type {ClassInjector} from './class-injector/ClassInjector.js';
+import {BindToProviderDirective} from './binding-dsl/BindToProviderDirective.js';
 import {ClassicClassInjector} from './class-injector/ClassicClassInjector.js';
+import type {ClassInjector} from './class-injector/ClassInjector.js';
+import {DefaultRegistry} from './registry/DefaultRegistry.js';
+import type {Registry} from './registry/Registry.js';
 
 export interface ContainerCreationOptions {
   unstable_useNewDecoratorsSyntax?: boolean;

@@ -1,13 +1,12 @@
-import type {Token} from '@/utils/types.js';
 import {BindingResolutionException} from '@/exceptions/BindingResolutionException.js';
-import type {Container} from '../Container.js';
+import type {Token} from '@/utils/types.js';
 import type {Binding} from '../binding/Binding.js';
+import type {Container} from '../Container.js';
 import {AnyScopeResolvers} from '../scope/AnyScopeResolvers.js';
-import type {Registry, RegistryMap, ScopedRegistryMap} from './Registry.js';
 import type {ResolutionContext} from '../scope/ResolutionContext.js';
 import {createResolutionContext} from '../scope/ResolutionContext.js';
-
 import type {ScopeAnchor} from '../scope/ScopeAnchor.js';
+import type {Registry, RegistryMap, ScopedRegistryMap} from './Registry.js';
 
 export class DefaultRegistry implements Registry {
   protected readonly scopeResolver: AnyScopeResolvers;

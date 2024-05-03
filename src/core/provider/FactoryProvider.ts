@@ -1,5 +1,5 @@
 import {Container} from '../Container.js';
-import type {ProviderResolver, Provider, ProviderFactory} from './Provider.js';
+import type {Provider, ProviderFactory, ProviderResolver} from './Provider.js';
 
 export interface FactoryProviderFunction<T> {
   (): T; // pure factory function

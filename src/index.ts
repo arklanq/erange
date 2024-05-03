@@ -1,25 +1,16 @@
-/* === core exports === */
-
-export {Container, type ContainerCreationOptions, container} from './core/Container.js';
-
-export type {Provider} from './core/provider/Provider.js';
-export type {ClassProvider} from '@/core/provider/ClassProvider.js';
-export type {InstanceProvider} from '@/core/provider/InstanceProvider.js';
-export type {FactoryProvider} from '@/core/provider/FactoryProvider.js';
-export type {AliasProvider} from '@/core/provider/AliasProvider.js';
+export {Container, container, type ContainerCreationOptions} from './core/Container.js';
 export type {FactoryProviderFunction} from './core/provider/FactoryProvider.js';
-
-export type {Registry} from './core/registry/Registry.js';
+export type {Provider} from './core/provider/Provider.js';
 export {DefaultRegistry} from './core/registry/DefaultRegistry.js';
-
-export {Scope} from '@/core/scope/Scope.js';
-
-/* === core exports end === */
-
-export {BindingResolutionException} from '@/exceptions/BindingResolutionException.js';
-export {ScopeResolutionException} from '@/exceptions/ScopeResolutionException.js';
-export {ProviderResolutionException} from '@/exceptions/ProviderResolutionException.js';
+export type {Registry} from './core/registry/Registry.js';
 export {ClassInstanceInitializationException} from './exceptions/ClassInstanceInitializationException.js';
 export {ConstructorArgResolutionException} from './exceptions/ConstructorArgResolutionException.js';
-
-export {type Token, type Class} from './utils/types.js';
+export {type Class, type Token} from './utils/types.js';
+export type {AliasProvider} from '@/core/provider/AliasProvider.js';
+export type {ClassProvider} from '@/core/provider/ClassProvider.js';
+export type {FactoryProvider} from '@/core/provider/FactoryProvider.js';
+export type {InstanceProvider} from '@/core/provider/InstanceProvider.js';
+export {Scope} from '@/core/scope/Scope.js';
+export {BindingResolutionException} from '@/exceptions/BindingResolutionException.js';
+export {ProviderResolutionException} from '@/exceptions/ProviderResolutionException.js';
+export {ScopeResolutionException} from '@/exceptions/ScopeResolutionException.js';

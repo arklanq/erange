@@ -28,7 +28,7 @@ export async function importJsonFile(filePath) {
 }
 
 export async function clearDistDirectory() {
-  await asyncFs.rm(path.join(rootDirPath, 'dist'), {recursive: true});
+  await asyncFs.rm(path.join(rootDirPath, 'dist'), {recursive: true, force: true});
 }
 
 export async function copyResources() {

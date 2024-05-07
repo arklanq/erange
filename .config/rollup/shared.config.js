@@ -1,8 +1,9 @@
 import plugin_commonjs from '@rollup/plugin-commonjs';
 import plugin_nodeResolve from '@rollup/plugin-node-resolve';
 import plugin_typescript from '@rollup/plugin-typescript';
-import createTscConfig from './tsc.config.js';
 import plugin_generatePackageJson from 'rollup-plugin-generate-package-json';
+import plugin_typescriptAlias from './rollup-plugin-typescript-alias.js';
+import createTscConfig from './tsc.config.js';
 import {importProjectManifest} from './utils.js';
 
 const defaultOptions = {};
@@ -49,6 +50,12 @@ export async function createSharedConfig(options = {}) {
         declaration: true,
         emitDeclarationOnly: true,
       })),
+
+      // Replace alias paths with relative paths after typescript compilation
+      plugin_typescriptAlias({
+        outDir: completeOptions.dist,
+        declarationDir: completeOptions.dist,
+      }),
 
       // Create package.json
       plugin_generatePackageJson({

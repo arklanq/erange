@@ -1,5 +1,5 @@
-import {serializeToken} from '@/utils/serializeToken.js';
-import type {Class, Token} from '@/utils/types.js';
+import {InvalidTokenException} from '@/exceptions/InvalidTokenException.js';
+import type {Token} from '@/utils/types.js';
 import {Container} from '../Container.js';
 import type {Provider, ProviderFactory, ProviderResolver} from './Provider.js';
 
@@ -12,8 +12,9 @@ export function isAliasProvider(provider: Provider): provider is AliasProvider {
 }
 
 export class AliasProviderFactory implements ProviderFactory {
-  public create<T>(tokenOrClass: Token | Class<T>): AliasProvider {
-    return {alias: serializeToken(tokenOrClass)};
+  public create(tokenOrClass: Token): AliasProvider {
+    if (tokenOrClass == null) throw new InvalidTokenException(tokenOrClass);
+    return {alias: tokenOrClass};
   }
 }
 

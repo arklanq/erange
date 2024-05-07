@@ -1,4 +1,3 @@
-import {serializeToken} from '@/utils/serializeToken.js';
 import {isConstructor} from '@/utils/type-guards.js';
 import type {Class, Token} from '@/utils/types.js';
 import type {Binding} from '../binding/Binding.js';
@@ -11,7 +10,7 @@ export class BindDirective extends DirectiveWithContext {
     super(context);
   }
 
-  public bind(tokenOrClass: Token | Class<unknown>): BindToProviderDirective {
+  public bind(tokenOrClass: Token): BindToProviderDirective {
     // Create new binding
     let binding: Binding;
 
@@ -31,7 +30,8 @@ export class BindDirective extends DirectiveWithContext {
     }
     // Otherwise ...
     else {
-      const token: Token = serializeToken(tokenOrClass);
+      const token: Token = tokenOrClass;
+
       binding = {
         // Simply use raw token
         token: token,

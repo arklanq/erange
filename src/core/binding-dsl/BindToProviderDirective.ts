@@ -58,7 +58,7 @@ export class BindToProviderDirective extends BindInScopeDirective {
     return new BindInScopeDirective(this.context, this.binding);
   }
 
-  public toAlias<T>(alias: Token | Class<T>): BindInScopeDirective {
+  public toAlias<T>(alias: Token): BindInScopeDirective {
     /*
      * Because we are modifying directly the object via reference
      * we don't have to change anything at the Registry

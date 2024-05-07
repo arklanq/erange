@@ -1,4 +1,4 @@
-import {serializeToken} from '@/utils/serializeToken.js';
+import {InvalidTokenException} from '@/exceptions/InvalidTokenException.js';
 import type {Class, Token} from '@/utils/types.js';
 import type {BindingContext} from './binding/BindingContext.js';
 import {createBindingContext} from './binding/BindingContext.js';
@@ -28,19 +28,22 @@ export class Container {
     this.sharedBindingContext = createBindingContext(this.registry);
   }
 
-  public bind(tokenOrClass: Token | Class<unknown>): BindToProviderDirective {
+  public bind(tokenOrClass: Token): BindToProviderDirective {
+    if (tokenOrClass == null) throw new InvalidTokenException(tokenOrClass);
     const bindingContext: BindingContext = Object.assign({}, this.sharedBindingContext);
     const bindDirective: BindDirective = new BindDirective(bindingContext);
     return bindDirective.bind(tokenOrClass);
   }
 
-  public resolve<T>(tokenOrClass: Token | Class<T>): T;
-  public resolve<T, S extends object = object>(tokenOrClass: Token | Class<T>, scope: S): T;
-  public resolve<T, S extends object = object>(tokenOrClass: Token | Class<T>, scope?: S): T {
-    return this.registry.resolve<T, S>(serializeToken(tokenOrClass), scope ?? null);
+  public resolve<T>(token: Token): T;
+  public resolve<T, S extends object = object>(token: Token, scope: S): T;
+  public resolve<T, S extends object = object>(token: Token, scope?: S): T {
+    if (token == null) throw new InvalidTokenException(token);
+    return this.registry.resolve<T, S>(token, scope ?? null);
   }
 
   public instantiate<C extends Class<unknown>>(clazz: C): InstanceType<C> {
+    if (clazz == null) throw new InvalidTokenException(clazz);
     const injector: ClassInjector<C> = new ClassicClassInjector<C>(this, clazz); // this injector does not need scope information
     return injector.createClassInstance();
   }

@@ -26,7 +26,7 @@ export class AnyScopeResolvers {
       if (resolver.canResolve(binding, anchor)) return resolver.resolve<T, A>(binding, anchor);
     }
 
-    // Will this never happen?
+    // Will this ever happen?
     throw new ScopeResolutionException(binding.token, anchor);
   }
 }

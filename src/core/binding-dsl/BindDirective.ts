@@ -36,7 +36,7 @@ export class BindDirective extends DirectiveWithContext {
         // Simply use raw token
         token: token,
         // InstanceProvider - default provider for plain tokens
-        provider: {instance: tokenOrClass},
+        provider: {instance: token},
         // SingletonScope - default scope
         // Do not populate SingletonScope's cache until first resolution
         scope: this.context.factory.scope.singleton.create(),

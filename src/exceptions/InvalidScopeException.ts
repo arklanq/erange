@@ -1,6 +1,6 @@
 import {inspect} from 'node:util';
 import {Exception} from 'enhanced-exception';
-import type {Token} from '../utils/types.js';
+import type {Token} from '@/utils/types.js';
 
 function stringifyScope(scope: unknown): string {
   return inspect(scope, {colors: false, compact: true, depth: 1});

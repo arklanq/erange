@@ -1,6 +1,6 @@
 import {ClassInstanceInitializationException} from '@/exceptions/ClassInstanceInitializationException.js';
 import type {Class} from '@/utils/types.js';
-import type {Container} from '../Container.js';
+import type {Container} from '../container/Container.js';
 import type {ClassInjector} from './ClassInjector.js';
 
 export class ClassicClassInjector<C extends Class<unknown>> implements ClassInjector<C> {

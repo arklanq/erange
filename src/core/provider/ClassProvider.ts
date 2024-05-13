@@ -1,5 +1,5 @@
 import type {Class} from '@/utils/types.js';
-import {Container} from '../Container.js';
+import {Container} from '../container/Container.js';
 import type {Provider, ProviderFactory, ProviderResolver} from './Provider.js';
 
 export interface ClassProvider<T = unknown> {

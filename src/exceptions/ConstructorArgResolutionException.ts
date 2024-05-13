@@ -1,5 +1,5 @@
 import {Exception} from 'enhanced-exception';
-import type {Class, Token} from '../utils/types.js';
+import type {Class, Token} from '@/utils/types.js';
 
 export class ConstructorArgResolutionException extends Exception {
   public readonly clazz: Class<unknown>;

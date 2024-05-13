@@ -1,5 +1,5 @@
 import {Exception} from 'enhanced-exception';
-import type {Class} from '../utils/types.js';
+import type {Class} from '@/utils/types.js';
 
 export class ClassInstanceInitializationException extends Exception {
   public readonly clazz: Class<unknown>;

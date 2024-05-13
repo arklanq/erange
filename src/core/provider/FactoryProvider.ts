@@ -1,9 +1,9 @@
-import {Container} from '../Container.js';
+import {Container} from '../container/Container.js';
 import type {Provider, ProviderFactory, ProviderResolver} from './Provider.js';
 
 export interface FactoryProviderFunction<T> {
   (): T; // pure factory function
-  (container: Container): T; // takes `container` as a first argument
+  (container: Container): T; // takes `Container` as a first argument
 }
 
 export interface FactoryProvider<T = unknown> {

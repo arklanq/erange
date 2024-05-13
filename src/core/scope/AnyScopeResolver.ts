@@ -2,18 +2,15 @@ import {ScopeResolutionException} from '@/exceptions/ScopeResolutionException.js
 import type {Binding} from '../binding/Binding.js';
 import {AnyProviderResolver} from '../provider/AnyProviderResolver.js';
 import {CustomScopeResolver} from './CustomScope.js';
-import type {ResolutionContext} from './ResolutionContext.js';
 import type {ScopeResolver} from './Scope.js';
 import type {ScopeAnchor} from './ScopeAnchor.js';
 import {SingletonScopeResolver} from './SingletonScope.js';
 import {TransientScopeResolver} from './TransientScope.js';
 
-export class AnyScopeResolvers {
+export class AnyScopeResolver {
   protected readonly scopeResolvers: ScopeResolver[];
 
-  public constructor(context: ResolutionContext) {
-    const providerResolver: AnyProviderResolver = new AnyProviderResolver(context);
-
+  public constructor(providerResolver: AnyProviderResolver) {
     this.scopeResolvers = [
       new SingletonScopeResolver(providerResolver),
       new TransientScopeResolver(providerResolver),

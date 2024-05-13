@@ -13,6 +13,6 @@ export class ResolveDirective extends DirectiveWithContext {
   }
 
   public resolve<T>(): T {
-    return this.context.registry.resolve<T>(this.binding.token, this.anchor);
+    return this.context.registry.resolve<T, ScopeAnchor | null>(this.binding.token, this.anchor);
   }
 }

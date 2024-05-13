@@ -3,19 +3,19 @@ import type {Binding} from '../binding/Binding.js';
 import type {BindingContext} from '../binding/BindingContext.js';
 import type {CustomScopeBinding} from '../scope/CustomScope.js';
 import {Scope} from '../scope/Scope.js';
-import {isValidCustomScopeAnchor} from '../scope/ScopeAnchor.js';
+import {isValidCustomScopeAnchor, type ScopeAnchor} from '../scope/ScopeAnchor.js';
 import type {SingletonScopeBinding} from '../scope/SingletonScope.js';
 import {isSingletonScope} from '../scope/SingletonScope.js';
 import type {TransientScopeBinding} from '../scope/TransientScope.js';
 import {isTransientScope} from '../scope/TransientScope.js';
-import {ResolveDirective} from './ResolveDirective.js';
+import {ExportDirective} from './ExportDirective.js';
 
-export class BindInScopeDirective extends ResolveDirective {
+export class BindInScopeDirective extends ExportDirective {
   public constructor(context: BindingContext, binding: Binding) {
     super(context, binding, null);
   }
 
-  public in(scopeOrAnchor: unknown): ResolveDirective {
+  public in(scopeOrAnchor: unknown): ExportDirective {
     /*
      * Because we are modifying directly the object via reference
      * we don't have to change anything at the Registry
@@ -36,7 +36,7 @@ export class BindInScopeDirective extends ResolveDirective {
           } satisfies Partial<TransientScopeBinding<unknown>>);
         }
 
-        return new ResolveDirective(this.context, this.binding, null);
+        return new ExportDirective(this.context, this.binding, null);
       }
 
       case scopeOrAnchor === Scope.SINGLETON: {
@@ -54,10 +54,12 @@ export class BindInScopeDirective extends ResolveDirective {
           } satisfies Partial<SingletonScopeBinding<unknown>>);
         }
 
-        return new ResolveDirective(this.context, this.binding, null);
+        return new ExportDirective(this.context, this.binding, null);
       }
 
       case isValidCustomScopeAnchor(scopeOrAnchor): {
+        const anchor: ScopeAnchor = scopeOrAnchor;
+
         // 1. Unregister existing binding from the `defaultRegistryMap`
         this.context.registry.unregister(this.binding, null);
 
@@ -68,9 +70,9 @@ export class BindInScopeDirective extends ResolveDirective {
         } satisfies Partial<CustomScopeBinding<unknown>>);
 
         // 3. Register the binding once again, this  time at `scopedRegistryMap`
-        this.context.registry.register(this.binding, scopeOrAnchor);
+        this.context.registry.register(this.binding, anchor);
 
-        return new ResolveDirective(this.context, this.binding, scopeOrAnchor);
+        return new ExportDirective(this.context, this.binding, anchor);
       }
 
       default: {

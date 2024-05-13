@@ -1,4 +1,4 @@
-import {Container} from '../Container.js';
+import {Container} from '../container/Container.js';
 import type {Provider, ProviderFactory, ProviderResolver} from './Provider.js';
 
 export interface InstanceProvider<T = unknown> {
@@ -16,11 +16,7 @@ export class InstanceProviderFactory implements ProviderFactory {
 }
 
 export class InstanceProviderResolver implements ProviderResolver {
-  private readonly container: Container;
-
-  public constructor(container: Container) {
-    this.container = container;
-  }
+  public constructor(_container: Container) {}
 
   public canResolve = isInstanceProvider.bind(this);
 

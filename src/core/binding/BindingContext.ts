@@ -2,13 +2,13 @@ import {AliasProviderFactory} from '../provider/AliasProvider.js';
 import {ClassProviderFactory} from '../provider/ClassProvider.js';
 import {FactoryProviderFactory} from '../provider/FactoryProvider.js';
 import {InstanceProviderFactory} from '../provider/InstanceProvider.js';
-import type {Registry} from '../registry/Registry.js';
+import type {RegistryGateway} from '../registry/RegistryGateway.js';
 import {CustomScopeFactory} from '../scope/CustomScope.js';
 import {SingletonScopeFactory} from '../scope/SingletonScope.js';
 import {TransientScopeFactory} from '../scope/TransientScope.js';
 
 export interface BindingContext {
-  readonly registry: Registry;
+  readonly registry: RegistryGateway;
   readonly factory: {
     readonly scope: {
       transient: TransientScopeFactory;
@@ -24,7 +24,7 @@ export interface BindingContext {
   };
 }
 
-export function createBindingContext(registry: Registry): BindingContext {
+export function createBindingContext(registry: RegistryGateway): BindingContext {
   return {
     registry: registry,
     factory: {

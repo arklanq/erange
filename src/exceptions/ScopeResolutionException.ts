@@ -1,6 +1,7 @@
 import {Exception} from 'enhanced-exception';
-import {getScopeAnchorHumanReadableRepresentation, type ScopeAnchor} from '../core/scope/ScopeAnchor.js';
-import type {Token} from '../utils/types.js';
+import {stringifyScope} from '@/utils/logging-utils.js';
+import type {Token} from '@/utils/types.js';
+import type {ScopeAnchor} from '../core/scope/ScopeAnchor.js';
 
 export class ScopeResolutionException extends Exception {
   public constructor(
@@ -9,7 +10,7 @@ export class ScopeResolutionException extends Exception {
   ) {
     super(
       `Inability to resolve scope for \`${String(token)}\` token` +
-        (anchor ? ` in scope ${getScopeAnchorHumanReadableRepresentation(anchor)}.` : '.') +
+        (anchor ? ` in scope ${stringifyScope(anchor)}.` : '.') +
         ` See possible causes at https://example.com.`,
     );
   }

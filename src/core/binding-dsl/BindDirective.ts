@@ -26,6 +26,10 @@ export class BindDirective extends DirectiveWithContext {
         // SingletonScope - default scope
         // Do not populate SingletonScope's cache until first resolution
         scope: this.context.factory.scope.singleton.create(),
+        // Default metadata
+        meta: {
+          export: false,
+        },
       } satisfies Partial<SingletonScopeBinding<unknown>>;
     }
     // Otherwise ...
@@ -40,6 +44,10 @@ export class BindDirective extends DirectiveWithContext {
         // SingletonScope - default scope
         // Do not populate SingletonScope's cache until first resolution
         scope: this.context.factory.scope.singleton.create(),
+        // Default metadata
+        meta: {
+          export: false,
+        },
       } satisfies Partial<SingletonScopeBinding<Token>>;
     }
 

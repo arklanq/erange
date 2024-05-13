@@ -62,7 +62,10 @@ const config = {
     // Disallow inline type import by error https://github.com/rollup/plugins/issues/1588
     '@typescript-eslint/no-import-type-side-effects': 'error',
     // There is no way to tell this rule that the class' method is actually bound (i.e. via `@bind` decorator)
-    '@typescript-eslint/unbound-method': 'off'
+    '@typescript-eslint/unbound-method': 'off',
+    // Reports false positives when using `new` keyword in interfaces
+    // See: https://github.com/typescript-eslint/typescript-eslint/issues/2697
+    '@typescript-eslint/no-misused-new': 'off',
   },
 };
 

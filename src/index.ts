@@ -1,9 +1,10 @@
-export type {ContainerInterface as Container} from './core/container/Container.interface.js';
 export {ContainerFactory} from './core/container/ContainerFactory.js';
+export type {ContainerInterface as Container} from './core/container/ContainerInterface.js';
 export type {ContainerOptions} from './core/container/ContainerOptions.js';
-export type {ModularContainerInterface as ModularContainer} from './core/modular-container/ModularContainer.interface.js';
 export {ModularContainerFactory} from './core/modular-container/ModularContainerFactory.js';
+export type {ModularContainerInterface as ModularContainer} from './core/modular-container/ModularContainerInterface.js';
 export type {ModularContainerOptions} from './core/modular-container/ModularContainerOptions.js';
+export {AbstractModule} from './core/module/AbstractModule.js';
 export type {AliasProvider} from '@/core/provider/AliasProvider.js';
 export type {ClassProvider} from '@/core/provider/ClassProvider.js';
 export type {FactoryProviderFunction} from '@/core/provider/FactoryProvider.js';
@@ -17,4 +18,4 @@ export {ClassInstanceInitializationException} from '@/exceptions/ClassInstanceIn
 export {ConstructorArgResolutionException} from '@/exceptions/ConstructorArgResolutionException.js';
 export {ProviderResolutionException} from '@/exceptions/ProviderResolutionException.js';
 export {ScopeResolutionException} from '@/exceptions/ScopeResolutionException.js';
-export {type Class, type Token} from '@/utils/types.js';
+export {type AbstractClass, type Class, type Token} from '@/utils/types.js';

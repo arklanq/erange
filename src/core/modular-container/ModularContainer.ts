@@ -3,9 +3,9 @@ import {ModularContainerImportException} from '@/exceptions/ModularContainerImpo
 import {ProviderExportException} from '@/exceptions/ProviderExportException.js';
 import type {Token} from '@/utils/types.js';
 import type {Binding} from '../binding/Binding.js';
-import type {ContainerInterface} from '../container/Container.interface.js';
 import {Container} from '../container/Container.js';
-import type {ModularContainerInterface} from './ModularContainer.interface.js';
+import type {ContainerInterface} from '../container/ContainerInterface.js';
+import type {ModularContainerInterface} from './ModularContainerInterface.js';
 
 export class ModularContainer extends Container implements ModularContainerInterface {
   protected imported: Set<Container> = new Set();
@@ -45,6 +45,20 @@ export class ModularContainer extends Container implements ModularContainerInter
     return new BindingResolutionException(token, scope ?? null);
   }
 
+  public export<S extends object | undefined = undefined>(token: Token, scope?: S): void {
+    let binding: Binding;
+
+    try {
+      binding = this.getBinding<unknown, S>(token, scope);
+    } catch (e: unknown) {
+      if (e instanceof BindingResolutionException) throw new ProviderExportException(token, e);
+
+      throw e;
+    }
+
+    binding.meta.export = true;
+  }
+
   public override resolve<T = unknown, S extends object | undefined = undefined>(token: Token, scope?: S): T {
     const valueOrError: T | BindingResolutionException = this.internalResolve<T, S>(token, scope);
 
@@ -59,19 +73,5 @@ export class ModularContainer extends Container implements ModularContainerInter
     if (valueOrError instanceof BindingResolutionException) return null;
 
     return valueOrError;
-  }
-
-  public export<S extends object | undefined = undefined>(token: Token, scope?: S): void {
-    let binding: Binding;
-
-    try {
-      binding = this.getBinding<unknown, S>(token, scope);
-    } catch (e: unknown) {
-      if (e instanceof BindingResolutionException) throw new ProviderExportException(token, e);
-
-      throw e;
-    }
-
-    binding.meta.export = true;
   }
 }

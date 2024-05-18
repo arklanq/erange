@@ -8,7 +8,7 @@ import {BindToProviderDirective} from '../binding-dsl/BindToProviderDirective.js
 import {ClassicClassInjector} from '../class-injector/ClassicClassInjector.js';
 import type {ClassInjector} from '../class-injector/ClassInjector.js';
 import {createResolutionContext, type ResolutionContext} from '../resolution/ResolutionContext.js';
-import type {ContainerInterface as ContainerInterface} from './Container.interface.js';
+import type {ContainerInterface as ContainerInterface} from './ContainerInterface.js';
 import {type ContainerOptions, defaultOptions} from './ContainerOptions.js';
 
 export class Container implements ContainerInterface {

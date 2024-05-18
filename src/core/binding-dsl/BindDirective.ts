@@ -20,7 +20,7 @@ export class BindDirective extends DirectiveWithContext {
 
       binding = {
         // Class name as token
-        token: clazz.name,
+        token: clazz,
         // ClassProvider - default provider for class-based tokens
         provider: {class: clazz},
         // SingletonScope - default scope

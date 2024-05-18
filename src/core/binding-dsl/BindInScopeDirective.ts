@@ -10,12 +10,12 @@ import type {TransientScopeBinding} from '../scope/TransientScope.js';
 import {isTransientScope} from '../scope/TransientScope.js';
 import {ExportDirective} from './ExportDirective.js';
 
-export class BindInScopeDirective extends ExportDirective {
+export class BindInScopeDirective<O> extends ExportDirective<O> {
   public constructor(context: BindingContext, binding: Binding) {
     super(context, binding, null);
   }
 
-  public in(scopeOrAnchor: unknown): ExportDirective {
+  public in(scopeOrAnchor: unknown): ExportDirective<O> {
     /*
      * Because we are modifying directly the object via reference
      * we don't have to change anything at the Registry
@@ -36,7 +36,7 @@ export class BindInScopeDirective extends ExportDirective {
           } satisfies Partial<TransientScopeBinding<unknown>>);
         }
 
-        return new ExportDirective(this.context, this.binding, null);
+        return new ExportDirective<O>(this.context, this.binding, null);
       }
 
       case scopeOrAnchor === Scope.SINGLETON: {
@@ -54,7 +54,7 @@ export class BindInScopeDirective extends ExportDirective {
           } satisfies Partial<SingletonScopeBinding<unknown>>);
         }
 
-        return new ExportDirective(this.context, this.binding, null);
+        return new ExportDirective<O>(this.context, this.binding, null);
       }
 
       case isValidCustomScopeAnchor(scopeOrAnchor): {
@@ -72,7 +72,7 @@ export class BindInScopeDirective extends ExportDirective {
         // 3. Register the binding once again, this  time at `scopedRegistryMap`
         this.context.registry.register(this.binding, anchor);
 
-        return new ExportDirective(this.context, this.binding, anchor);
+        return new ExportDirective<O>(this.context, this.binding, anchor);
       }
 
       default: {

@@ -5,12 +5,12 @@ import type {FactoryProviderFunction} from '../provider/FactoryProvider.js';
 import type {SingletonScopeBinding} from '../scope/SingletonScope.js';
 import {BindInScopeDirective} from './BindInScopeDirective.js';
 
-export class BindToProviderDirective extends BindInScopeDirective {
+export class BindToProviderDirective<O> extends BindInScopeDirective<O> {
   public constructor(context: BindingContext, binding: Binding) {
     super(context, binding);
   }
 
-  public toClass<T>(clazz: Class<T>): BindInScopeDirective {
+  public toClass<T>(clazz: Class<T>): BindInScopeDirective<T> {
     /*
      * Because we are modifying directly the object via reference
      * we don't have to change anything at the Registry
@@ -26,7 +26,7 @@ export class BindToProviderDirective extends BindInScopeDirective {
     return new BindInScopeDirective(this.context, this.binding);
   }
 
-  public toInstance<T>(instance: T): BindInScopeDirective {
+  public toInstance<T>(instance: T): BindInScopeDirective<T> {
     /*
      * Because we are modifying directly the object via reference
      * we don't have to change anything at the Registry
@@ -42,7 +42,7 @@ export class BindToProviderDirective extends BindInScopeDirective {
     return new BindInScopeDirective(this.context, this.binding);
   }
 
-  public toFactory<T>(factory: FactoryProviderFunction<T>): BindInScopeDirective {
+  public toFactory<T>(factory: FactoryProviderFunction<T>): BindInScopeDirective<T> {
     /*
      * Because we are modifying directly the object via reference
      * we don't have to change anything at the Registry
@@ -58,7 +58,7 @@ export class BindToProviderDirective extends BindInScopeDirective {
     return new BindInScopeDirective(this.context, this.binding);
   }
 
-  public toAlias<T>(alias: Token): BindInScopeDirective {
+  public toAlias<T>(alias: Token): BindInScopeDirective<T> {
     /*
      * Because we are modifying directly the object via reference
      * we don't have to change anything at the Registry

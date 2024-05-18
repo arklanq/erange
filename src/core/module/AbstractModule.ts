@@ -39,7 +39,7 @@ export abstract class AbstractModule implements BindingCapable, ResolutionCapabl
     this.container.export(token);
   }
 
-  public bind(tokenOrClass: Token): BindToProviderDirective {
+  public bind<T extends Token>(tokenOrClass: T): BindToProviderDirective<T extends Class<infer I> ? I : T> {
     return this.container.bind(tokenOrClass);
   }
 

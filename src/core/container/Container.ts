@@ -22,10 +22,10 @@ export class Container implements ContainerInterface {
     this.sharedBindingContext = createBindingContext(this.sharedResolutionContext.registryGateway);
   }
 
-  public bind(tokenOrClass: Token): BindToProviderDirective {
+  public bind<T extends Token>(tokenOrClass: T): BindToProviderDirective<T extends Class<infer I> ? I : T> {
     if (tokenOrClass == null) throw new InvalidTokenException(tokenOrClass);
     const bindingContext: BindingContext = Object.assign({}, this.sharedBindingContext);
-    const bindDirective: BindDirective = new BindDirective(bindingContext);
+    const bindDirective: BindDirective<T> = new BindDirective<T>(bindingContext);
     return bindDirective.bind(tokenOrClass);
   }
 

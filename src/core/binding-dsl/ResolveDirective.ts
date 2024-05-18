@@ -2,7 +2,7 @@ import type {Binding} from '../binding/Binding.js';
 import {type BindingContext, DirectiveWithContext} from '../binding/BindingContext.js';
 import type {ScopeAnchor} from '../scope/ScopeAnchor.js';
 
-export class ResolveDirective extends DirectiveWithContext {
+export class ResolveDirective<O> extends DirectiveWithContext {
   protected readonly binding: Binding;
   protected readonly anchor: ScopeAnchor | null;
 
@@ -12,7 +12,7 @@ export class ResolveDirective extends DirectiveWithContext {
     this.anchor = anchor;
   }
 
-  public resolve<T>(): T {
+  public resolve<T = O>(): T {
     return this.context.registry.resolve<T, ScopeAnchor | null>(this.binding.token, this.anchor);
   }
 }

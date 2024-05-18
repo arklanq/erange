@@ -5,12 +5,12 @@ import {type BindingContext, DirectiveWithContext} from '../binding/BindingConte
 import type {SingletonScopeBinding} from '../scope/SingletonScope.js';
 import {BindToProviderDirective} from './BindToProviderDirective.js';
 
-export class BindDirective extends DirectiveWithContext {
+export class BindDirective<T extends Token> extends DirectiveWithContext {
   public constructor(context: BindingContext) {
     super(context);
   }
 
-  public bind(tokenOrClass: Token): BindToProviderDirective {
+  public bind(tokenOrClass: T): BindToProviderDirective<T extends Class<infer I> ? I : T> {
     // Create new binding
     let binding: Binding;
 
@@ -55,6 +55,6 @@ export class BindDirective extends DirectiveWithContext {
     this.context.registry.register(binding, null);
 
     // And pass it to next directive
-    return new BindToProviderDirective(this.context, binding);
+    return new BindToProviderDirective<T extends Class<infer I> ? I : T>(this.context, binding);
   }
 }

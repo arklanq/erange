@@ -8,8 +8,7 @@ export class ModuleConfigurationException extends Exception {
     previous?: unknown,
   ) {
     super(
-      `Failed to initialize / configure module \`${moduleClazz.name}\`.` +
-        ` See possible causes at https://example.com.`,
+      `Failed to configure module \`${moduleClazz.name}\`.` + ` See possible causes at https://example.com.`,
       previous,
     );
   }

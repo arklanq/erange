@@ -4,21 +4,20 @@ import {ProviderExportException} from '@/exceptions/ProviderExportException.js';
 import type {Token} from '@/utils/types.js';
 import type {Binding} from '../binding/Binding.js';
 import {Container} from '../container/Container.js';
-import type {ContainerInterface} from '../container/ContainerInterface.js';
-import type {ModularContainerInterface} from './ModularContainerInterface.js';
+import type {ModularityCapable} from './ModularityCapable.js';
 
-export class ModularContainer extends Container implements ModularContainerInterface {
+export class ModularContainer extends Container implements ModularityCapable {
   protected imported: Set<Container> = new Set();
 
   /**
    * @notice ScopeRegister cannot be inspected upfront. Duplicates may arise at resolution time.
    */
-  public import(container: ContainerInterface): void {
-    const casted: Container = container as Container;
+  public import(container: ModularContainer): void {
+    const containerImpl: Container = container as Container;
 
     const registeredTokens = {
       parent: this.getAllRegisteredTokens(),
-      imported: casted.getAllRegisteredTokens(),
+      imported: containerImpl.getAllRegisteredTokens(),
     } as const satisfies Record<string, Token[]>;
 
     const duplicatedToken: Token = registeredTokens.parent.find((token: Token) =>
@@ -27,22 +26,7 @@ export class ModularContainer extends Container implements ModularContainerInter
 
     if (duplicatedToken !== undefined) throw new ModularContainerImportException(duplicatedToken);
 
-    this.imported.add(casted);
-  }
-
-  private internalResolve<T = unknown, S extends object | undefined = undefined>(
-    token: Token,
-    scope?: S,
-  ): T | BindingResolutionException {
-    const value: T | null = super.tryResolve<T, S>(token, scope);
-    if (value) return value;
-
-    for (const container of this.imported) {
-      const value: T | null = container.tryResolve<T, S>(token, scope);
-      if (value) return value;
-    }
-
-    return new BindingResolutionException(token, scope ?? null);
+    this.imported.add(containerImpl);
   }
 
   public export<S extends object | undefined = undefined>(token: Token, scope?: S): void {
@@ -59,8 +43,23 @@ export class ModularContainer extends Container implements ModularContainerInter
     binding.meta.export = true;
   }
 
+  private modularResolve<T = unknown, S extends object | undefined = undefined>(
+    token: Token,
+    scope?: S,
+  ): T | BindingResolutionException {
+    const value: T | null = super.tryResolve<T, S>(token, scope);
+    if (value) return value;
+
+    for (const container of this.imported) {
+      const value: T | null = container.tryResolve<T, S>(token, scope);
+      if (value) return value;
+    }
+
+    return new BindingResolutionException(token, scope ?? null);
+  }
+
   public override resolve<T = unknown, S extends object | undefined = undefined>(token: Token, scope?: S): T {
-    const valueOrError: T | BindingResolutionException = this.internalResolve<T, S>(token, scope);
+    const valueOrError: T | BindingResolutionException = this.modularResolve<T, S>(token, scope);
 
     if (valueOrError instanceof BindingResolutionException) throw valueOrError;
 
@@ -68,7 +67,7 @@ export class ModularContainer extends Container implements ModularContainerInter
   }
 
   public override tryResolve<T = unknown, S extends object | undefined = undefined>(token: Token, scope?: S): T | null {
-    const valueOrError: T | BindingResolutionException = this.internalResolve<T, S>(token, scope);
+    const valueOrError: T | BindingResolutionException = this.modularResolve<T, S>(token, scope);
 
     if (valueOrError instanceof BindingResolutionException) return null;
 

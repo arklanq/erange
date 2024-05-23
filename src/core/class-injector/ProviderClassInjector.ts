@@ -3,7 +3,7 @@ import type {Class} from '@/utils/types.js';
 import type {Container} from '../container/Container.js';
 import type {ClassInjector} from './ClassInjector.js';
 
-export class ClassicClassInjector<C extends Class<unknown>> implements ClassInjector<C> {
+export class ProviderClassInjector<C extends Class<unknown>> implements ClassInjector<C> {
   protected readonly container: Container;
   protected readonly clazz: C;
 

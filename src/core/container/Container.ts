@@ -1,23 +1,22 @@
 import {InvalidTokenException} from '@/exceptions/InvalidTokenException.js';
 import type {Class, Token} from '@/utils/types.js';
 import type {Binding} from '../binding/Binding.js';
+import type {BindingCapable} from '../binding/BindingCapable.js';
 import type {BindingContext} from '../binding/BindingContext.js';
 import {createBindingContext} from '../binding/BindingContext.js';
 import {BindDirective} from '../binding-dsl/BindDirective.js';
 import {BindToProviderDirective} from '../binding-dsl/BindToProviderDirective.js';
-import {ClassicClassInjector} from '../class-injector/ClassicClassInjector.js';
 import type {ClassInjector} from '../class-injector/ClassInjector.js';
+import type {InstantiationCapable} from '../class-injector/InstantiationCapable.js';
+import {ProviderClassInjector} from '../class-injector/ProviderClassInjector.js';
+import type {ResolutionCapable} from '../resolution/ResolutionCapable.js';
 import {createResolutionContext, type ResolutionContext} from '../resolution/ResolutionContext.js';
-import type {ContainerInterface as ContainerInterface} from './ContainerInterface.js';
-import {type ContainerOptions, defaultOptions} from './ContainerOptions.js';
 
-export class Container implements ContainerInterface {
-  protected readonly options: Required<ContainerOptions>;
+export class Container implements BindingCapable, ResolutionCapable, InstantiationCapable {
   protected readonly sharedResolutionContext: ResolutionContext;
   protected readonly sharedBindingContext: BindingContext;
 
-  public constructor(options: ContainerOptions = defaultOptions) {
-    this.options = Object.assign({}, defaultOptions, options) as Required<ContainerOptions>;
+  public constructor() {
     this.sharedResolutionContext = createResolutionContext(this);
     this.sharedBindingContext = createBindingContext(this.sharedResolutionContext.registryGateway);
   }
@@ -41,7 +40,7 @@ export class Container implements ContainerInterface {
 
   public instantiate<C extends Class<unknown>>(clazz: C): InstanceType<C> {
     if (clazz == null) throw new InvalidTokenException(clazz);
-    const injector: ClassInjector<C> = new ClassicClassInjector<C>(this, clazz); // this injector does not need scope information
+    const injector: ClassInjector<C> = new ProviderClassInjector<C>(this, clazz); // this injector does not need scope information
     return injector.createClassInstance();
   }
 

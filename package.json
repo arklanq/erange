@@ -32,6 +32,7 @@
     "clear-cache": "rimraf node_modules/.cache"
   },
   "dependencies": {
+    "chalk": "^5.3.0",
     "enhanced-exception": "^1.0.2",
     "take-n-pipe": "^1.1.2",
     "tslib": "^2.6.2"

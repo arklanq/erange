@@ -15,14 +15,10 @@ import {type AbstractModuleContext, createContext} from './AbstractModuleContext
 import type {AbstractModuleOptions} from './AbstractModuleOptions.js';
 
 export abstract class AbstractModule implements BindingCapable, ResolutionCapable, InstantiationCapable {
-  private readonly container: ModularContainer;
+  private readonly container: ModularContainer = new ModularContainer();
   private isRoot: Property<boolean> = new Property<boolean>();
   private context: Property<AbstractModuleContext> = new Property<AbstractModuleContext>();
   private treeDrawer: Property<TreeDrawer> = new Property<TreeDrawer>();
-
-  public constructor() {
-    this.container = new ModularContainer();
-  }
 
   public abstract configure(): void | Promise<void>;
 
@@ -59,6 +55,8 @@ export abstract class AbstractModule implements BindingCapable, ResolutionCapabl
       moduleInstance.isRoot.set(isRoot);
       moduleInstance.context.set(context);
       moduleInstance.treeDrawer.set(treeDrawer.createBranch());
+
+      context.modulesRegistry.set(moduleClazz, moduleInstance);
 
       await moduleInstance.configure();
 

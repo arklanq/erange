@@ -10,7 +10,7 @@ export class ModularContainer extends Container implements ModularityCapable {
   protected imported: Set<Container> = new Set();
 
   /**
-   * @notice ScopeRegister cannot be inspected upfront. Duplicates may arise at resolution time.
+   * @notice Scoped bindings cannot be inspected upfront. Duplicates may arise at resolution time.
    */
   public import(container: ModularContainer): void {
     const containerImpl: Container = container as Container;

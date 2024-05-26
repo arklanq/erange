@@ -10,7 +10,7 @@ export class BindToProviderDirective<O> extends BindInScopeDirective<O> {
     super(context, binding);
   }
 
-  public toClass<T>(clazz: Class<T>): BindInScopeDirective<T> {
+  public toClass<V>(clazz: Class<V>): BindInScopeDirective<V> {
     /*
      * Because we are modifying directly the object via reference
      * we don't have to change anything at the Registry
@@ -21,12 +21,12 @@ export class BindToProviderDirective<O> extends BindInScopeDirective<O> {
       // SingletonScope - default scope
       // Do not populate SingletonScope's cache until first resolution
       scope: this.context.factory.scope.singleton.create(),
-    } satisfies Partial<SingletonScopeBinding<T>>);
+    } satisfies Partial<SingletonScopeBinding<V>>);
 
     return new BindInScopeDirective(this.context, this.binding);
   }
 
-  public toInstance<T>(instance: T): BindInScopeDirective<T> {
+  public toInstance<V>(instance: V): BindInScopeDirective<V> {
     /*
      * Because we are modifying directly the object via reference
      * we don't have to change anything at the Registry
@@ -37,12 +37,12 @@ export class BindToProviderDirective<O> extends BindInScopeDirective<O> {
       // SingletonScope - default scope
       // Do not populate SingletonScope's cache until first resolution
       scope: this.context.factory.scope.singleton.create(),
-    } satisfies Partial<SingletonScopeBinding<T>>);
+    } satisfies Partial<SingletonScopeBinding<V>>);
 
     return new BindInScopeDirective(this.context, this.binding);
   }
 
-  public toFactory<T>(factory: FactoryProviderFunction<T>): BindInScopeDirective<T> {
+  public toFactory<V>(factory: FactoryProviderFunction<V>): BindInScopeDirective<V> {
     /*
      * Because we are modifying directly the object via reference
      * we don't have to change anything at the Registry
@@ -53,12 +53,12 @@ export class BindToProviderDirective<O> extends BindInScopeDirective<O> {
       // SingletonScope - default scope
       // Do not populate SingletonScope's cache until first resolution
       scope: this.context.factory.scope.singleton.create(),
-    } satisfies Partial<SingletonScopeBinding<T>>);
+    } satisfies Partial<SingletonScopeBinding<V>>);
 
     return new BindInScopeDirective(this.context, this.binding);
   }
 
-  public toAlias<T>(alias: Token): BindInScopeDirective<T> {
+  public toAlias<V>(alias: Token): BindInScopeDirective<V> {
     /*
      * Because we are modifying directly the object via reference
      * we don't have to change anything at the Registry
@@ -69,7 +69,7 @@ export class BindToProviderDirective<O> extends BindInScopeDirective<O> {
       // SingletonScope - default scope
       // Do not populate SingletonScope's cache until first resolution
       scope: this.context.factory.scope.singleton.create(),
-    } satisfies Partial<SingletonScopeBinding<T>>);
+    } satisfies Partial<SingletonScopeBinding<V>>);
 
     return new BindInScopeDirective(this.context, this.binding);
   }

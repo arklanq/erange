@@ -15,7 +15,7 @@ export class CustomScopeFactory implements ScopeFactory {
   }
 }
 
-export type CustomScopeBinding<T> = Binding<T, EncapsulatedCustomScope>;
+export type CustomScopeBinding<V> = Binding<V, EncapsulatedCustomScope>;
 
 export class CustomScopeResolver implements ScopeResolver {
   private readonly providerResolver: AnyProviderResolver;
@@ -28,7 +28,7 @@ export class CustomScopeResolver implements ScopeResolver {
     return isCustomScope(binding.scope) && isValidCustomScopeAnchor(anchor);
   }
 
-  public resolve<T, A extends ScopeAnchor>(binding: CustomScopeBinding<T>, anchor: A | null): T {
+  public resolve<V, A extends ScopeAnchor>(binding: CustomScopeBinding<V>, anchor: A | null): V {
     return this.providerResolver.resolve(binding.token, binding.provider, anchor);
   }
 }

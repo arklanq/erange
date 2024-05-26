@@ -18,29 +18,29 @@ export class RegistryGateway {
     };
   }
 
-  public register<T = unknown, A extends ScopeAnchor | null = null>(binding: Binding<T>, anchor: A | null): void {
-    if (anchor) this.registry.scope.register<T, NonNullable<A>>(binding, anchor);
-    else this.registry.static.register<T>(binding);
+  public register<V = unknown, A extends ScopeAnchor | null = null>(binding: Binding<V>, anchor: A | null): void {
+    if (anchor) this.registry.scope.register(binding, anchor);
+    else this.registry.static.register(binding);
   }
 
-  public unregister<T = unknown, A extends ScopeAnchor | null = null>(binding: Binding<T>, anchor: A | null): void {
-    if (anchor) this.registry.scope.unregister<T, NonNullable<A>>(binding, anchor);
-    else this.registry.static.unregister<T>(binding);
+  public unregister<V = unknown, A extends ScopeAnchor | null = null>(binding: Binding<V>, anchor: A | null): void {
+    if (anchor) this.registry.scope.unregister(binding, anchor);
+    else this.registry.static.unregister(binding);
   }
 
-  public resolve<T = unknown, A extends ScopeAnchor | null = null>(token: Token, anchor: A | null): T {
-    if (anchor) return this.registry.scope.resolve<T, NonNullable<A>>(token, anchor);
-    else return this.registry.static.resolve<T>(token);
+  public resolve<V, A extends ScopeAnchor | null>(token: Token, anchor: A | null): V {
+    if (anchor) return this.registry.scope.resolve<V, NonNullable<A>>(token, anchor);
+    else return this.registry.static.resolve<V>(token);
   }
 
-  public tryResolve<T = unknown, A extends ScopeAnchor | null = null>(token: Token, anchor: A | null): T | null {
-    if (anchor) return this.registry.scope.tryResolve<T, NonNullable<A>>(token, anchor);
-    else return this.registry.static.tryResolve<T>(token);
+  public tryResolve<V, A extends ScopeAnchor | null>(token: Token, anchor: A | null): V | null {
+    if (anchor) return this.registry.scope.tryResolve<V, NonNullable<A>>(token, anchor);
+    else return this.registry.static.tryResolve<V>(token);
   }
 
-  public getBinding<T = unknown, A extends ScopeAnchor | null = null>(token: Token, anchor: A | null): Binding<T> {
-    if (anchor) return this.registry.scope.getBinding<T, NonNullable<A>>(token, anchor);
-    else return this.registry.static.getBinding<T>(token);
+  public getBinding<V = unknown, A extends ScopeAnchor | null = null>(token: Token, anchor: A | null): Binding<V> {
+    if (anchor) return this.registry.scope.getBinding<V, NonNullable<A>>(token, anchor);
+    else return this.registry.static.getBinding<V>(token);
   }
 
   public getAllRegisteredTokens(): Token[] {

@@ -1,5 +1,5 @@
 import {InvalidTokenException} from '@/exceptions/InvalidTokenException.js';
-import type {Class, Token} from '@/utils/types.js';
+import type {Class, ResolvedValue, Token} from '@/utils/types.js';
 import type {Binding} from '../binding/Binding.js';
 import type {BindingCapable} from '../binding/BindingCapable.js';
 import type {BindingContext} from '../binding/BindingContext.js';
@@ -28,14 +28,26 @@ export class Container implements BindingCapable, ResolutionCapable, Instantiati
     return bindDirective.bind(tokenOrClass);
   }
 
-  public resolve<T = unknown, S extends object | undefined = undefined>(token: Token, scope?: S): T {
+  public resolve<V = undefined, T extends Token = Token, S extends object | undefined = undefined>(
+    token: T,
+    scope?: S,
+  ): ResolvedValue<V, T> {
     if (token == null) throw new InvalidTokenException(token);
-    return this.sharedResolutionContext.registryGateway.resolve<T, NonNullable<S> | null>(token, scope ?? null);
+    return this.sharedResolutionContext.registryGateway.resolve<V, NonNullable<S> | null>(
+      token,
+      scope ?? null,
+    ) as ResolvedValue<V, T>;
   }
 
-  public tryResolve<T = unknown, S extends object | undefined = undefined>(token: Token, scope?: S): T | null {
+  public tryResolve<V = undefined, T extends Token = Token, S extends object | undefined = undefined>(
+    token: T,
+    scope?: S,
+  ): ResolvedValue<V, T> | null {
     if (token == null) throw new InvalidTokenException(token);
-    return this.sharedResolutionContext.registryGateway.tryResolve<T, NonNullable<S> | null>(token, scope ?? null);
+    return this.sharedResolutionContext.registryGateway.tryResolve<V, NonNullable<S> | null>(
+      token,
+      scope ?? null,
+    ) as ResolvedValue<V, T>;
   }
 
   public instantiate<C extends Class<unknown>>(clazz: C): InstanceType<C> {
@@ -44,8 +56,8 @@ export class Container implements BindingCapable, ResolutionCapable, Instantiati
     return injector.createClassInstance();
   }
 
-  public getBinding<T = unknown, S extends object | undefined = undefined>(token: Token, scope?: S): Binding<T> {
-    return this.sharedResolutionContext.registryGateway.getBinding<T, NonNullable<S> | null>(token, scope ?? null);
+  public getBinding<V = unknown, S extends object | undefined = undefined>(token: Token, scope?: S): Binding<V> {
+    return this.sharedResolutionContext.registryGateway.getBinding<V, NonNullable<S> | null>(token, scope ?? null);
   }
 
   public getAllRegisteredTokens(): Token[] {

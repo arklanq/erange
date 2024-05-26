@@ -27,7 +27,7 @@ export class AliasProviderResolver implements ProviderResolver {
 
   public canResolve = isAliasProvider.bind(this);
 
-  public resolve<T>(provider: AliasProvider): T {
-    return this.container.resolve<T>(provider.alias);
+  public resolve<V>(provider: AliasProvider): V {
+    return this.container.resolve<V>(provider.alias) as V;
   }
 }

@@ -17,7 +17,7 @@ export class TransientScopeFactory implements ScopeFactory {
   }
 }
 
-export type TransientScopeBinding<T> = Binding<T, EncapsulatedTransientScope>;
+export type TransientScopeBinding<V> = Binding<V, EncapsulatedTransientScope>;
 
 export class TransientScopeResolver implements ScopeResolver {
   private readonly providerResolver: AnyProviderResolver;
@@ -30,7 +30,7 @@ export class TransientScopeResolver implements ScopeResolver {
     return isTransientScope(binding.scope);
   }
 
-  public resolve<T, A extends ScopeAnchor>(binding: TransientScopeBinding<T>, anchor: A | null): T {
+  public resolve<V, A extends ScopeAnchor>(binding: TransientScopeBinding<V>, anchor: A | null): V {
     return this.providerResolver.resolve(binding.token, binding.provider, anchor);
   }
 }

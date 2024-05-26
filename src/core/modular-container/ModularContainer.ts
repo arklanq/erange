@@ -1,7 +1,7 @@
 import {BindingResolutionException} from '@/exceptions/BindingResolutionException.js';
 import {ModularContainerImportException} from '@/exceptions/ModularContainerImportException.js';
 import {ProviderExportException} from '@/exceptions/ProviderExportException.js';
-import type {Token} from '@/utils/types.js';
+import type {ResolvedValue, Token} from '@/utils/types.js';
 import type {Binding} from '../binding/Binding.js';
 import {Container} from '../container/Container.js';
 import type {ModularityCapable} from './ModularityCapable.js';
@@ -43,31 +43,37 @@ export class ModularContainer extends Container implements ModularityCapable {
     binding.meta.export = true;
   }
 
-  private modularResolve<T = unknown, S extends object | undefined = undefined>(
-    token: Token,
+  private modularResolve<V = undefined, T extends Token = Token, S extends object | undefined = undefined>(
+    token: T,
     scope?: S,
-  ): T | BindingResolutionException {
-    const value: T | null = super.tryResolve<T, S>(token, scope);
+  ): ResolvedValue<V, T> | BindingResolutionException {
+    const value: ResolvedValue<V, T> | null = super.tryResolve<V, T, S>(token, scope);
     if (value) return value;
 
     for (const container of this.imported) {
-      const value: T | null = container.tryResolve<T, S>(token, scope);
+      const value: ResolvedValue<V, T> | null = container.tryResolve<V, T, S>(token, scope);
       if (value) return value;
     }
 
     return new BindingResolutionException(token, scope ?? null);
   }
 
-  public override resolve<T = unknown, S extends object | undefined = undefined>(token: Token, scope?: S): T {
-    const valueOrError: T | BindingResolutionException = this.modularResolve<T, S>(token, scope);
+  public override resolve<V = undefined, T extends Token = Token, S extends object | undefined = undefined>(
+    token: T,
+    scope?: S,
+  ): ResolvedValue<V, T> {
+    const valueOrError: ResolvedValue<V, T> | BindingResolutionException = this.modularResolve<V, T, S>(token, scope);
 
     if (valueOrError instanceof BindingResolutionException) throw valueOrError;
 
     return valueOrError;
   }
 
-  public override tryResolve<T = unknown, S extends object | undefined = undefined>(token: Token, scope?: S): T | null {
-    const valueOrError: T | BindingResolutionException = this.modularResolve<T, S>(token, scope);
+  public override tryResolve<V = undefined, T extends Token = Token, S extends object | undefined = undefined>(
+    token: T,
+    scope?: S,
+  ): ResolvedValue<V, T> | null {
+    const valueOrError: ResolvedValue<V, T> | BindingResolutionException = this.modularResolve<V, T, S>(token, scope);
 
     if (valueOrError instanceof BindingResolutionException) return null;
 

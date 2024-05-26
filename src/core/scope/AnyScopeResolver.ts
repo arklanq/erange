@@ -18,9 +18,9 @@ export class AnyScopeResolver {
     ];
   }
 
-  public resolve<T, A extends ScopeAnchor = ScopeAnchor>(binding: Binding<T>, anchor: A | null): T {
+  public resolve<V, A extends ScopeAnchor = ScopeAnchor>(binding: Binding<V>, anchor: A | null): V {
     for (const resolver of this.scopeResolvers) {
-      if (resolver.canResolve(binding, anchor)) return resolver.resolve<T, A>(binding, anchor);
+      if (resolver.canResolve(binding, anchor)) return resolver.resolve<V, A>(binding, anchor);
     }
 
     // Will this ever happen?

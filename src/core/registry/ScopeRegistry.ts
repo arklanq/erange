@@ -15,7 +15,7 @@ export class ScopeRegistry {
     this.anyScopeResolver = anyScopeResolver;
   }
 
-  public register<T, A extends ScopeAnchor>(binding: Binding<T>, anchor: A): void {
+  public register(binding: Binding, anchor: ScopeAnchor): void {
     // Find existing registryMap bound to specified anchor or create new one
     const registryMap: RegistryMap = this.registryMap.get(anchor) ?? new Map<Token, Binding>();
 
@@ -26,7 +26,7 @@ export class ScopeRegistry {
     this.registryMap.set(anchor, registryMap);
   }
 
-  public unregister<T, A extends ScopeAnchor>(binding: Binding<T>, anchor: A): void {
+  public unregister(binding: Binding, anchor: ScopeAnchor): void {
     // Find existing registryMap bound to specified anchor or create new one
     const registryMap: RegistryMap | undefined = this.registryMap.get(anchor);
 
@@ -43,7 +43,7 @@ export class ScopeRegistry {
     this.registryMap.set(anchor, registryMap);
   }
 
-  private internalResolve<T, A extends ScopeAnchor>(token: Token, anchor: A): T | BindingResolutionException {
+  private internalResolve<V, A extends ScopeAnchor>(token: Token, anchor: A): V | BindingResolutionException {
     // Find existing registryMap bound to specified anchor
     const registryMap: RegistryMap | undefined = this.registryMap.get(anchor);
 
@@ -61,26 +61,26 @@ export class ScopeRegistry {
      */
     if (binding === undefined) return new BindingResolutionException(token, anchor);
 
-    return this.anyScopeResolver.resolve(binding as Binding<T>, anchor);
+    return this.anyScopeResolver.resolve(binding as Binding<V>, anchor);
   }
 
-  public resolve<T, A extends ScopeAnchor>(token: Token, anchor: A): T {
-    const valueOrError: T | BindingResolutionException = this.internalResolve<T, A>(token, anchor);
+  public resolve<V, A extends ScopeAnchor>(token: Token, anchor: A): V {
+    const valueOrError: V | BindingResolutionException = this.internalResolve<V, A>(token, anchor);
 
     if (valueOrError instanceof BindingResolutionException) throw valueOrError;
 
     return valueOrError;
   }
 
-  public tryResolve<T, A extends ScopeAnchor>(token: Token, anchor: A): T | null {
-    const valueOrError: T | BindingResolutionException = this.internalResolve<T, A>(token, anchor);
+  public tryResolve<V, A extends ScopeAnchor>(token: Token, anchor: A): V | null {
+    const valueOrError: V | BindingResolutionException = this.internalResolve<V, A>(token, anchor);
 
     if (valueOrError instanceof BindingResolutionException) return null;
 
     return valueOrError;
   }
 
-  public getBinding<T, A extends ScopeAnchor>(token: Token, anchor: A): Binding<T> {
+  public getBinding<V, A extends ScopeAnchor>(token: Token, anchor: A): Binding<V> {
     const registryMap: RegistryMap | undefined = this.registryMap.get(anchor);
 
     if (registryMap === undefined) throw new BindingResolutionException(token, anchor);
@@ -89,6 +89,6 @@ export class ScopeRegistry {
 
     if (binding === undefined) throw new BindingResolutionException(token, anchor);
 
-    return binding as Binding<T>;
+    return binding as Binding<V>;
   }
 }

@@ -3,7 +3,7 @@ import type {ClassProvider} from './ClassProvider.js';
 import type {FactoryProvider} from './FactoryProvider.js';
 import type {InstanceProvider} from './InstanceProvider.js';
 
-export type Provider<T = unknown> = ClassProvider<T> | InstanceProvider<T> | FactoryProvider<T> | AliasProvider;
+export type Provider<V = unknown> = ClassProvider<V> | InstanceProvider<V> | FactoryProvider<V> | AliasProvider;
 
 export interface ProviderFactory {
   create(...args: unknown[]): Provider;
@@ -11,6 +11,5 @@ export interface ProviderFactory {
 
 export interface ProviderResolver {
   canResolve(provider: Provider): boolean;
-
-  resolve<T>(provider: Provider<T>): T;
+  resolve<V>(provider: Provider<V>): V;
 }

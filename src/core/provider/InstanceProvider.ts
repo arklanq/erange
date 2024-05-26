@@ -1,16 +1,16 @@
 import {Container} from '../container/Container.js';
 import type {Provider, ProviderFactory, ProviderResolver} from './Provider.js';
 
-export interface InstanceProvider<T = unknown> {
-  instance: T;
+export interface InstanceProvider<V = unknown> {
+  instance: V;
 }
 
-export function isInstanceProvider<T>(provider: Provider<T>): provider is InstanceProvider<T> {
+export function isInstanceProvider<V>(provider: Provider<V>): provider is InstanceProvider<V> {
   return 'instance' in provider;
 }
 
 export class InstanceProviderFactory implements ProviderFactory {
-  public create<T>(instance: T): InstanceProvider<T> {
+  public create<V>(instance: V): InstanceProvider<V> {
     return {instance};
   }
 }
@@ -20,7 +20,7 @@ export class InstanceProviderResolver implements ProviderResolver {
 
   public canResolve = isInstanceProvider.bind(this);
 
-  public resolve<T>(provider: InstanceProvider<T>): T {
+  public resolve<V>(provider: InstanceProvider<V>): V {
     return provider.instance;
   }
 }

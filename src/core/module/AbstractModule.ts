@@ -1,7 +1,7 @@
 import type {Exception} from 'enhanced-exception';
 import {ModuleConfigurationException} from '@/exceptions/ModuleConfigurationException.js';
 import {ModuleImportException} from '@/exceptions/ModuleImportException.js';
-import type {Class, Token} from '@/utils/types.js';
+import type {Class, ResolvedValue, Token} from '@/utils/types.js';
 import type {BindingCapable} from '../binding/BindingCapable.js';
 import {BindToProviderDirective} from '../binding-dsl/BindToProviderDirective.js';
 import type {InstantiationCapable} from '../class-injector/InstantiationCapable.js';
@@ -117,12 +117,18 @@ export abstract class AbstractModule implements BindingCapable, ResolutionCapabl
     return nextDirective;
   }
 
-  public resolve<T = unknown, S extends object | undefined = undefined>(token: Token, scope?: S): T {
-    return this.container.resolve<T, S>(token, scope);
+  public resolve<V = undefined, T extends Token = Token, S extends object | undefined = undefined>(
+    token: T,
+    scope?: S,
+  ): ResolvedValue<V, T> {
+    return this.container.resolve<V, T, S>(token, scope);
   }
 
-  public tryResolve<T = unknown, S extends object | undefined = undefined>(token: Token, scope?: S): T | null {
-    return this.container.tryResolve<T, S>(token, scope);
+  public tryResolve<V = undefined, T extends Token = Token, S extends object | undefined = undefined>(
+    token: T,
+    scope?: S,
+  ): ResolvedValue<V, T> | null {
+    return this.container.tryResolve<V, T, S>(token, scope);
   }
 
   public instantiate<C extends Class<unknown>>(clazz: C): InstanceType<C> {

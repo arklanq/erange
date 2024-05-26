@@ -13,46 +13,46 @@ export class StaticRegistry {
     this.anyScopeResolver = anyScopeResolver;
   }
 
-  public register<T>(binding: Binding<T>): void {
+  public register(binding: Binding): void {
     this.registryMap.set(binding.token, binding);
   }
 
-  public unregister<T>(binding: Binding<T>): void {
+  public unregister(binding: Binding): void {
     this.registryMap.delete(binding.token);
   }
 
-  private internalResolve<T>(token: Token): T | BindingResolutionException {
+  private internalResolve<V>(token: Token): V | BindingResolutionException {
     // Look at `defaultRegistryMap` for the binding
     const binding: Binding | undefined = this.registryMap.get(token);
 
     // if not found -> throw exception
     if (!binding) return new BindingResolutionException(token, null);
 
-    return this.anyScopeResolver.resolve(binding as Binding<T>, null);
+    return this.anyScopeResolver.resolve(binding as Binding<V>, null);
   }
 
-  public resolve<T>(token: Token): T {
-    const valueOrError: T | BindingResolutionException = this.internalResolve<T>(token);
+  public resolve<V>(token: Token): V {
+    const valueOrError: V | BindingResolutionException = this.internalResolve<V>(token);
 
     if (valueOrError instanceof BindingResolutionException) throw valueOrError;
 
     return valueOrError;
   }
 
-  public tryResolve<T>(token: Token): T | null {
-    const valueOrError: T | BindingResolutionException = this.internalResolve<T>(token);
+  public tryResolve<V>(token: Token): V | null {
+    const valueOrError: V | BindingResolutionException = this.internalResolve<V>(token);
 
     if (valueOrError instanceof BindingResolutionException) return null;
 
     return valueOrError;
   }
 
-  public getBinding<T>(token: Token): Binding<T> {
+  public getBinding<V>(token: Token): Binding<V> {
     const binding: Binding | undefined = this.registryMap.get(token);
 
     if (!binding) throw new BindingResolutionException(token, null);
 
-    return binding as Binding<T>;
+    return binding as Binding<V>;
   }
 
   public getAllRegisteredTokens(): Token[] {

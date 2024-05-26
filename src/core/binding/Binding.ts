@@ -6,9 +6,9 @@ export interface BindingMeta extends Record<PropertyKey, unknown> {
   export: boolean;
 }
 
-export type Binding<T = unknown, S extends EncapsulatedScope = EncapsulatedScope> = {
+export type Binding<V = unknown, S extends EncapsulatedScope = EncapsulatedScope> = {
   token: Token;
   scope: S;
-  provider: Provider<T>;
+  provider: Provider<V>;
   meta: BindingMeta;
 };

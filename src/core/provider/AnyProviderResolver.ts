@@ -20,9 +20,9 @@ export class AnyProviderResolver {
     ];
   }
 
-  public resolve<T, A extends ScopeAnchor>(token: Token, provider: Provider<T>, anchor: A | null): T {
+  public resolve<V, A extends ScopeAnchor>(token: Token, provider: Provider<V>, anchor: A | null): V {
     for (const resolver of this.providerResolvers) {
-      if (resolver.canResolve(provider)) return resolver.resolve<T>(provider);
+      if (resolver.canResolve(provider)) return resolver.resolve<V>(provider);
     }
 
     // Will this ever happen?

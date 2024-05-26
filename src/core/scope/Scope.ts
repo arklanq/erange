@@ -24,6 +24,5 @@ export interface ScopeFactory {
 
 export interface ScopeResolver {
   canResolve(binding: Binding, anchor: ScopeAnchor | null): boolean;
-
-  resolve<T, A extends ScopeAnchor>(binding: Binding<T>, scope: A | null): T;
+  resolve<V, A extends ScopeAnchor>(binding: Binding<V>, scope: A | null): V;
 }

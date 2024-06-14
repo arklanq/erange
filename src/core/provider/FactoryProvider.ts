@@ -2,8 +2,7 @@ import {Container} from '../container/Container.js';
 import type {Provider, ProviderFactory, ProviderResolver} from './Provider.js';
 
 export interface FactoryProviderFunction<V> {
-  (): V; // pure factory function
-  (container: Container): V; // takes `Container` as a first argument
+  (container: Container): V;
 }
 
 export interface FactoryProvider<V = unknown> {

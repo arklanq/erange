@@ -10,4 +10,4 @@ export type ResolvedValue<V = undefined, T extends Token = Token> = V extends un
   ? T extends Class<infer I>
     ? I
     : unknown
-  : unknown;
+  : V;

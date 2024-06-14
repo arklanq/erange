@@ -3,6 +3,7 @@ import type {Token} from '@/utils/types.js';
 import type {Binding} from '../binding/Binding.js';
 import type {AnyScopeResolver} from '../scope/AnyScopeResolver.js';
 import type {ScopeAnchor} from '../scope/ScopeAnchor.js';
+import {emptyStateSymbol} from './constants.js';
 
 type RegistryMap = Map<Token, Binding>;
 type ScopeRegistryMap = WeakMap<ScopeAnchor, RegistryMap>;
@@ -43,14 +44,14 @@ export class ScopeRegistry {
     this.registryMap.set(anchor, registryMap);
   }
 
-  private internalResolve<V, A extends ScopeAnchor>(token: Token, anchor: A): V | BindingResolutionException {
+  private internalResolve<V, A extends ScopeAnchor>(token: Token, anchor: A): V | typeof emptyStateSymbol {
     // Find existing registryMap bound to specified anchor
     const registryMap: RegistryMap | undefined = this.registryMap.get(anchor);
 
     /*
      * If registryMap is not found it means that nothing has been bound yet for the specified anchor.
      */
-    if (registryMap === undefined) return new BindingResolutionException(token, anchor);
+    if (registryMap === undefined) return emptyStateSymbol;
 
     // Look at acquired registryMap for the binding
     const binding: Binding | undefined = registryMap.get(token);
@@ -59,23 +60,23 @@ export class ScopeRegistry {
      * If binding is not found in the registryMap it means that any binding is already registered on that map
      * but not the one the caller is requesting.
      */
-    if (binding === undefined) return new BindingResolutionException(token, anchor);
+    if (binding === undefined) return emptyStateSymbol;
 
     return this.anyScopeResolver.resolve(binding as Binding<V>, anchor);
   }
 
   public resolve<V, A extends ScopeAnchor>(token: Token, anchor: A): V {
-    const valueOrError: V | BindingResolutionException = this.internalResolve<V, A>(token, anchor);
+    const valueOrError: V | typeof emptyStateSymbol = this.internalResolve<V, A>(token, anchor);
 
-    if (valueOrError instanceof BindingResolutionException) throw valueOrError;
+    if (valueOrError === emptyStateSymbol) throw new BindingResolutionException(token, anchor);
 
     return valueOrError;
   }
 
   public tryResolve<V, A extends ScopeAnchor>(token: Token, anchor: A): V | null {
-    const valueOrError: V | BindingResolutionException = this.internalResolve<V, A>(token, anchor);
+    const valueOrError: V | typeof emptyStateSymbol = this.internalResolve<V, A>(token, anchor);
 
-    if (valueOrError instanceof BindingResolutionException) return null;
+    if (valueOrError === emptyStateSymbol) return null;
 
     return valueOrError;
   }

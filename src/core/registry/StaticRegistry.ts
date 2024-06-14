@@ -2,6 +2,7 @@ import {BindingResolutionException} from '@/exceptions/BindingResolutionExceptio
 import type {Token} from '@/utils/types.js';
 import type {Binding} from '../binding/Binding.js';
 import {AnyScopeResolver} from '../scope/AnyScopeResolver.js';
+import {emptyStateSymbol} from './constants.js';
 
 type RegistryMap = Map<Token, Binding>;
 
@@ -21,28 +22,28 @@ export class StaticRegistry {
     this.registryMap.delete(binding.token);
   }
 
-  private internalResolve<V>(token: Token): V | BindingResolutionException {
+  private internalResolve<V>(token: Token): V | typeof emptyStateSymbol {
     // Look at `defaultRegistryMap` for the binding
     const binding: Binding | undefined = this.registryMap.get(token);
 
     // if not found -> throw exception
-    if (!binding) return new BindingResolutionException(token, null);
+    if (!binding) return emptyStateSymbol;
 
     return this.anyScopeResolver.resolve(binding as Binding<V>, null);
   }
 
   public resolve<V>(token: Token): V {
-    const valueOrError: V | BindingResolutionException = this.internalResolve<V>(token);
+    const valueOrError: V | typeof emptyStateSymbol = this.internalResolve<V>(token);
 
-    if (valueOrError instanceof BindingResolutionException) throw valueOrError;
+    if (valueOrError === emptyStateSymbol) throw new BindingResolutionException(token, null);
 
     return valueOrError;
   }
 
   public tryResolve<V>(token: Token): V | null {
-    const valueOrError: V | BindingResolutionException = this.internalResolve<V>(token);
+    const valueOrError: V | typeof emptyStateSymbol = this.internalResolve<V>(token);
 
-    if (valueOrError instanceof BindingResolutionException) return null;
+    if (valueOrError === emptyStateSymbol) return null;
 
     return valueOrError;
   }

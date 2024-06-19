@@ -1,6 +1,6 @@
 import {isConstructor} from '@/utils/type-guards.js';
 import type {Class} from '@/utils/types.js';
-import {emptyStateSymbol} from '../../utilities/constants.js';
+import {emptyStateSymbol} from '../../misc/constants.js';
 import type {FactoryProvider} from './FactoryProvider.js';
 
 export interface Factory<V> {

@@ -1,8 +1,8 @@
 import {BindingResolutionException} from '@/exceptions/BindingResolutionException.js';
 import type {Token} from '@/utils/types.js';
 import type {Binding} from '../binding/Binding.js';
+import {emptyStateSymbol} from '../misc/constants.js';
 import {AnyScopeResolver} from '../scope/AnyScopeResolver.js';
-import {emptyStateSymbol} from '../utilities/constants.js';
 
 type RegistryMap = Map<Token, Binding>;
 

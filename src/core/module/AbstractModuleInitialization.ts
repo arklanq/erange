@@ -3,8 +3,8 @@ import {ModuleConfigurationException} from '@/exceptions/ModuleConfigurationExce
 import {ModuleImportException} from '@/exceptions/ModuleImportException.js';
 import type {Class} from '@/utils/types.js';
 import {ModuleClassInjector} from '../class-injector/ModuleClassInjector.js';
-import {PerformanceTracker} from '../utilities/PerformanceTracker.js';
-import {TreeDrawer} from '../utilities/TreeDrawer.js';
+import {PerformanceTracker} from '../misc/PerformanceTracker.js';
+import {TreeDrawer} from '../misc/TreeDrawer.js';
 import type {AbstractModule} from './AbstractModule.js';
 import type {AbstractModuleContext} from './AbstractModuleContext.js';
 import {AbstractModuleMeta} from './AbstractModuleMeta.js';

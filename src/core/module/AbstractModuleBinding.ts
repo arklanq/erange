@@ -1,6 +1,6 @@
 import type {Class, Token} from '@/utils/types.js';
 import {BindToProviderDirective} from '../binding-dsl/BindToProviderDirective.js';
-import {PerformanceTracker} from '../utilities/PerformanceTracker.js';
+import {PerformanceTracker} from '../misc/PerformanceTracker.js';
 import type {AbstractModuleMeta} from './AbstractModuleMeta.js';
 
 export class AbstractModuleBinding {

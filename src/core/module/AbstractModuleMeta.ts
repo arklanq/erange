@@ -1,5 +1,5 @@
+import {TreeDrawer} from '../misc/TreeDrawer.js';
 import {ModularContainer} from '../modular-container/ModularContainer.js';
-import {TreeDrawer} from '../utilities/TreeDrawer.js';
 import type {AbstractModule} from './AbstractModule.js';
 import {AbstractModuleBinding} from './AbstractModuleBinding.js';
 import type {AbstractModuleContext} from './AbstractModuleContext.js';

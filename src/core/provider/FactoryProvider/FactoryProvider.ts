@@ -1,7 +1,7 @@
 import {FactoryValueGenerationException} from '../../../exceptions/FactoryValueGenerationException.js';
 import type {Token} from '../../../utils/types.js';
 import {Container} from '../../container/Container.js';
-import {emptyStateSymbol} from '../../utilities/constants.js';
+import {emptyStateSymbol} from '../../misc/constants.js';
 import type {Provider, ProviderFactory, ProviderResolver} from '../Provider.js';
 import {
   type ClassFactory,

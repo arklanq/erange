@@ -8,10 +8,10 @@
 - [X] Custom scopes
 - [x] Sub-containers (modular containers)
 - [x] Tree drawer
+- [x] FactoryProvider can also be a class which implements `Factory` interface
 
 #### Important
 
-- [ ] FactoryProvider can also be a class which implements `Factory` interface
 - [ ] Static analysis of modules tree
 - [ ] Module bootstrapping phase -> Module configuration phase
 - [ ] Lifecycle events (Bootstrap -> Enable - ... -> Disable -> Shutdown?)

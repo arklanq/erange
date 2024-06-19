@@ -1,12 +1,11 @@
 import type {Binding} from '../binding/Binding.js';
 import {AnyProviderResolver} from '../provider/AnyProviderResolver.js';
+import {emptyStateSymbol} from '../utilities/constants.js';
 import {type EncapsulatedScope, Scope, type ScopeFactory, type ScopeResolver} from './Scope.js';
 import type {ScopeAnchor} from './ScopeAnchor.js';
 
-export const emptyCacheSymbol: unique symbol = Symbol('emptyCache');
-
 interface SingletonScopeData<V> {
-  cache: V | typeof emptyCacheSymbol;
+  cache: V | typeof emptyStateSymbol;
 }
 
 export type EncapsulatedSingletonScope<V> = EncapsulatedScope<Scope.SINGLETON> & SingletonScopeData<V>;
@@ -16,7 +15,7 @@ export function isSingletonScope(scope: EncapsulatedScope): scope is Encapsulate
 }
 
 export class SingletonScopeFactory implements ScopeFactory {
-  public create<V>(cache: V | typeof emptyCacheSymbol = emptyCacheSymbol): EncapsulatedSingletonScope<V> {
+  public create<V>(cache: V | typeof emptyStateSymbol = emptyStateSymbol): EncapsulatedSingletonScope<V> {
     return {
       name: Scope.SINGLETON,
       cache: cache,
@@ -40,8 +39,8 @@ export class SingletonScopeResolver implements ScopeResolver {
   public resolve<V, A extends ScopeAnchor>(binding: SingletonScopeBinding<V>, anchor: A | null): V {
     const scopeData: SingletonScopeData<V> = binding.scope;
 
-    // find out if 'cache' refers to 'emptyCacheSymbol' in order to know if cache is empty or not
-    if (scopeData.cache !== emptyCacheSymbol) return scopeData.cache;
+    // find out if 'cache' refers to 'emptyStateSymbol' in order to know if cache is empty or not
+    if (scopeData.cache !== emptyStateSymbol) return scopeData.cache;
 
     return (scopeData.cache = this.providerResolver.resolve(binding.token, binding.provider, anchor));
   }

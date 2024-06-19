@@ -2,7 +2,7 @@ import {BindingResolutionException} from '@/exceptions/BindingResolutionExceptio
 import type {Token} from '@/utils/types.js';
 import type {Binding} from '../binding/Binding.js';
 import {AnyScopeResolver} from '../scope/AnyScopeResolver.js';
-import {emptyStateSymbol} from './constants.js';
+import {emptyStateSymbol} from '../utilities/constants.js';
 
 type RegistryMap = Map<Token, Binding>;
 
@@ -33,19 +33,19 @@ export class StaticRegistry {
   }
 
   public resolve<V>(token: Token): V {
-    const valueOrError: V | typeof emptyStateSymbol = this.internalResolve<V>(token);
+    const valueOrEmpty: V | typeof emptyStateSymbol = this.internalResolve<V>(token);
 
-    if (valueOrError === emptyStateSymbol) throw new BindingResolutionException(token, null);
+    if (valueOrEmpty === emptyStateSymbol) throw new BindingResolutionException(token, null);
 
-    return valueOrError;
+    return valueOrEmpty;
   }
 
   public tryResolve<V>(token: Token): V | null {
-    const valueOrError: V | typeof emptyStateSymbol = this.internalResolve<V>(token);
+    const valueOrEmpty: V | typeof emptyStateSymbol = this.internalResolve<V>(token);
 
-    if (valueOrError === emptyStateSymbol) return null;
+    if (valueOrEmpty === emptyStateSymbol) return null;
 
-    return valueOrError;
+    return valueOrEmpty;
   }
 
   public getBinding<V>(token: Token): Binding<V> {

@@ -10,7 +10,7 @@ export class BindDirective<T extends Token> extends DirectiveWithContext {
     super(context);
   }
 
-  public bind(tokenOrClass: T): BindToProviderDirective<T extends Class<infer I> ? I : T> {
+  public bind(tokenOrClass: T): BindToProviderDirective<T, T extends Class<infer I> ? I : T> {
     // Create new binding
     let binding: Binding;
 
@@ -55,6 +55,6 @@ export class BindDirective<T extends Token> extends DirectiveWithContext {
     this.context.registry.register(binding, null);
 
     // And pass it to next directive
-    return new BindToProviderDirective<T extends Class<infer I> ? I : T>(this.context, binding);
+    return new BindToProviderDirective<T, T extends Class<infer I> ? I : T>(this.context, binding);
   }
 }

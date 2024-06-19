@@ -21,7 +21,7 @@ export class Container implements BindingCapable, ResolutionCapable, Instantiati
     this.sharedBindingContext = createBindingContext(this.sharedResolutionContext.registryGateway);
   }
 
-  public bind<T extends Token>(tokenOrClass: T): BindToProviderDirective<T extends Class<infer I> ? I : T> {
+  public bind<T extends Token>(tokenOrClass: T): BindToProviderDirective<T, T extends Class<infer I> ? I : T> {
     if (tokenOrClass == null) throw new InvalidTokenException(tokenOrClass);
     const bindingContext: BindingContext = Object.assign({}, this.sharedBindingContext);
     const bindDirective: BindDirective<T> = new BindDirective<T>(bindingContext);

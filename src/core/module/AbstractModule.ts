@@ -37,7 +37,7 @@ export abstract class AbstractModule implements BindingCapable, ResolutionCapabl
     this.meta.container.export(token);
   }
 
-  public bind<T extends Token>(tokenOrClass: T): BindToProviderDirective<T extends Class<infer I> ? I : T> {
+  public bind<T extends Token>(tokenOrClass: T): BindToProviderDirective<T, T extends Class<infer I> ? I : T> {
     return this.meta.binding.bind<T>(tokenOrClass);
   }
 

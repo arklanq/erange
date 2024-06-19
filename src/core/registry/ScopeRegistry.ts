@@ -3,7 +3,7 @@ import type {Token} from '@/utils/types.js';
 import type {Binding} from '../binding/Binding.js';
 import type {AnyScopeResolver} from '../scope/AnyScopeResolver.js';
 import type {ScopeAnchor} from '../scope/ScopeAnchor.js';
-import {emptyStateSymbol} from './constants.js';
+import {emptyStateSymbol} from '../utilities/constants.js';
 
 type RegistryMap = Map<Token, Binding>;
 type ScopeRegistryMap = WeakMap<ScopeAnchor, RegistryMap>;
@@ -66,19 +66,19 @@ export class ScopeRegistry {
   }
 
   public resolve<V, A extends ScopeAnchor>(token: Token, anchor: A): V {
-    const valueOrError: V | typeof emptyStateSymbol = this.internalResolve<V, A>(token, anchor);
+    const valueOrEmpty: V | typeof emptyStateSymbol = this.internalResolve<V, A>(token, anchor);
 
-    if (valueOrError === emptyStateSymbol) throw new BindingResolutionException(token, anchor);
+    if (valueOrEmpty === emptyStateSymbol) throw new BindingResolutionException(token, anchor);
 
-    return valueOrError;
+    return valueOrEmpty;
   }
 
   public tryResolve<V, A extends ScopeAnchor>(token: Token, anchor: A): V | null {
-    const valueOrError: V | typeof emptyStateSymbol = this.internalResolve<V, A>(token, anchor);
+    const valueOrEmpty: V | typeof emptyStateSymbol = this.internalResolve<V, A>(token, anchor);
 
-    if (valueOrError === emptyStateSymbol) return null;
+    if (valueOrEmpty === emptyStateSymbol) return null;
 
-    return valueOrError;
+    return valueOrEmpty;
   }
 
   public getBinding<V, A extends ScopeAnchor>(token: Token, anchor: A): Binding<V> {

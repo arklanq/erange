@@ -4,7 +4,7 @@ import type {Container} from '../container/Container.js';
 import type {ScopeAnchor} from '../scope/ScopeAnchor.js';
 import {AliasProviderResolver} from './AliasProvider.js';
 import {ClassProviderResolver} from './ClassProvider.js';
-import {FactoryProviderResolver} from './FactoryProvider.js';
+import {FactoryProviderResolver} from './FactoryProvider/FactoryProvider.js';
 import {InstanceProviderResolver} from './InstanceProvider.js';
 import type {Provider, ProviderResolver} from './Provider.js';
 
@@ -22,7 +22,7 @@ export class AnyProviderResolver {
 
   public resolve<V, A extends ScopeAnchor>(token: Token, provider: Provider<V>, anchor: A | null): V {
     for (const resolver of this.providerResolvers) {
-      if (resolver.canResolve(provider)) return resolver.resolve<V>(provider);
+      if (resolver.canResolve(provider)) return resolver.resolve<V>(provider, token);
     }
 
     // Will this ever happen?

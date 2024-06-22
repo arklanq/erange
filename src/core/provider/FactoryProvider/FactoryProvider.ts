@@ -5,6 +5,7 @@ import {emptyStateSymbol} from '../../misc/constants.js';
 import type {Provider, ProviderFactory, ProviderResolver} from '../Provider.js';
 import {
   type ClassFactory,
+  type Factory,
   type FactoryProviderWithClass,
   isClassFactory,
   isFactoryProviderWithClass,
@@ -44,10 +45,13 @@ export class FactoryProviderResolver implements ProviderResolver {
 
   public resolve<V>(provider: FactoryProvider<V>, token: Token): V {
     if (isFactoryProviderWithClass<V>(provider)) {
-      const classFactoryInstance =
-        provider.meta.cache !== emptyStateSymbol
-          ? provider.meta.cache
-          : this.container.instantiate<ClassFactory<V>>(provider.factory);
+      let classFactoryInstance: Factory<V>;
+
+      if (provider.meta.cache === emptyStateSymbol) {
+        classFactoryInstance = provider.meta.cache = this.container.instantiate<ClassFactory<V>>(provider.factory);
+      } else {
+        classFactoryInstance = provider.meta.cache;
+      }
 
       try {
         return classFactoryInstance.create();

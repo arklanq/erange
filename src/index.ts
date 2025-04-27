@@ -1,5 +1,7 @@
-export type { ClassFactory, ClassFactoryClazz } from './core/provider/FactoryProvider/ClassFactory.js';
-export type { FunctionFactory } from './core/provider/FactoryProvider/FunctionFactory.js';
+export { Container } from '@/core/container/Container.js';
+export { ModularContainer } from '@/core/modular-container/ModularContainer.js';
+export type { ClassFactory, ClassFactoryClazz } from '@/core/provider/FactoryProvider/ClassFactory.js';
+export type { FunctionFactory } from '@/core/provider/FactoryProvider/FunctionFactory.js';
 export { Scope } from '@/core/scope/Scope.js';
 export { BindingResolutionException } from '@/exceptions/BindingResolutionException.js';
 export { ClassInstanceInitializationException } from '@/exceptions/ClassInstanceInitializationException.js';

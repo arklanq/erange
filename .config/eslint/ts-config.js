@@ -1,34 +1,24 @@
-import typescriptPlugin from '@typescript-eslint/eslint-plugin';
-import typescriptParser from '@typescript-eslint/parser';
+import tseslint from 'typescript-eslint';
+import appRootPath from 'app-root-path';
 
 /**
- * @type {import('eslint').Linter.FlatConfig}
+ * @type {import('@typescript-eslint/utils').TSESLint.FlatConfig.Config[]}
  */
-const config = {
-  files: ['**/*.ts'],
+const config = tseslint.config(tseslint.configs.recommendedTypeChecked, {
   languageOptions: {
-    parser: typescriptParser,
     parserOptions: {
-      // ESLint doesn't supply ecmaVersion in `parser.js` `context.parserOptions`
-      // This is required to avoid ecmaVersion < 2015 error or 'import' / 'export' error
-      sourceType: 'module',
-      ecmaVersion: 'latest',
-      project: true,
+      projectService: true,
+      tsconfigRootDir: appRootPath.toString(),
       warnOnUnsupportedTypeScriptVersion: true,
-      emitDecoratorMetadata: false,
     },
   },
-  plugins: {
-    '@typescript-eslint': typescriptPlugin,
-  },
   rules: {
-    // Inject rules from `@typescript-eslint/eslint-plugin` plugin's recommended configs
-    ...typescriptPlugin.configs['eslint-recommended'].overrides[0].rules,
-    ...typescriptPlugin.configs['recommended'].rules,
-    ...typescriptPlugin.configs['recommended-type-checked'].rules,
-
-    // Don't leave floating Promises in the codebase. If needed explicitly mark them with `void` operator.
-    '@typescript-eslint/no-floating-promises': ['warn', {ignoreVoid: true}],
+    /*
+     * Disallow inline type import in some cases, see:
+     * - https://github.com/rollup/plugins/issues/1588
+     * - https://www.typescriptlang.org/tsconfig/#verbatimModuleSyntax
+     */
+    '@typescript-eslint/no-import-type-side-effects': 'error',
     // Allow unused vars with leading underscore
     '@typescript-eslint/no-unused-vars': [
       'warn',
@@ -37,13 +27,6 @@ const config = {
         varsIgnorePattern: '^_', // Ignore args starting with underscore
         args: 'none',
         ignoreRestSiblings: true,
-      },
-    ],
-    // Don't ban `object` type as Record<string, unknown> is not always the best solution
-    '@typescript-eslint/ban-types': [
-      'error',
-      {
-        types: {object: false},
       },
     ],
     // Require explicit accessibility modifiers on class properties and methods
@@ -57,16 +40,15 @@ const config = {
     'default-case': 'off',
     // Disable explicit function return types
     '@typescript-eslint/explicit-module-boundary-types': 'off',
+    // Don't leave floating Promises in the codebase. If needed explicitly mark them with `void` operator.
+    '@typescript-eslint/no-floating-promises': ['warn', {ignoreVoid: true}],
     // It should be definetly a warning, instead of an error
     '@typescript-eslint/no-unnecessary-type-assertion': 'warn',
-    // Disallow inline type import by error https://github.com/rollup/plugins/issues/1588
-    '@typescript-eslint/no-import-type-side-effects': 'error',
+    // Don't check functions that return promises where a void return is expected
+    '@typescript-eslint/no-misused-promises': ['error', {checksVoidReturn: false}],
     // There is no way to tell this rule that the class' method is actually bound (i.e. via `@bind` decorator)
     '@typescript-eslint/unbound-method': 'off',
-    // Reports false positives when using `new` keyword in interfaces
-    // See: https://github.com/typescript-eslint/typescript-eslint/issues/2697
-    '@typescript-eslint/no-misused-new': 'off',
   },
-};
+});
 
 export default config;

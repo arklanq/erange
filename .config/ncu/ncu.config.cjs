@@ -21,7 +21,7 @@ const exceptions = {
 const config = {
   packageManager: 'npm',
   target(packageName, _semver)  {
-    for(const level of ['major', 'minor', 'patch']) {
+    for(const level of ['patch', 'minor', 'major']) {
       if(exceptions[level].includes(packageName))
         return level;
     }

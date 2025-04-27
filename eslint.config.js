@@ -15,7 +15,7 @@ const config = [
   eslintStockPlugin.configs.recommended,
 
   // TypeScript code only
-  tsConfig,
+  ...tsConfig,
 
   // Source code only
   sourceCodeConfig,

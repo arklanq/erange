@@ -1,7 +1,7 @@
 import type {Class, Token} from '@/utils/types.js';
 import type {Binding} from '../binding/Binding.js';
 import type {BindingContext} from '../binding/BindingContext.js';
-import type {ClassFactory} from '../provider/FactoryProvider/ClassFactory.js';
+import type {ClassFactoryClazz} from '../provider/FactoryProvider/ClassFactory.js';
 import type {FunctionFactory} from '../provider/FactoryProvider/FunctionFactory.js';
 import type {SingletonScopeBinding} from '../scope/SingletonScope.js';
 import {BindInScopeDirective} from './BindInScopeDirective.js';
@@ -44,7 +44,7 @@ export class BindToProviderDirective<T extends Token, O> extends BindInScopeDire
   }
 
   public toFactory<V extends T extends Class<infer I> ? I : unknown>(
-    factory: FunctionFactory<V> | ClassFactory<V>,
+    factory: FunctionFactory<V> | ClassFactoryClazz<V>,
   ): BindInScopeDirective<V> {
     /*
      * Because we are modifying directly the object via reference

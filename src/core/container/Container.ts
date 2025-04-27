@@ -1,16 +1,16 @@
-import {InvalidTokenException} from '@/exceptions/InvalidTokenException.js';
-import type {Class, ResolvedValue, Token} from '@/utils/types.js';
-import type {Binding} from '../binding/Binding.js';
-import type {BindingCapable} from '../binding/BindingCapable.js';
-import type {BindingContext} from '../binding/BindingContext.js';
-import {createBindingContext} from '../binding/BindingContext.js';
-import {BindDirective} from '../binding-dsl/BindDirective.js';
-import {BindToProviderDirective} from '../binding-dsl/BindToProviderDirective.js';
-import type {ClassInjector} from '../class-injector/ClassInjector.js';
-import type {InstantiationCapable} from '../class-injector/InstantiationCapable.js';
-import {ProviderClassInjector} from '../class-injector/ProviderClassInjector.js';
-import type {ResolutionCapable} from '../resolution/ResolutionCapable.js';
-import {createResolutionContext, type ResolutionContext} from '../resolution/ResolutionContext.js';
+import { InvalidTokenException } from '@/exceptions/InvalidTokenException.js';
+import type { Class, ResolvedValue, Token } from '@/utils/types.js';
+import type { Binding } from '../binding/Binding.js';
+import type { BindingCapable } from '../binding/BindingCapable.js';
+import type { BindingContext } from '../binding/BindingContext.js';
+import { createBindingContext } from '../binding/BindingContext.js';
+import { BindDirective } from '../binding-dsl/BindDirective.js';
+import { BindToProviderDirective } from '../binding-dsl/BindToProviderDirective.js';
+import type { ClassInjector } from '../class-injector/ClassInjector.js';
+import type { InstantiationCapable } from '../class-injector/InstantiationCapable.js';
+import { ProviderClassInjector } from '../class-injector/ProviderClassInjector.js';
+import type { ResolutionCapable } from '../resolution/ResolutionCapable.js';
+import { createResolutionContext, type ResolutionContext } from '../resolution/ResolutionContext.js';
 
 export class Container implements BindingCapable, ResolutionCapable, InstantiationCapable {
   protected readonly sharedResolutionContext: ResolutionContext;

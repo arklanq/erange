@@ -1,11 +1,11 @@
-import {ScopeResolutionException} from '@/exceptions/ScopeResolutionException.js';
-import type {Binding} from '../binding/Binding.js';
-import {AnyProviderResolver} from '../provider/AnyProviderResolver.js';
-import {CustomScopeResolver} from './CustomScope.js';
-import type {ScopeResolver} from './Scope.js';
-import type {ScopeAnchor} from './ScopeAnchor.js';
-import {SingletonScopeResolver} from './SingletonScope.js';
-import {TransientScopeResolver} from './TransientScope.js';
+import { ScopeResolutionException } from '@/exceptions/ScopeResolutionException.js';
+import type { Binding } from '../binding/Binding.js';
+import { AnyProviderResolver } from '../provider/AnyProviderResolver.js';
+import { CustomScopeResolver } from './CustomScope.js';
+import type { ScopeResolver } from './Scope.js';
+import type { ScopeAnchor } from './ScopeAnchor.js';
+import { SingletonScopeResolver } from './SingletonScope.js';
+import { TransientScopeResolver } from './TransientScope.js';
 
 export class AnyScopeResolver {
   protected readonly scopeResolvers: ScopeResolver[];

@@ -1,9 +1,9 @@
-import {BindingResolutionException} from '@/exceptions/BindingResolutionException.js';
-import type {Token} from '@/utils/types.js';
-import type {Binding} from '../binding/Binding.js';
-import {emptyStateSymbol} from '../misc/constants.js';
-import type {AnyScopeResolver} from '../scope/AnyScopeResolver.js';
-import type {ScopeAnchor} from '../scope/ScopeAnchor.js';
+import { BindingResolutionException } from '@/exceptions/BindingResolutionException.js';
+import type { Token } from '@/utils/types.js';
+import type { Binding } from '../binding/Binding.js';
+import { emptyStateSymbol } from '../misc/constants.js';
+import type { AnyScopeResolver } from '../scope/AnyScopeResolver.js';
+import type { ScopeAnchor } from '../scope/ScopeAnchor.js';
 
 type RegistryMap = Map<Token, Binding>;
 type ScopeRegistryMap = WeakMap<ScopeAnchor, RegistryMap>;

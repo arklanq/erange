@@ -1,7 +1,7 @@
-import type {Binding} from '../binding/Binding.js';
-import type {BindingContext} from '../binding/BindingContext.js';
-import type {ScopeAnchor} from '../scope/ScopeAnchor.js';
-import {ResolveDirective} from './ResolveDirective.js';
+import type { Binding } from '../binding/Binding.js';
+import type { BindingContext } from '../binding/BindingContext.js';
+import type { ScopeAnchor } from '../scope/ScopeAnchor.js';
+import { ResolveDirective } from './ResolveDirective.js';
 
 export class ExportDirective<O> extends ResolveDirective<O> {
   public constructor(context: BindingContext, binding: Binding, anchor: ScopeAnchor | null) {

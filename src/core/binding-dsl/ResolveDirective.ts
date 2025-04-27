@@ -1,6 +1,6 @@
-import type {Binding} from '../binding/Binding.js';
-import {type BindingContext, DirectiveWithContext} from '../binding/BindingContext.js';
-import type {ScopeAnchor} from '../scope/ScopeAnchor.js';
+import type { Binding } from '../binding/Binding.js';
+import { type BindingContext, DirectiveWithContext } from '../binding/BindingContext.js';
+import type { ScopeAnchor } from '../scope/ScopeAnchor.js';
 
 export class ResolveDirective<O> extends DirectiveWithContext {
   protected readonly binding: Binding;

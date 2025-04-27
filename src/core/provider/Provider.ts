@@ -1,8 +1,8 @@
-import type {Token} from '@/utils/types.js';
-import type {AliasProvider} from './AliasProvider.js';
-import type {ClassProvider} from './ClassProvider.js';
-import type {FactoryProvider} from './FactoryProvider/FactoryProvider.js';
-import type {InstanceProvider} from './InstanceProvider.js';
+import type { Token } from '@/utils/types.js';
+import type { AliasProvider } from './AliasProvider.js';
+import type { ClassProvider } from './ClassProvider.js';
+import type { FactoryProvider } from './FactoryProvider/FactoryProvider.js';
+import type { InstanceProvider } from './InstanceProvider.js';
 
 export type Provider<V = unknown> = ClassProvider<V> | InstanceProvider<V> | FactoryProvider<V> | AliasProvider;
 

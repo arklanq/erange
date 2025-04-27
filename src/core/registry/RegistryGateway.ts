@@ -1,9 +1,9 @@
-import type {Token} from '@/utils/types.js';
-import type {Binding} from '../binding/Binding.js';
-import {AnyScopeResolver} from '../scope/AnyScopeResolver.js';
-import type {ScopeAnchor} from '../scope/ScopeAnchor.js';
-import {ScopeRegistry} from './ScopeRegistry.js';
-import {StaticRegistry} from './StaticRegistry.js';
+import type { Token } from '@/utils/types.js';
+import type { Binding } from '../binding/Binding.js';
+import { AnyScopeResolver } from '../scope/AnyScopeResolver.js';
+import type { ScopeAnchor } from '../scope/ScopeAnchor.js';
+import { ScopeRegistry } from './ScopeRegistry.js';
+import { StaticRegistry } from './StaticRegistry.js';
 
 export class RegistryGateway {
   protected readonly registry: {

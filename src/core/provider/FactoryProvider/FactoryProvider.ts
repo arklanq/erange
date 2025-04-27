@@ -1,8 +1,8 @@
-import {FactoryValueGenerationException} from '@/exceptions/FactoryValueGenerationException.js';
-import type {Token} from '@/utils/types.js';
-import {Container} from '../../container/Container.js';
-import {emptyStateSymbol} from '../../misc/constants.js';
-import type {Provider, ProviderFactory, ProviderResolver} from '../Provider.js';
+import { FactoryValueGenerationException } from '@/exceptions/FactoryValueGenerationException.js';
+import type { Token } from '@/utils/types.js';
+import { Container } from '../../container/Container.js';
+import { emptyStateSymbol } from '../../misc/constants.js';
+import type { Provider, ProviderFactory, ProviderResolver } from '../Provider.js';
 import {
   type ClassFactory,
   type ClassFactoryClazz,
@@ -10,7 +10,7 @@ import {
   isClassFactory,
   isFactoryProviderWithClass,
 } from './ClassFactory.js';
-import {type FactoryProviderWithFunction, isFunctionFactory} from './FunctionFactory.js';
+import { type FactoryProviderWithFunction, isFunctionFactory } from './FunctionFactory.js';
 
 export type FactoryProvider<V = unknown> = FactoryProviderWithFunction<V> | FactoryProviderWithClass<V>;
 
@@ -23,7 +23,7 @@ export class FactoryProviderFactory implements ProviderFactory {
     if (isClassFactory(factory))
       return {
         factory,
-        meta: {cache: emptyStateSymbol},
+        meta: { cache: emptyStateSymbol },
       };
     if (isFunctionFactory(factory))
       return {

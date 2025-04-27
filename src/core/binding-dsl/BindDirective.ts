@@ -1,9 +1,9 @@
-import {isConstructor} from '@/utils/type-guards.js';
-import type {Class, Token} from '@/utils/types.js';
-import type {Binding} from '../binding/Binding.js';
-import {type BindingContext, DirectiveWithContext} from '../binding/BindingContext.js';
-import type {SingletonScopeBinding} from '../scope/SingletonScope.js';
-import {BindToProviderDirective} from './BindToProviderDirective.js';
+import { isConstructor } from '@/utils/type-guards.js';
+import type { Class, Token } from '@/utils/types.js';
+import type { Binding } from '../binding/Binding.js';
+import { type BindingContext, DirectiveWithContext } from '../binding/BindingContext.js';
+import type { SingletonScopeBinding } from '../scope/SingletonScope.js';
+import { BindToProviderDirective } from './BindToProviderDirective.js';
 
 export class BindDirective<T extends Token> extends DirectiveWithContext {
   public constructor(context: BindingContext) {
@@ -22,7 +22,7 @@ export class BindDirective<T extends Token> extends DirectiveWithContext {
         // Class name as token
         token: clazz,
         // ClassProvider - default provider for class-based tokens
-        provider: {class: clazz},
+        provider: { class: clazz },
         // SingletonScope - default scope
         // Do not populate SingletonScope's cache until first resolution
         scope: this.context.factory.scope.singleton.create(),
@@ -40,7 +40,7 @@ export class BindDirective<T extends Token> extends DirectiveWithContext {
         // Simply use raw token
         token: token,
         // InstanceProvider - default provider for plain tokens
-        provider: {instance: token},
+        provider: { instance: token },
         // SingletonScope - default scope
         // Do not populate SingletonScope's cache until first resolution
         scope: this.context.factory.scope.singleton.create(),

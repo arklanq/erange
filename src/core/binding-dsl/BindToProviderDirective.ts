@@ -1,10 +1,10 @@
-import type {Class, Token} from '@/utils/types.js';
-import type {Binding} from '../binding/Binding.js';
-import type {BindingContext} from '../binding/BindingContext.js';
-import type {ClassFactoryClazz} from '../provider/FactoryProvider/ClassFactory.js';
-import type {FunctionFactory} from '../provider/FactoryProvider/FunctionFactory.js';
-import type {SingletonScopeBinding} from '../scope/SingletonScope.js';
-import {BindInScopeDirective} from './BindInScopeDirective.js';
+import type { Class, Token } from '@/utils/types.js';
+import type { Binding } from '../binding/Binding.js';
+import type { BindingContext } from '../binding/BindingContext.js';
+import type { ClassFactoryClazz } from '../provider/FactoryProvider/ClassFactory.js';
+import type { FunctionFactory } from '../provider/FactoryProvider/FunctionFactory.js';
+import type { SingletonScopeBinding } from '../scope/SingletonScope.js';
+import { BindInScopeDirective } from './BindInScopeDirective.js';
 
 export class BindToProviderDirective<T extends Token, O> extends BindInScopeDirective<O> {
   public constructor(context: BindingContext, binding: Binding) {

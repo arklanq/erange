@@ -1,7 +1,7 @@
-import type {Binding} from '../binding/Binding.js';
-import {AnyProviderResolver} from '../provider/AnyProviderResolver.js';
-import type {CustomScopeName, EncapsulatedScope, ScopeFactory, ScopeResolver} from './Scope.js';
-import {isValidCustomScopeAnchor, type ScopeAnchor} from './ScopeAnchor.js';
+import type { Binding } from '../binding/Binding.js';
+import { AnyProviderResolver } from '../provider/AnyProviderResolver.js';
+import type { CustomScopeName, EncapsulatedScope, ScopeFactory, ScopeResolver } from './Scope.js';
+import { isValidCustomScopeAnchor, type ScopeAnchor } from './ScopeAnchor.js';
 
 export type EncapsulatedCustomScope = EncapsulatedScope<CustomScopeName>;
 
@@ -11,7 +11,7 @@ export function isCustomScope(scope: EncapsulatedScope): scope is EncapsulatedCu
 
 export class CustomScopeFactory implements ScopeFactory {
   public create(): EncapsulatedCustomScope {
-    return {name: 'CUSTOM'};
+    return { name: 'CUSTOM' };
   }
 }
 

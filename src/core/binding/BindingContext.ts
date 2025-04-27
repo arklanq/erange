@@ -1,11 +1,11 @@
-import {AliasProviderFactory} from '../provider/AliasProvider.js';
-import {ClassProviderFactory} from '../provider/ClassProvider.js';
-import {FactoryProviderFactory} from '../provider/FactoryProvider/FactoryProvider.js';
-import {InstanceProviderFactory} from '../provider/InstanceProvider.js';
-import type {RegistryGateway} from '../registry/RegistryGateway.js';
-import {CustomScopeFactory} from '../scope/CustomScope.js';
-import {SingletonScopeFactory} from '../scope/SingletonScope.js';
-import {TransientScopeFactory} from '../scope/TransientScope.js';
+import { AliasProviderFactory } from '../provider/AliasProvider.js';
+import { ClassProviderFactory } from '../provider/ClassProvider.js';
+import { FactoryProviderFactory } from '../provider/FactoryProvider/FactoryProvider.js';
+import { InstanceProviderFactory } from '../provider/InstanceProvider.js';
+import type { RegistryGateway } from '../registry/RegistryGateway.js';
+import { CustomScopeFactory } from '../scope/CustomScope.js';
+import { SingletonScopeFactory } from '../scope/SingletonScope.js';
+import { TransientScopeFactory } from '../scope/TransientScope.js';
 
 export interface BindingContext {
   readonly registry: RegistryGateway;

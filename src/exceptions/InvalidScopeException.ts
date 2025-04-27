@@ -1,10 +1,10 @@
-import {inspect} from 'node:util';
-import {Exception} from 'enhanced-exception';
-import type {Token} from '@/utils/types.js';
-import {stringifyToken} from '../utils/logging-utils.js';
+import { inspect } from 'node:util';
+import { Exception } from 'enhanced-exception';
+import type { Token } from '@/utils/types.js';
+import { stringifyToken } from '../utils/logging-utils.js';
 
 function stringifyScope(scope: unknown): string {
-  return inspect(scope, {colors: false, compact: true, depth: 1});
+  return inspect(scope, { colors: false, compact: true, depth: 1 });
 }
 
 export class InvalidScopeException extends Exception {

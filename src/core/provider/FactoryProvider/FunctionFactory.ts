@@ -1,6 +1,6 @@
-import {Container} from '../../container/Container.js';
-import type {FactoryProviderWithClass} from './ClassFactory.js';
-import type {FactoryProvider} from './FactoryProvider.js';
+import { Container } from '../../container/Container.js';
+import type { FactoryProviderWithClass } from './ClassFactory.js';
+import type { FactoryProvider } from './FactoryProvider.js';
 
 export interface FunctionFactory<V> {
   (container: Container): V;

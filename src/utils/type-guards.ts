@@ -1,4 +1,4 @@
-import type {Class} from './types.js';
+import type { Class } from './types.js';
 
 export function isPropertyKey(any: unknown): any is PropertyKey {
   return ['string', 'number', 'symbol'].includes(typeof any);

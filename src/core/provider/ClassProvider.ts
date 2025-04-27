@@ -1,6 +1,6 @@
-import type {Class} from '@/utils/types.js';
-import {Container} from '../container/Container.js';
-import type {Provider, ProviderFactory, ProviderResolver} from './Provider.js';
+import type { Class } from '@/utils/types.js';
+import { Container } from '../container/Container.js';
+import type { Provider, ProviderFactory, ProviderResolver } from './Provider.js';
 
 export interface ClassProvider<V = unknown> {
   class: Class<V>;
@@ -12,7 +12,7 @@ export function isClassProvider<V>(provider: Provider<V>): provider is ClassProv
 
 export class ClassProviderFactory implements ProviderFactory {
   public create<V>(clazz: Class<V>): ClassProvider<V> {
-    return {class: clazz};
+    return { class: clazz };
   }
 }
 

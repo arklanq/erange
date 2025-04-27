@@ -1,5 +1,5 @@
-import type {Binding} from '../binding/Binding.js';
-import type {ScopeAnchor} from './ScopeAnchor.js';
+import type { Binding } from '../binding/Binding.js';
+import type { ScopeAnchor } from './ScopeAnchor.js';
 
 export enum Scope {
   TRANSIENT = 'TRANSIENT',

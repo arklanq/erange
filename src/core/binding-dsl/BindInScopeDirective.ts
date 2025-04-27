@@ -1,14 +1,14 @@
-import {InvalidScopeException} from '@/exceptions/InvalidScopeException.js';
-import type {Binding} from '../binding/Binding.js';
-import type {BindingContext} from '../binding/BindingContext.js';
-import type {CustomScopeBinding} from '../scope/CustomScope.js';
-import {Scope} from '../scope/Scope.js';
-import {isValidCustomScopeAnchor, type ScopeAnchor} from '../scope/ScopeAnchor.js';
-import type {SingletonScopeBinding} from '../scope/SingletonScope.js';
-import {isSingletonScope} from '../scope/SingletonScope.js';
-import type {TransientScopeBinding} from '../scope/TransientScope.js';
-import {isTransientScope} from '../scope/TransientScope.js';
-import {ExportDirective} from './ExportDirective.js';
+import { InvalidScopeException } from '@/exceptions/InvalidScopeException.js';
+import type { Binding } from '../binding/Binding.js';
+import type { BindingContext } from '../binding/BindingContext.js';
+import type { CustomScopeBinding } from '../scope/CustomScope.js';
+import { Scope } from '../scope/Scope.js';
+import { isValidCustomScopeAnchor, type ScopeAnchor } from '../scope/ScopeAnchor.js';
+import type { SingletonScopeBinding } from '../scope/SingletonScope.js';
+import { isSingletonScope } from '../scope/SingletonScope.js';
+import type { TransientScopeBinding } from '../scope/TransientScope.js';
+import { isTransientScope } from '../scope/TransientScope.js';
+import { ExportDirective } from './ExportDirective.js';
 
 export class BindInScopeDirective<O> extends ExportDirective<O> {
   public constructor(context: BindingContext, binding: Binding) {

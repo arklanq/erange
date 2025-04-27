@@ -1,6 +1,6 @@
-import type {Token} from '@/utils/types.js';
-import type {Provider} from '../provider/Provider.js';
-import type {EncapsulatedScope} from '../scope/Scope.js';
+import type { Token } from '@/utils/types.js';
+import type { Provider } from '../provider/Provider.js';
+import type { EncapsulatedScope } from '../scope/Scope.js';
 
 export interface BindingMeta extends Record<PropertyKey, unknown> {
   export: boolean;

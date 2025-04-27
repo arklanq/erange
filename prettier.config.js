@@ -7,8 +7,8 @@ const config = {
   printWidth: 120,
   useTabs: false,
   tabWidth: 2,
-  bracketSpacing: false,
-  bracketSameLine: true,
+  bracketSpacing: true,
+  bracketSameLine: true
 };
 
 export default config;

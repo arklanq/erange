@@ -3,13 +3,13 @@ import type {Class} from '@/utils/types.js';
 import {emptyStateSymbol} from '../../misc/constants.js';
 import type {FactoryProvider} from './FactoryProvider.js';
 
-export interface Factory<V> {
+export interface ClassFactory<V> {
   create(): V;
 }
 
-export type ClassFactory<V> = Class<Factory<V>>;
+export type ClassFactoryClazz<V> = Class<ClassFactory<V>>;
 
-export function isClassFactory<V>(target: unknown): target is ClassFactory<V> {
+export function isClassFactory<V>(target: unknown): target is ClassFactoryClazz<V> {
   if (!isConstructor(target)) return false;
 
   const proto = target.prototype as object;
@@ -17,9 +17,9 @@ export function isClassFactory<V>(target: unknown): target is ClassFactory<V> {
 }
 
 export interface FactoryProviderWithClass<V = unknown> {
-  factory: ClassFactory<V>;
+  factory: ClassFactoryClazz<V>;
   meta: {
-    cache: InstanceType<ClassFactory<V>> | typeof emptyStateSymbol;
+    cache: InstanceType<ClassFactoryClazz<V>> | typeof emptyStateSymbol;
   };
 }
 

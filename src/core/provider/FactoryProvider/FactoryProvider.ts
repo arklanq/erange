@@ -1,11 +1,11 @@
-import {FactoryValueGenerationException} from '../../../exceptions/FactoryValueGenerationException.js';
-import type {Token} from '../../../utils/types.js';
+import {FactoryValueGenerationException} from '@/exceptions/FactoryValueGenerationException.js';
+import type {Token} from '@/utils/types.js';
 import {Container} from '../../container/Container.js';
 import {emptyStateSymbol} from '../../misc/constants.js';
 import type {Provider, ProviderFactory, ProviderResolver} from '../Provider.js';
 import {
   type ClassFactory,
-  type Factory,
+  type ClassFactoryClazz,
   type FactoryProviderWithClass,
   isClassFactory,
   isFactoryProviderWithClass,
@@ -45,10 +45,10 @@ export class FactoryProviderResolver implements ProviderResolver {
 
   public resolve<V>(provider: FactoryProvider<V>, token: Token): V {
     if (isFactoryProviderWithClass<V>(provider)) {
-      let classFactoryInstance: Factory<V>;
+      let classFactoryInstance: ClassFactory<V>;
 
       if (provider.meta.cache === emptyStateSymbol) {
-        classFactoryInstance = provider.meta.cache = this.container.instantiate<ClassFactory<V>>(provider.factory);
+        classFactoryInstance = provider.meta.cache = this.container.instantiate<ClassFactoryClazz<V>>(provider.factory);
       } else {
         classFactoryInstance = provider.meta.cache;
       }

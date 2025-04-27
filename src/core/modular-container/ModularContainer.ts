@@ -1,10 +1,10 @@
-import {BindingResolutionException} from '@/exceptions/BindingResolutionException.js';
-import {ModularContainerImportException} from '@/exceptions/ModularContainerImportException.js';
-import {ProviderExportException} from '@/exceptions/ProviderExportException.js';
-import type {ResolvedValue, Token} from '@/utils/types.js';
-import type {Binding} from '../binding/Binding.js';
-import {Container} from '../container/Container.js';
-import type {ModularityCapable} from './ModularityCapable.js';
+import { BindingResolutionException } from '@/exceptions/BindingResolutionException.js';
+import { ModularContainerImportException } from '@/exceptions/ModularContainerImportException.js';
+import { ProviderExportException } from '@/exceptions/ProviderExportException.js';
+import type { ResolvedValue, Token } from '@/utils/types.js';
+import type { Binding } from '../binding/Binding.js';
+import { Container } from '../container/Container.js';
+import type { ModularityCapable } from './ModularityCapable.js';
 
 export class ModularContainer extends Container implements ModularityCapable {
   protected imported: Set<Container> = new Set();

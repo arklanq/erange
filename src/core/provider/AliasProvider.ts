@@ -1,7 +1,7 @@
-import {InvalidTokenException} from '@/exceptions/InvalidTokenException.js';
-import type {Token} from '@/utils/types.js';
-import {Container} from '../container/Container.js';
-import type {Provider, ProviderFactory, ProviderResolver} from './Provider.js';
+import { InvalidTokenException } from '@/exceptions/InvalidTokenException.js';
+import type { Token } from '@/utils/types.js';
+import { Container } from '../container/Container.js';
+import type { Provider, ProviderFactory, ProviderResolver } from './Provider.js';
 
 export interface AliasProvider {
   alias: Token;
@@ -14,7 +14,7 @@ export function isAliasProvider(provider: Provider): provider is AliasProvider {
 export class AliasProviderFactory implements ProviderFactory {
   public create(tokenOrClass: Token): AliasProvider {
     if (tokenOrClass == null) throw new InvalidTokenException(tokenOrClass);
-    return {alias: tokenOrClass};
+    return { alias: tokenOrClass };
   }
 }
 

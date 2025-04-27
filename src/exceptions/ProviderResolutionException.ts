@@ -1,7 +1,7 @@
-import {Exception} from 'enhanced-exception';
-import {stringifyScope, stringifyToken} from '@/utils/logging-utils.js';
-import type {Token} from '@/utils/types.js';
-import type {ScopeAnchor} from '../core/scope/ScopeAnchor.js';
+import { Exception } from 'enhanced-exception';
+import { stringifyScope, stringifyToken } from '@/utils/logging-utils.js';
+import type { Token } from '@/utils/types.js';
+import type { ScopeAnchor } from '../core/scope/ScopeAnchor.js';
 
 export class ProviderResolutionException extends Exception {
   public constructor(

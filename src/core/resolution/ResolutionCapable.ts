@@ -1,4 +1,4 @@
-import type {ResolvedValue, Token} from '@/utils/types.js';
+import type { ResolvedValue, Token } from '@/utils/types.js';
 
 export interface ResolutionCapable {
   resolve<V = undefined, T extends Token = Token, S extends object | undefined = undefined>(

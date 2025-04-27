@@ -1,6 +1,6 @@
-import {Exception} from 'enhanced-exception';
-import {stringifyToken} from '@/utils/logging-utils.js';
-import type {Token} from '@/utils/types.js';
+import { Exception } from 'enhanced-exception';
+import { stringifyToken } from '@/utils/logging-utils.js';
+import type { Token } from '@/utils/types.js';
 
 export class FactoryValueGenerationException extends Exception {
   public constructor(token: Token, previous: unknown) {

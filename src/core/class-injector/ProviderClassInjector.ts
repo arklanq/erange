@@ -1,7 +1,7 @@
-import {ClassInstanceInitializationException} from '@/exceptions/ClassInstanceInitializationException.js';
-import type {Class} from '@/utils/types.js';
-import type {Container} from '../container/Container.js';
-import type {ClassInjector} from './ClassInjector.js';
+import { ClassInstanceInitializationException } from '@/exceptions/ClassInstanceInitializationException.js';
+import type { Class } from '@/utils/types.js';
+import type { Container } from '../container/Container.js';
+import type { ClassInjector } from './ClassInjector.js';
 
 export class ProviderClassInjector<C extends Class<unknown>> implements ClassInjector<C> {
   protected readonly container: Container;

@@ -1,8 +1,8 @@
-import type {Binding} from '../binding/Binding.js';
-import {emptyStateSymbol} from '../misc/constants.js';
-import {AnyProviderResolver} from '../provider/AnyProviderResolver.js';
-import {type EncapsulatedScope, Scope, type ScopeFactory, type ScopeResolver} from './Scope.js';
-import type {ScopeAnchor} from './ScopeAnchor.js';
+import type { Binding } from '../binding/Binding.js';
+import { emptyStateSymbol } from '../misc/constants.js';
+import { AnyProviderResolver } from '../provider/AnyProviderResolver.js';
+import { type EncapsulatedScope, Scope, type ScopeFactory, type ScopeResolver } from './Scope.js';
+import type { ScopeAnchor } from './ScopeAnchor.js';
 
 interface SingletonScopeData<V> {
   cache: V | typeof emptyStateSymbol;

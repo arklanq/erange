@@ -13,11 +13,9 @@ export class ModularContainer extends Container implements ModularityCapable {
    * @notice Scoped bindings cannot be inspected upfront. Duplicates may arise at resolution time.
    */
   public import(container: ModularContainer): void {
-    const containerImpl: Container = container as Container;
-
     const registeredTokens = {
       parent: this.getAllRegisteredTokens(),
-      imported: containerImpl.getAllRegisteredTokens(),
+      imported: container.getAllRegisteredTokens(),
     } as const satisfies Record<string, Token[]>;
 
     const duplicatedToken: Token = registeredTokens.parent.find((token: Token) =>
@@ -26,7 +24,7 @@ export class ModularContainer extends Container implements ModularityCapable {
 
     if (duplicatedToken !== undefined) throw new ModularContainerImportException(duplicatedToken);
 
-    this.imported.add(containerImpl);
+    this.imported.add(container);
   }
 
   public export<S extends object | undefined = undefined>(token: Token, scope?: S): void {

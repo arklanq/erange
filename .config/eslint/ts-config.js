@@ -24,8 +24,9 @@ const config = tseslint.config(tseslint.configs.recommendedTypeChecked, {
       'warn',
       {
         vars: 'all',
-        varsIgnorePattern: '^_', // Ignore args starting with underscore
-        args: 'none',
+        varsIgnorePattern: '^_', // Ignore vars starting with underscore
+        args: 'after-used',
+        argsIgnorePattern: '^_', // Ignore args starting with underscore
         ignoreRestSiblings: true,
       },
     ],

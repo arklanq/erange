@@ -3,6 +3,7 @@
   "compilerOptions": {
     "rootDir": ".",
     "lib": ["ESNext"],
+    "types": ["node"],
     "module": "NodeNext",
     "target": "ES2021",
     "moduleResolution": "nodenext",
@@ -22,9 +23,8 @@
     "verbatimModuleSyntax": true,
     "isolatedModules": true,
     "declaration": false,
-    "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"]
+      "@/*": ["./src/*"]
     }
   },
   "include": ["src/**/*.ts", "test/**/*.ts", "@types/**/*.ts"],

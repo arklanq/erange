@@ -45,11 +45,7 @@ presented concepts and the Erange library itself.
 ### Installation
 
 ```bash
-# With NPM
 npm install erange
-
-# With Yarn
-yarn add erange
 ```
 
 ### Documentation & user guide

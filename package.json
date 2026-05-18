@@ -15,9 +15,6 @@
     "type": "git",
     "url": "git+https://github.com/arklanq/erange.git"
   },
-  "engines": {
-    "node": ">=24"
-  },
   "scripts": {
     "build": "rollup -c .config/rollup/rollup.config.js",
     "prebuild-production": "npm run clear-cache && npm run validate-types && npm run lint-code && npm run format-code",
